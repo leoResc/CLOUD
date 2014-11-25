@@ -8,10 +8,10 @@ import views.html.*;
 public class Application extends Controller {
 
     public static Result login() {
-        return ok(index.render());
+        return ok(login.render());
     }
 
-    public static Result adminCreateEvent() {
+    public static Result createEvent() {
         return ok(createEvent.render());
     }
 
