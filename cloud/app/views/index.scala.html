@@ -1,0 +1,185 @@
+@main("Host Party") {
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/style.css")" />
+} {
+
+<div class="container">
+
+	<div class="row top-buffer">
+		<div class="jumbotron color-primary font-white">
+			<h1>Welcome to CLOUD</h1>
+			<p>
+			<h2>Listen - Vote - Enjoy</h2>
+			</p>
+		</div>
+	</div>
+
+	<div class="well">
+		<div id="vc-container" class="vc-container">
+			<div class="vc-tape-wrapper">
+				<div class="vc-tape">
+					<div class="vc-tape-back">
+						<div class="vc-tape-wheel vc-tape-wheel-left">
+							<div></div>
+						</div>
+						<div class="vc-tape-wheel vc-tape-wheel-right">
+							<div></div>
+						</div>
+					</div>
+					<div class="vc-tape-front vc-tape-side-a">
+						<span>A</span>
+					</div>
+					<div class="vc-tape-front vc-tape-side-b">
+						<span>B</span>
+					</div>
+				</div>
+			</div>
+			<div class="vc-loader"></div>
+		</div>
+		<!-- //vc-container -->
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Current playing playlist: "Awesome Mix
+					Volume #1".</h3>
+			</div>
+		</div>
+	</div>
+
+	<div class="well col-lg-8">
+		<form class="form-horizontal" role="form" action="bars" method="get">
+
+			<!--  hier die Liste -->
+
+			<div class="panel panel-default">
+				<!-- Table -->
+				<table class="table">
+					<tr>
+						<td>Chris Brown</td>
+						<td>Get Low</td>
+						<td class="col-lg-1"><span class="badge">14</span></td>
+						<td class="col-lg-2">
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-heart" aria-hidden="true">
+								</span>
+							</button>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
+								</span>
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td>T-Pain</td>
+						<td>Shoot'em</td>
+						<td><span class="badge">12</span></td>
+						<td><button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-heart" aria-hidden="true">
+								</span>
+							</button>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
+								</span>
+							</button></td>
+					</tr>
+					<tr>
+						<td>Rihanna ft. Chris Brown</td>
+						<td>Hit it</td>
+						<td><span class="badge">9</span></td>
+						<td><button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-heart" aria-hidden="true">
+								</span>
+							</button>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
+								</span>
+							</button></td>
+					</tr>
+					<tr>
+						<td>Davin Guetta</td>
+						<td>S.T.A.Y</td>
+						<td><span class="badge">9</span></td>
+						<td><button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-heart" aria-hidden="true">
+								</span>
+							</button>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
+								</span>
+							</button></td>
+					</tr>
+					<tr>
+						<td>Avicii</td>
+						<td>I'm here</td>
+						<td><span class="badge">3</span></td>
+						<td><button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-heart" aria-hidden="true">
+								</span>
+							</button>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
+								</span>
+							</button></td>
+					</tr>
+					<tr>
+						<td>Gentleman</td>
+						<td>Without you</td>
+						<td><span class="badge">1</span></td>
+						<td><button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-heart" aria-hidden="true">
+								</span>
+							</button>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
+								</span>
+							</button></td>
+					</tr>
+					<tr>
+						<td>Noisia</td>
+						<td>Interpolar</td>
+						<td><span class="badge">0</span></td>
+						<td><button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-heart" aria-hidden="true">
+								</span>
+							</button>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
+								</span>
+							</button></td>
+					</tr>
+					<tr>
+						<td>Skrillex</td>
+						<td>Bangarang</td>
+						<td><span class="badge">0</span></td>
+						<td><button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-heart" aria-hidden="true">
+								</span>
+							</button>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
+								</span>
+							</button></td>
+					</tr>
+				</table>
+			</div>
+		</form>
+	</div>
+
+	<div class="well col-lg-3 col-lg-offset-1">
+		<div class="row col-lg-11">
+			<div class="list-group">
+				<a href="#" class="list-group-item disabled"> Cras justo odio </a> <a
+					href="#" class="list-group-item">Dapibus ac facilisis in</a> <a
+					href="#" class="list-group-item">Morbi leo risus</a> <a href="#"
+					class="list-group-item">Porta ac consectetur ac</a> <a href="#"
+					class="list-group-item">Vestibulum at eros</a>
+				<a href="#" class="list-group-item disabled"> Cras justo odio </a> <a
+					href="#" class="list-group-item">Dapibus ac facilisis in</a> <a
+					href="#" class="list-group-item">Morbi leo risus</a> <a href="#"
+					class="list-group-item">Porta ac consectetur ac</a> <a href="#"
+					class="list-group-item">Vestibulum at eros</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+}

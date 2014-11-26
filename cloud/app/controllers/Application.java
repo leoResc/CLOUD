@@ -14,5 +14,9 @@ public class Application extends Controller {
     public static Result createEvent() {
         return ok(createEvent.render());
     }
+    
+    public static Result index() {
+    	return ok(index.render());
+    }
 
 }
