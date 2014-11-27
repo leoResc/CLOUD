@@ -1,7 +1,11 @@
-body{
-	background-color:  #FFEB00;
+.navbar{
+	background-color: #FFEF00;
 }
 
+td{
+	background-color: #73A6D7;
+	color: #FFFFFF;
+}
 
 /* Main container */
 .vc-container{
