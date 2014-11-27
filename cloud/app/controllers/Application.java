@@ -1,8 +1,8 @@
 package controllers;
 
+import models.Event;
 import play.*;
 import play.mvc.*;
-
 import views.html.*;
 
 public class Application extends Controller {
@@ -12,7 +12,8 @@ public class Application extends Controller {
     }
 
     public static Result createEvent() {
-        return ok(createEvent.render());
+    	Event event = new Event();
+        return ok(createEvent.render(event));
     }
     
     public static Result index() {
