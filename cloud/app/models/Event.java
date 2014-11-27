@@ -11,7 +11,7 @@ import play.db.ebean.Model;
 public class Event extends Model {
 
 	@Id
-	public String id;
+	public long id;
 	public String name;
 	public String password;
 	public String description;
