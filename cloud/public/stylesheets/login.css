@@ -6,6 +6,7 @@
 body {
 	padding-top: 13%;
 	padding-bottom: 40px;
+	background-color: black;
 }
 
 .form-signin {
@@ -73,7 +74,7 @@ body {
 
 .title {
 	position: relative;
-	margin-top: -90px;
+	margin-top: 0px;
 	font-family: Molle;
 	font-size: 8em;
 	text-align: center;
