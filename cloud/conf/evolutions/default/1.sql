@@ -13,6 +13,12 @@ create table event (
   constraint pk_event primary key (id))
 ;
 
+create table user (
+  id                        bigint auto_increment not null,
+  username                  varchar(255),
+  constraint pk_user primary key (id))
+;
+
 
 
 
@@ -21,6 +27,8 @@ create table event (
 SET FOREIGN_KEY_CHECKS=0;
 
 drop table event;
+
+drop table user;
 
 SET FOREIGN_KEY_CHECKS=1;
 

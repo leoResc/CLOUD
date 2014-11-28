@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<form action="@routes.Application.addEvent()" method="post" class="form-horizontal" role="form">
+		<form action="@routes.Application.createEvent()" method="post" class="form-horizontal" role="form">
 			<div class="well">
 				<div class="row">
 					<div class="col-lg-6">
@@ -47,13 +47,13 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col-lg-6">
+					<div class="col-lg-6">
 						<div class="row right-buffer">
 							<div class="form-group">
 								<label for="begin" class="col-lg-4 control-label">Beginning
 									of event</label>
 								<div class="col-lg-8">
-									<input type="datetime-local" class="form-control" name="begin"
+									<input type="date" class="form-control" name="begin"
 										id="begin">
 								</div>
 							</div>
@@ -63,13 +63,22 @@
 								<label for="end" class="col-lg-4 control-label">Ending
 									of event</label>
 								<div class="col-lg-8">
-									<input type="datetime-local" class="form-control" name="end"
+									<input type="date" class="form-control" name="end"
+										id="end">
+								</div>
+							</div>
+						</div>
+						<div class="row right-buffer">
+							<div class="form-group">
+								<label for="timeBegin" class="col-lg-4 control-label">Ending
+									of event</label>
+								<div class="col-lg-8">
+									<input type="time" class="form-control" name="end"
 										id="end">
 								</div>
 							</div>
 						</div>
 					</div>
-					 -->
 				</div>
 				<div class="row">
 					<div class="row">

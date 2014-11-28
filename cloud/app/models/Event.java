@@ -1,6 +1,6 @@
 package models;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +15,6 @@ public class Event extends Model {
 	public String name;
 	public String password;
 	public String description;
-	public Calendar begin;
-	public Calendar end;
+	public Date begin;
+	public Date end;
 }

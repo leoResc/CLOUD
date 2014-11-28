@@ -5,12 +5,12 @@
 			
 			<h1 class="title">Welcome to<br>CLOUD</h1>
 		
-			<form class="form-signin" role="form" hidden>
+			<form action="@routes.Application.login()" method="post" class="form-signin" role="form" hidden>
 	        	<h1 class="form-signin-heading text-center color-white">Please sign in</h1>
 	        	<label for="inputUsername" class="sr-only">Email address</label>
-	        	<input id="inputUsername" type="text" class="form-control" placeholder="username" required autofocus>
+	        	<input id="inputUsername" type="text" class="form-control" placeholder="username" name="username" required autofocus>
 	        	<label for="inputPassword" class="sr-only">Password</label>
-	        	<input id="inputPassword" type="password" class="form-control" placeholder="password" required>
+	        	<input id="inputPassword" type="password" class="form-control" placeholder="password" name="password" required>
 	        	<button class="btn btn-lg btn-danger btn-block" type="submit">Sign in</button>
 	    	</form>
 	    	

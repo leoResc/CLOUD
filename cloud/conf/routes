@@ -3,10 +3,11 @@
 # ~~~~
 
 # Home page
-GET 	/							controllers.Application.index()
-GET     /login                      controllers.Application.login()
-GET		/admin/createEvent			controllers.Application.createEvent()
-POST	/admin/addEvent				controllers.Application.addEvent()
+GET 	/							controllers.Application.getIndex()
+GET     /login                      controllers.Application.getLogin()
+POST	/login						controllers.Application.login()
+GET		/admin/createEvent			controllers.Application.getCreateEvent()
+POST	/admin/addEvent				controllers.Application.createEvent()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
