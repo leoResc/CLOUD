@@ -3,17 +3,12 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
-import com.avaje.ebean.Ebean;
-
 import models.*;
 import views.html.*;
 import play.Logger;
-import play.data.DynamicForm;
 import play.data.Form;
 import play.db.ebean.Model;
 import play.mvc.*;
-
-import play.data.DynamicForm;
 
 public class Application extends Controller {
 
@@ -58,7 +53,7 @@ public class Application extends Controller {
 					}
 				}
 			}
-			return ok(login.render("Wrong password for current event or no event available at the moment."));
+			return ok(login.render("Wrong password for current event."));
 		}
 	}
 
