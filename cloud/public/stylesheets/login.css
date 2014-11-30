@@ -1,5 +1,5 @@
 @font-face {
-	font-family: Molle; 
+	font-family: Molle;
 	src: url('../fonts/Molle.ttf');
 }
 
@@ -51,7 +51,8 @@ body {
 
 .form-signin input[type="password"] {
 	margin-top: -2px;
-	margin-bottom: 10px; border-top-left-radius : 0;
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 	border-top-left-radius: 0;
 }
@@ -82,4 +83,18 @@ body {
 	text-shadow: 0 0 5px #3E3014;
 	-moz-text-shadow: 0 0 5px #3E3014;
 	-webkit-text-shadow: 0 0 5px #3E3014;
+}
+
+.alert {
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+	width: 20%;
+}
+
+.alert .btn {
+		position: absolute;
+		right: 5px;
+		top: 5px;
+	}
 }
