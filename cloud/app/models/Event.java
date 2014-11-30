@@ -17,4 +17,5 @@ public class Event extends Model {
 	public String description;
 	public Date begin;
 	public Date end;
+	
 }
