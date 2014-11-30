@@ -65,9 +65,6 @@ public class Application extends Controller {
 	// Handles post, creates new event
 	public static Result createEvent() {
 		Event event = Form.form(Event.class).bindFromRequest().get();
-		Logger.info("event received:" + System.lineSeparator() + event.name
-				+ System.lineSeparator() + event.description
-				+ System.lineSeparator() + event.password);
 		event.save();
 		return redirect(routes.Application.getIndex());
 	}
@@ -81,7 +78,6 @@ public class Application extends Controller {
 
 	// Deletes a given event
 	public static Result deleteEvent(long id) {
-		Logger.info("request to delete event: " + id);
 		return TODO;
 	}
 }
