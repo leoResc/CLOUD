@@ -87,14 +87,13 @@ body {
 
 .alert {
 	position: fixed;
-	bottom: 5px;
-	right: 5px;
+	bottom: 2%;
+	right: 2%;
 	width: 20%;
 }
 
 .alert .btn {
-		position: absolute;
-		right: 5px;
-		top: 5px;
+		position: relative;
+		float: right;
 	}
 }
