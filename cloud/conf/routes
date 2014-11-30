@@ -6,8 +6,11 @@
 GET 	/							controllers.Application.getIndex()
 GET     /login                      controllers.Application.getLogin()
 POST	/login						controllers.Application.login()
+
 GET		/admin/createEvent			controllers.Application.getCreateEvent()
-POST	/admin/addEvent				controllers.Application.createEvent()
+POST	/admin/createEvent			controllers.Application.createEvent()
+GET		/admin/events				controllers.Application.getEvents()
+GET		/admin/deleteEvent/:id		controllers.Application.deleteEvent(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
