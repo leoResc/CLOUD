@@ -27,13 +27,10 @@ public class Application extends Controller {
 		List<User> allUser = new Model.Finder(String.class, User.class).all();
 
 		if (user.username.equals("admin")) {
-			for (int i = 0; i < allUser.size(); i++) {
-				if (allUser.get(i).username.equals("admin")
-						&& allUser.get(i).password.equals(password)) {
-					return redirect(routes.Application.getIndex());
-				}
-			}
-			return ok(login.render("Wrong username or password."));
+			if (password.equals("cloud")) {
+				return redirect(routes.Application.getIndex());
+			} else
+				return ok(login.render("Wrong username or password."));
 		} else {
 			for (int i = 0; i < allUser.size(); i++) {
 				if (allUser.get(i).username.equals(user.username)) {
