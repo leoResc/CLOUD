@@ -67,10 +67,10 @@ public class Application extends Controller {
 	}
 
 	// Returns all events
-	public static Result getEvents() {
+	public static Result overview() {
 		List<Event> events = new Model.Finder(String.class, Event.class).all();
 		List<User> user = new Model.Finder(String.class, User.class).all();
-		return ok(test.render(events, user));
+		return ok(overview.render(events, user));
 	}
 
 	// Deletes a given event
