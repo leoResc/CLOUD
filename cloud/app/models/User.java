@@ -11,5 +11,4 @@ public class User extends Model {
 	@Id
 	public long id;
 	public String username;
-	public String password;
 }
