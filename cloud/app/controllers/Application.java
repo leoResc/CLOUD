@@ -10,6 +10,7 @@ import views.html.*;
 import play.Logger;
 import play.data.Form;
 import play.db.ebean.Model;
+import play.libs.Json;
 import play.mvc.*;
 
 public class Application extends Controller {
@@ -35,7 +36,10 @@ public class Application extends Controller {
 		Logger.info(String.valueOf(song.user_likes));
 		song.save();
 		
-		return ok("liked");
+		List<Song> songs = new Model.Finder(String.class, Song.class).all();
+
+		
+		return ok(Json.toJson(songs));
 	}
 	
 
