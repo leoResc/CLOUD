@@ -45,7 +45,6 @@ Given 		Casual user clicks on the button 'login' or hits 'ENTER' on the login-si
 	And 	Nothing is stored in our database
 	And 	No account gets created
 
-
 Scenario: 	Casual user doesn't accept terms of use
 
 Given 		Casual user clicks on the button 'login' or hits 'ENTER' on the login-site
@@ -58,3 +57,13 @@ Given 		Casual user clicks on the button 'login' or hits 'ENTER' on the login-si
 	Then 	An error message gets displayed to the user that he has to accept terms of use
 	And 	Nothing is stored in our database
 	And 	No account gets created
+
+Scenario: 	Admin logs in
+
+Given 		Casual user clicks on the button 'sign in'
+
+	When 	The admin types in an the nickname 'admin'
+	And 	The admin types in the password 'cloud'
+	And 	The admin hits again the 'sign in' button
+
+	Then 	The admin gets forwarded to the index
