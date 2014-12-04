@@ -13,5 +13,7 @@ GET		/admin/deleteEvent/:id		controllers.Application.deleteEvent(id: Long)
 
 GET		/admin/overview				controllers.Application.overview()
 
+POST	/vote/:id1					controllers.Application.vote(id1: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

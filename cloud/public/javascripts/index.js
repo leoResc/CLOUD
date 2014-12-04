@@ -10,8 +10,29 @@ function up() {
 		setTimeout("up()", 10);
 	}
 }
+
 function down(div) {
 	if (div.scrollTop < div.scrollHeight - div.clientHeight) {
 		div.scrollTop += 10; // move down
 	}
+}
+
+function sendJSON(data) {
+	model_data = JSON.stringify(data);
+	$.ajax({
+		url : '@routes.Application.vote(song.id)',
+		type : 'POST',
+		contentType : 'application/json',
+		data : model_data,
+		dataType : 'json html',
+		converters : {
+			'text json' : true
+		},
+		success : function(data, response) {
+			alert("SUCCESS");
+		},
+		error : function(request) {
+			alert("FAIL");
+		},
+	});
 }

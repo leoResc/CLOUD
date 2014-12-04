@@ -13,6 +13,22 @@ create table event (
   constraint pk_event primary key (id))
 ;
 
+create table playlist (
+  name                      varchar(255) not null,
+  duration                  double,
+  constraint pk_playlist primary key (name))
+;
+
+create table song (
+  id                        bigint auto_increment not null,
+  title                     varchar(255),
+  artist                    varchar(255),
+  genre                     varchar(255),
+  duration                  double,
+  user_likes                integer,
+  constraint pk_song primary key (id))
+;
+
 create table user (
   id                        bigint auto_increment not null,
   username                  varchar(255),
@@ -27,6 +43,10 @@ create table user (
 SET FOREIGN_KEY_CHECKS=0;
 
 drop table event;
+
+drop table playlist;
+
+drop table song;
 
 drop table user;
 

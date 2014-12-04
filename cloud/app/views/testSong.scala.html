@@ -1,0 +1,29 @@
+@(song: List[Song])
+@main("All events"){ }{
+	<div class="container">
+		<div class="row">
+			<h1>All songs</h1>
+			<table class="table table-striped">
+				<tr>
+					<th>ID</th>
+					<th>title</th>
+					<th>Artist</th>
+					<th>Genre</th>
+					<th>Duration</th>
+					<th>user_likes</th>
+					<th></th>
+				</tr>
+				@for(song <- song) {
+					<tr>
+						<td>@song.id</td>
+						<td>@song.title</td>
+						<td>@song.artist</td>
+						<td>@song.genre</td>
+						<td>@song.duration</td>
+						<td>@song.user_likes</td>
+					</tr>
+				}
+			</table>
+		</div>
+	</div>
+}

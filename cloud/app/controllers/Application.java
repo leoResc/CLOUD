@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,9 +12,31 @@ import play.db.ebean.Model;
 import play.mvc.*;
 
 public class Application extends Controller {
+	
+	public static Result vote(long songId) {
+		
+		Song s1;
+		
+		
+		return redirect(routes.Application.getIndex());
+	}
 
 	public static Result getIndex() {
-		return ok(index.render());
+		
+		Song s1 = new Song("Hit it","Chris Brown","Pop",3.5,2);
+		Song s2 = new Song("Dying","Teddy West","Techno",3.2,10);
+		Song s3 = new Song("Bangarang","Skrillex","Dubstep",4.5,7);
+		
+		ArrayList<Song> songs = new ArrayList();
+		songs.add(s1);
+		songs.add(s2);
+		songs.add(s3);
+		
+		s1.save();
+		s2.save();
+		s3.save();
+		
+		return ok(index.render(songs));
 	}
 
 	public static Result getLogin() {

@@ -1,3 +1,4 @@
+@(song: List[Song])
 @main("Host Party") {
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/index.css")" />
 <script type="text/javascript" src="@routes.Assets.at("javascripts/index.js")"></script>
@@ -65,112 +66,26 @@
 			<div class="panel panel-default">
 				<!-- Table -->
 				<table id="liste_songs" class="table">
+					@for(song <- song) {
 					<tr>
-						<td>Chris Brown</td>
-						<td>Get Low</td>
-						<td class="col-lg-1"><span class="badge">14</span></td>
+						<td>@song.artist</td>
+						<td>@song.title</td>
+						<td>@song.genre</td>
+						<td class="col-lg-1"><span class="badge">@song.user_likes</span></td>
 						<td class="col-lg-2">
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-heart" aria-hidden="true">
-								</span>
-							</button>
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
-								</span>
-							</button>
+							<form name='myForm'>
+								<button type="button" class="btn btn-default" onclick="sendJSON(@song.id);" name="like_me">
+									<span class="glyphicon glyphicon-heart" aria-hidden="true">
+									</span>
+								</button>
+								<button type="button" class="btn btn-default">
+									<span class="glyphicon glyphicon-headphones" aria-hidden="true">
+									</span>
+								</button>
+							</form>
 						</td>
 					</tr>
-					<tr>
-						<td>T-Pain</td>
-						<td>Shoot'em</td>
-						<td><span class="badge">12</span></td>
-						<td><button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-heart" aria-hidden="true">
-								</span>
-							</button>
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
-								</span>
-							</button></td>
-					</tr>
-					<tr>
-						<td>Rihanna ft. Chris Brown</td>
-						<td>Hit it</td>
-						<td><span class="badge">9</span></td>
-						<td><button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-heart" aria-hidden="true">
-								</span>
-							</button>
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
-								</span>
-							</button></td>
-					</tr>
-					<tr>
-						<td>Davin Guetta</td>
-						<td>S.T.A.Y</td>
-						<td><span class="badge">9</span></td>
-						<td><button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-heart" aria-hidden="true">
-								</span>
-							</button>
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
-								</span>
-							</button></td>
-					</tr>
-					<tr>
-						<td>Avicii</td>
-						<td>I'm here</td>
-						<td><span class="badge">3</span></td>
-						<td><button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-heart" aria-hidden="true">
-								</span>
-							</button>
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
-								</span>
-							</button></td>
-					</tr>
-					<tr>
-						<td>Gentleman</td>
-						<td>Without you</td>
-						<td><span class="badge">1</span></td>
-						<td><button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-heart" aria-hidden="true">
-								</span>
-							</button>
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
-								</span>
-							</button></td>
-					</tr>
-					<tr>
-						<td>Noisia</td>
-						<td>Interpolar</td>
-						<td><span class="badge">0</span></td>
-						<td><button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-heart" aria-hidden="true">
-								</span>
-							</button>
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
-								</span>
-							</button></td>
-					</tr>
-					<tr>
-						<td>Skrillex</td>
-						<td>Bangarang</td>
-						<td><span class="badge">0</span></td>
-						<td><button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-heart" aria-hidden="true">
-								</span>
-							</button>
-							<button type="button" class="btn btn-default">
-								<span class="glyphicon glyphicon-headphones" aria-hidden="true">
-								</span>
-							</button></td>
-					</tr>
+				}
 				</table>
 			</div>
 		</form>
