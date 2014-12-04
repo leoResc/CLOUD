@@ -8,6 +8,7 @@ import play.db.ebean.Model;
 @Entity
 public class Song extends Model{
 	
+	public static Finder<Long, Song> find = new Finder<Long,Song>(Long.class,Song.class);
 	public String title;
 	public String artist;
 	public String genre;
@@ -24,4 +25,5 @@ public class Song extends Model{
 		this.user_likes = lik;
 
 	}
+	
 }

@@ -17,22 +17,50 @@ function down(div) {
 	}
 }
 
-function sendJSON(data) {
-	model_data = JSON.stringify(data);
-	$.ajax({
-		url : '@routes.Application.vote(song.id)',
-		type : 'POST',
-		contentType : 'application/json',
-		data : model_data,
-		dataType : 'json html',
-		converters : {
-			'text json' : true
-		},
-		success : function(data, response) {
-			alert("SUCCESS");
-		},
-		error : function(request) {
-			alert("FAIL");
-		},
-	});
+function sendJSON(data, action) {
+	model_action = JSON.stringify(action);
+
+	if (action == "++") {
+		document.getElementById(data).innerText++;
+		
+		model_data = JSON.stringify(data);
+		$.ajax({
+			url : '/vote/' + data,
+			type : 'POST',
+			contentType : 'application/json',
+			data : model_data,
+			dataType : 'json html',
+			converters : {
+				'text json' : true
+			},
+			success : function(data, response) {
+				alert(response);
+			},
+			error : function(data, request) {
+				alert("FAIL " + data);
+			},
+		});
+	}
+	else{
+		document.getElementById(data).innerText--;
+		
+		model_data = JSON.stringify(data);
+		$.ajax({
+			url : '/deVote/' + data,
+			type : 'POST',
+			contentType : 'application/json',
+			data : model_data,
+			dataType : 'json html',
+			converters : {
+				'text json' : true
+			},
+			success : function(data, response) {
+				alert(response);
+			},
+			error : function(data, request) {
+				alert(data);
+			},
+		});
+	}
+
 }

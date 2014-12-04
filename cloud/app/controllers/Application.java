@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import models.*;
+import scala.collection.parallel.ParIterableLike.Find;
 import views.html.*;
 import play.Logger;
 import play.data.Form;
@@ -13,29 +14,35 @@ import play.mvc.*;
 
 public class Application extends Controller {
 	
+	public static Result deVote(long songId) {
+		
+		Song song = Song.find.byId(songId);
+		Logger.info(song.title);
+		
+		song.user_likes--;
+		Logger.info(String.valueOf(song.user_likes));
+		song.save();
+		
+		return ok("unliked");
+	}
+	
 	public static Result vote(long songId) {
 		
-		Song s1;
+		Song song = Song.find.byId(songId);
+		Logger.info(song.title);
 		
+		song.user_likes++;
+		Logger.info(String.valueOf(song.user_likes));
+		song.save();
 		
-		return redirect(routes.Application.getIndex());
+		return ok("liked");
 	}
+	
 
 	public static Result getIndex() {
 		
-		Song s1 = new Song("Hit it","Chris Brown","Pop",3.5,2);
-		Song s2 = new Song("Dying","Teddy West","Techno",3.2,10);
-		Song s3 = new Song("Bangarang","Skrillex","Dubstep",4.5,7);
-		
-		ArrayList<Song> songs = new ArrayList();
-		songs.add(s1);
-		songs.add(s2);
-		songs.add(s3);
-		
-		s1.save();
-		s2.save();
-		s3.save();
-		
+		List<Song> songs = new Model.Finder(String.class, Song.class).all();
+
 		return ok(index.render(songs));
 	}
 
