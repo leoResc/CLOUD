@@ -41,7 +41,7 @@ function sendJSON(data, action) {
 				
 			},
 			error : function(data, request) {
-				alert("FAIL " + data);
+				alert("FAIL "+data);
 			},
 		});
 	} else {
