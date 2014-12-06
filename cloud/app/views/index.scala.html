@@ -1,15 +1,16 @@
-@(song: List[Song])
-@main("Host Party") {
+@(song: List[Song]) @main("Host Party") {
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/index.css")" />
 <script type="text/javascript" src="@routes.Assets.at("javascripts/index.js")"></script>
 } {
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container">
-		<button type="button" class="btn btn-default navbar-btn" onclick="up()">
+		<button type="button" class="btn btn-default navbar-btn"
+			onclick="up()">
 			<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
 		</button>
-		<button type="button" class="btn btn-default navbar-btn" onclick="down('#liste_songs')">
+		<button type="button" class="btn btn-default navbar-btn"
+			onclick="down('#liste_songs')">
 			<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
 		</button>
 		<button type="button" class="btn btn-default navbar-btn">
@@ -18,16 +19,14 @@
 		<a href="/admin/createEvent">
 			<button type="button" class="btn btn-default navbar-btn">
 				<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-			<button type="button" class="btn btn-default navbar-btn">
+				<button type="button" class="btn btn-default navbar-btn">
 		</a>
 	</div>
 </nav>
 
 
 <div class="container">
-	<br>
-	<br>
-	<br>
+	<br> <br> <br>
 	<div class="well">
 		<div class="page-header" style="text-align: center">
 			<h1>
@@ -59,36 +58,36 @@
 	</div>
 
 	<div class="well col-lg-8">
-		<form class="form-horizontal" role="form" action="bars" method="get">
 
-			<!--  hier die Liste -->
 
-			<div class="panel panel-default">
-				<!-- Table -->
-				<table id="liste_songs" class="table">
-					@for(song <- song) {
-					<tr>
-						<td>@song.artist</td>
-						<td>@song.title</td>
-						<td>@song.genre</td>
-						<td class="col-lg-1"><span id="@song.id" class="badge">@song.user_likes</span></td>
-						<td class="col-lg-2">
-							<form name='myForm'>
-								<button  type="button" class="btn btn-default" onclick="sendJSON(@song.id,'++');" name="like_me">
-									<span class="glyphicon glyphicon-heart" aria-hidden="true">
-									</span>
-								</button>
-								<button type="button" class="btn btn-default">
-									<span class="glyphicon glyphicon-headphones" aria-hidden="true" onclick="sendJSON(@song.id,'--');">
-									</span>
-								</button>
-							</form>
-						</td>
-					</tr>
+		<!--  hier die Liste -->
+
+		<div class="panel panel-default">
+			<!-- Table -->
+			<table id="liste_songs" class="table">
+				@for(song <- song) {
+				<tr>
+					<td>@song.artist</td>
+					<td>@song.title</td>
+					<td>@song.genre</td>
+					<td class="col-lg-1"><span id="@song.id" class="badge">@song.user_likes</span></td>
+					<td class="col-lg-2">
+						<form name='myForm'>
+							<button type="button" class="btn btn-default"
+								onclick="sendJSON(@song.id,'++');" name="like_me">
+								<span class="glyphicon glyphicon-heart" aria-hidden="true">
+								</span>
+							</button>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-headphones" aria-hidden="true"
+									onclick="sendJSON(@song.id,'--');"> </span>
+							</button>
+						</form>
+					</td>
+				</tr>
 				}
-				</table>
-			</div>
-		</form>
+			</table>
+		</div>
 	</div>
 
 	<div class="well col-lg-3 col-lg-offset-1">

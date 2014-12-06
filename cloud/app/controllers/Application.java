@@ -24,7 +24,9 @@ public class Application extends Controller {
 		Logger.info(String.valueOf(song.user_likes));
 		song.save();
 		
-		return ok("unliked");
+		List<Song> songs = new Model.Finder(String.class, Song.class).all();
+		
+		return ok(Json.toJson(songs));
 	}
 	
 	public static Result vote(long songId) {

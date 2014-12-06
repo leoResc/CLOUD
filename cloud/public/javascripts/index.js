@@ -19,10 +19,10 @@ function down(div) {
 
 function sendJSON(data, action) {
 	model_action = JSON.stringify(action);
-
+	
 	if (action == "++") {
-		document.getElementById(data).innerText++;
-		
+		// document.getElementById(data).innerText++;
+
 		model_data = JSON.stringify(data);
 		$.ajax({
 			url : '/vote/' + data,
@@ -33,17 +33,20 @@ function sendJSON(data, action) {
 			converters : {
 				'text json' : true
 			},
-			success : function(data, response) {
-				alert(response);
+			success : function(response) {
+				var answer = JSON.parse(response);
+				// response = JSON.parse(response);
+				// alert(response[0].title);
+				update(answer);
+				
 			},
 			error : function(data, request) {
 				alert("FAIL " + data);
 			},
 		});
-	}
-	else{
-		document.getElementById(data).innerText--;
-		
+	} else {
+		// document.getElementById(data).innerText--;
+
 		model_data = JSON.stringify(data);
 		$.ajax({
 			url : '/deVote/' + data,
@@ -55,7 +58,8 @@ function sendJSON(data, action) {
 				'text json' : true
 			},
 			success : function(data, response) {
-				alert(response);
+				var answer = JSON.parse(response);
+				update(answer);
 			},
 			error : function(data, request) {
 				alert(data);
@@ -63,4 +67,36 @@ function sendJSON(data, action) {
 		});
 	}
 
+}
+
+function update(response) {
+	//$('#liste_songs').innerHTML="";
+	var output = "";
+	//response = JSON.parse(response);
+
+	for (i = 0; i < response.length; i++) {
+		output += '<tr><td>'
+				+ response[i].artist
+				+ '</td><td> '
+				+ response[i].title
+				+ '</td> '
+				+ '<td> '
+				+ response[i].genre
+				+ '</td><td class="col-lg-1"><span id= '
+				+ response[i].id
+				+ ' class="badge"> '
+				+ response[i].user_likes
+				+ '</td><td class="col-lg-2"><form name="myForm"> '
+				+ '<button type="button" class="btn btn-default" '
+				+ '	onclick="sendJSON('
+				+ response[i].id
+				+ ',\'++\')" name="like_me">'
+				+ '	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>  '
+				+ '</button><button type="button" class="btn btn-default"> '
+				+ '<span class="glyphicon glyphicon-headphones" aria-hidden="true" '
+				+ 'onclick="sendJSON(' + response[i].id
+				+ ',\'--\')"> </span></button></form></td></tr> ';
+	}
+	
+	document.getElementById('liste_songs').innerHTML = output;
 }
