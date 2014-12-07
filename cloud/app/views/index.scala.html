@@ -1,110 +1,111 @@
-@(song: List[Song]) @main("Host Party") {
-<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/index.css")" />
-<script type="text/javascript" src="@routes.Assets.at("javascripts/index.js")"></script>
-} {
+@(song: List[Song])
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
-		<button type="button" class="btn btn-default navbar-btn"
-			onclick="up()">
-			<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
-		</button>
-		<button type="button" class="btn btn-default navbar-btn"
-			onclick="down('#liste_songs')" disabled>
-			<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-		</button>
-		<button type="button" class="btn btn-default navbar-btn" disabled>
-			<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-		</button>
-		<button type="button" class="btn btn-default navbar-btn">
-			<a href="/admin/createEvent">
-				<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-			</a>
-		</button>
-	</div>
-</nav>
-
-
-<div class="container">
-	<br> <br> <br>
-	<div class="well">
-		<div class="page-header" style="text-align: center">
-			<h1>
-				Project 'CLOUD' presents: <small></small>
-			</h1>
+@main("Host Party") {
+	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/index.css")" />
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/index.js")"></script>
+	}{
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<button type="button" class="btn btn-default navbar-btn"
+				onclick="up()">
+				<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-default navbar-btn"
+				onclick="down('#liste_songs')" disabled>
+				<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-default navbar-btn" disabled>
+				<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+			</button>
+			<button type="button" class="btn btn-default navbar-btn">
+				<a href="/admin/createEvent">
+					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+				</a>
+			</button>
 		</div>
-		<div class="vc-container">
-			<div class="vc-tape-wrapper">
-				<div class="vc-tape">
-					<div class="vc-tape-back">
-						<div class="vc-tape-wheel vc-tape-wheel-left">
-							<div></div>
+	</nav>
+	
+	
+	<div class="container">
+		<br> <br> <br>
+		<div class="well">
+			<div class="page-header" style="text-align: center">
+				<h1>
+					Project 'CLOUD' presents: <small></small>
+				</h1>
+			</div>
+			<div class="vc-container">
+				<div class="vc-tape-wrapper">
+					<div class="vc-tape">
+						<div class="vc-tape-back">
+							<div class="vc-tape-wheel vc-tape-wheel-left">
+								<div></div>
+							</div>
+							<div class="vc-tape-wheel vc-tape-wheel-right">
+								<div></div>
+							</div>
 						</div>
-						<div class="vc-tape-wheel vc-tape-wheel-right">
-							<div></div>
+						<div class="vc-tape-front vc-tape-side-a">
+							<span>A</span>
 						</div>
-					</div>
-					<div class="vc-tape-front vc-tape-side-a">
-						<span>A</span>
-					</div>
-					<div class="vc-tape-front vc-tape-side-b">
-						<span>B</span>
+						<div class="vc-tape-front vc-tape-side-b">
+							<span>B</span>
+						</div>
 					</div>
 				</div>
+				<div class="vc-loader"></div>
 			</div>
-			<div class="vc-loader"></div>
+			<!-- //vc-container -->
 		</div>
-		<!-- //vc-container -->
-	</div>
-
-	<div class="well col-lg-8">
-
-
-		<!--  hier die Liste -->
-
-		<div class="panel panel-default">
-			<!-- Table -->
-			<table id="liste_songs" class="table">
-				@for(song <- song) {
-				<tr>
-					<td>@song.artist</td>
-					<td>@song.title</td>
-					<td>@song.genre</td>
-					<td class="col-lg-1"><span id="@song.id" class="badge">@song.user_likes</span></td>
-					<td class="col-lg-2">
-						<form name='myForm'>
-							<button type="button" class="btn btn-default"
-								onclick="sendJSON(@song.id,'++');" name="like_me">
-								<span class="glyphicon glyphicon-heart" aria-hidden="true">
-								</span>
-							</button>
-							<button type="button" class="btn btn-default" disabled>
-								<span class="glyphicon glyphicon-headphones" aria-hidden="true"
-									onclick="sendJSON(@song.id,'--');"> </span>
-							</button>
-						</form>
-					</td>
-				</tr>
-				}
-			</table>
-		</div>
-	</div>
-
-	<div class="well col-lg-3 col-lg-offset-1">
-		<div class="row col-lg-11">
-			<div class="list-group">
-				<a href="#" class="list-group-item disabled"> Cras justo odio </a> <a
-					href="#" class="list-group-item">Dapibus ac facilisis in</a> <a
-					href="#" class="list-group-item">Morbi leo risus</a> <a href="#"
-					class="list-group-item">Porta ac consectetur ac</a> <a href="#"
-					class="list-group-item">Vestibulum at eros</a> <a href="#"
-					class="list-group-item disabled"> Cras justo odio </a> <a href="#"
-					class="list-group-item">Dapibus ac facilisis in</a> <a href="#"
-					class="list-group-item">Morbi leo risus</a> <a href="#"
-					class="list-group-item">Porta ac consectetur ac</a> <a href="#"
-					class="list-group-item">Vestibulum at eros</a>
+	
+		<div class="well col-lg-8">
+	
+	
+			<!--  hier die Liste -->
+	
+			<div class="panel panel-default">
+				<!-- Table -->
+				<table id="liste_songs" class="table">
+					@for(song <- song) {
+					<tr>
+						<td>@song.artist</td>
+						<td>@song.title</td>
+						<td>@song.genre</td>
+						<td class="col-lg-1"><span id="@song.id" class="badge">@song.user_likes</span></td>
+						<td class="col-lg-2">
+							<form name='myForm'>
+								<button type="button" class="btn btn-default"
+									onclick="sendJSON(@song.id,'++');" name="like_me">
+									<span class="glyphicon glyphicon-heart" aria-hidden="true">
+									</span>
+								</button>
+								<button type="button" class="btn btn-default" disabled>
+									<span class="glyphicon glyphicon-headphones" aria-hidden="true"
+										onclick="sendJSON(@song.id,'--');"> </span>
+								</button>
+							</form>
+						</td>
+					</tr>
+					}
+				</table>
 			</div>
 		</div>
+	
+		<div class="well col-lg-3 col-lg-offset-1">
+			<div class="row col-lg-11">
+				<div class="list-group">
+					<a href="#" class="list-group-item disabled"> Cras justo odio </a> <a
+						href="#" class="list-group-item">Dapibus ac facilisis in</a> <a
+						href="#" class="list-group-item">Morbi leo risus</a> <a href="#"
+						class="list-group-item">Porta ac consectetur ac</a> <a href="#"
+						class="list-group-item">Vestibulum at eros</a> <a href="#"
+						class="list-group-item disabled"> Cras justo odio </a> <a href="#"
+						class="list-group-item">Dapibus ac facilisis in</a> <a href="#"
+						class="list-group-item">Morbi leo risus</a> <a href="#"
+						class="list-group-item">Porta ac consectetur ac</a> <a href="#"
+						class="list-group-item">Vestibulum at eros</a>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
 }

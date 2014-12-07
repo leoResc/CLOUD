@@ -1,35 +1,34 @@
 @(message: String)
 
 @main("Welcome to Cloud"){
-		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/login.css")">
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/login.css")">
 	}{
-		<div class="container">
+	<div class="container">		
+		<h1 class="title">Welcome to<br>CLOUD</h1>
+	
+		<form action="@routes.Application.login()" method="post" class="form-signin" role="form" hidden>
+	       	<h1 class="form-signin-heading text-center font-white">Please sign in</h1>
+	       	<label for="inputUsername" class="sr-only">Email address</label>
+	       	<input id="inputUsername" type="text" class="form-control" placeholder="username" name="username" autocomplete="off" required autofocus>
+	       	<label for="inputPassword" class="sr-only">Password</label>
+	       	<input id="inputPassword" type="password" class="form-control" placeholder="password" name="password" required>
+	       	<button class="btn btn-lg btn-danger btn-block" type="submit">Sign in</button>
+	   	</form>
+	   	
+	   	<button class="btn btn-lg btn-danger showLogin">Sign in</button>
 			
-			<h1 class="title">Welcome to<br>CLOUD</h1>
+		<video autoplay loop muted id="backgroundVideo">
+			<source src="@routes.Assets.at("images/beach.webm")" type="video/webm"/>
+		</video>
 		
-			<form action="@routes.Application.login()" method="post" class="form-signin" role="form" hidden>
-	        	<h1 class="form-signin-heading text-center font-white">Please sign in</h1>
-	        	<label for="inputUsername" class="sr-only">Email address</label>
-	        	<input id="inputUsername" type="text" class="form-control" placeholder="username" name="username" autocomplete="off" required autofocus>
-	        	<label for="inputPassword" class="sr-only">Password</label>
-	        	<input id="inputPassword" type="password" class="form-control" placeholder="password" name="password" required>
-	        	<button class="btn btn-lg btn-danger btn-block" type="submit">Sign in</button>
-	    	</form>
-	    	
-	    	<button class="btn btn-lg btn-danger showLogin">Sign in</button>
-				
-			<video autoplay loop muted id="backgroundVideo">
-				<source src="@routes.Assets.at("images/beach.webm")" type="video/webm"/>
-			</video>
-			
-			<audio src="@routes.Assets.at("images/waves.mp3")" autoplay loop id="waves"></audio>
-		</div> <!-- /container -->
-		
-		@if(message) {
-			<div class="alert alert-danger" role="alert">
-				<button class="btn btn-danger" onclick="dismiss()"><span class="glyphicon glyphicon-remove"></span></button>
-				<strong>Warning!</strong> @message
-			</div>
-		}
-		<script type="text/javascript" src="@routes.Assets.at("javascripts/login.js")"></script>
+		<audio src="@routes.Assets.at("images/waves.mp3")" autoplay loop id="waves"></audio>
+	</div> <!-- /container -->
+	
+	@if(message) {
+		<div class="alert alert-danger" role="alert">
+			<button class="btn btn-danger" onclick="dismiss()"><span class="glyphicon glyphicon-remove"></span></button>
+			<strong>Warning!</strong> @message
+		</div>
+	}
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/login.js")"></script>
 }    
