@@ -11,18 +11,16 @@ function up() {
 	}
 }
 
-function down(div) {
-	if (div.scrollTop < div.scrollHeight - div.clientHeight) {
-		div.scrollTop += 10; // move down
-	}
-}
+//function down(div) {
+//	if (div.scrollTop < div.scrollHeight - div.clientHeight) {
+//		div.scrollTop += 10;
+//	}
+//}
 
 function sendJSON(data, action) {
 	model_action = JSON.stringify(action);
 	
 	if (action == "++") {
-		// document.getElementById(data).innerText++;
-
 		model_data = JSON.stringify(data);
 		$.ajax({
 			url : '/vote/' + data,
@@ -34,19 +32,15 @@ function sendJSON(data, action) {
 				'text json' : true
 			},
 			success : function(response) {
-				var answer = JSON.parse(response);
-				// response = JSON.parse(response);
-				// alert(response[0].title);
-				update(answer);
+				response = JSON.parse(response);
+				update(response);
 				
 			},
 			error : function(data, request) {
-				alert("FAIL "+ data);
+				alert("FAIL " + data);
 			},
 		});
 	} else {
-		// document.getElementById(data).innerText--;
-
 		model_data = JSON.stringify(data);
 		$.ajax({
 			url : '/deVote/' + data,
@@ -58,11 +52,11 @@ function sendJSON(data, action) {
 				'text json' : true
 			},
 			success : function(data, response) {
-				var answer = JSON.parse(response);
-				update(answer);
+				var response = JSON.parse(response);
+				update(response);
 			},
 			error : function(data, request) {
-				alert(data);
+				alert("FAIL " + data);
 			},
 		});
 	}
@@ -70,10 +64,8 @@ function sendJSON(data, action) {
 }
 
 function update(response) {
-	//$('#liste_songs').innerHTML="";
 	var output = "";
-	//response = JSON.parse(response);
-
+	
 	for (i = 0; i < response.length; i++) {
 		output += '<tr><td>'
 				+ response[i].artist
