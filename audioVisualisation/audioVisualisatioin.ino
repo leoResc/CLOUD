@@ -1,7 +1,3 @@
-/* Audio Visualisation
-   Version 1.0
-   author: Leo Reschetko
-*/
 
 const int aPin = A0; 
 const int LED_1 = 13;
