@@ -60,7 +60,6 @@ end
 
 Then /^An error message gets displayed to the admin that the ending date is incorrect$/ do
   pending # express the regexp above with the code you wish you had
-  sleep(300)
 end
 
 When /^admin chooses invalid number of playlists$/ do
