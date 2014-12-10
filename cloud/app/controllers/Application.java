@@ -46,6 +46,10 @@ public class Application extends Controller {
 	
 
 	public static Result getIndex() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());			
+		}
 		
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
 
@@ -64,6 +68,7 @@ public class Application extends Controller {
 
 		if (user.username.equals("admin")) {
 			if (password.equals("cloud")) {
+				session("user", "admin");
 				return redirect(routes.Application.getIndex());
 			} else
 				return ok(login.render("Wrong username or password."));
@@ -82,6 +87,7 @@ public class Application extends Controller {
 						&& (currentTime.before(events.get(i).end))) {
 					if (events.get(i).password.equals(password)) {
 						user.save();
+						session("user", user.username);
 						return redirect(routes.Application.getIndex());
 					}
 				}
@@ -92,7 +98,18 @@ public class Application extends Controller {
 
 	// Returns view createEvent
 	public static Result getCreateEvent() {
-		return ok(createEvent.render());
+		
+		String session = session("user");
+		
+		if (session == null) {
+			return redirect(routes.Application.getLogin());			
+		} else {
+			if (session.equals("admin")) {
+				return ok(createEvent.render());
+			} else {				
+				return redirect(routes.Application.getIndex());	
+			}
+		}
 	}
 
 	// Handles post, creates new event
