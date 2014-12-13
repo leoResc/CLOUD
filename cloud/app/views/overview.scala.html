@@ -1,45 +1,49 @@
-@(events: List[Event], user: List[User])
-@main("All events"){ }{
-	<div class="container">
-		<div class="row">
-			<h1>All events</h1>
-			<table class="table table-striped">
-				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Password</th>
-					<th>Description</th>
-					<th>Beginning</th>
-					<th>Ending</th>
-					<th></th>
-				</tr>
-				@for(event <- events) {
-					<tr>
-						<td>@event.id</td>
-						<td>@event.name</td>
-						<td>@event.password</td>
-						<td>@event.description</td>
-						<td>@event.begin</td>
-						<td>@event.end</td>
-						<td><a href="@routes.Application.deleteEvent(event.id)">delete</a></td>
-					</tr>
-				}
-			</table>
-		</div>
-		<div class="row">
-			<h1>All user</h1>
-			<table class="table table-striped">
-				<tr>
-					<th>ID</th>
-					<th>Name</th>
-				</tr>
-				@for(user <- user) {
-					<tr>
-						<td>@user.id</td>
-						<td>@user.username</td>
-					</tr>
-				}
-			</table>
-		</div>
+@(events: List[Event], user: List[User]) @main("All events"){ }{
+<div class="container">
+	<div class="row">
+		<h1>All events</h1>
+		<table class="table table-striped">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Password</th>
+				<th>Description</th>
+				<th>Beginning</th>
+				<th>Ending</th>
+				<th></th>
+			</tr>
+			@for(event <- events) {
+			<tr>
+				<td>@event.id</td>
+				<td>@event.name</td>
+				<td>@event.password</td>
+				<td>@event.description</td>
+				<td>@event.begin</td>
+				<td>@event.end</td>
+				<td><form action="@routes.Application.deleteEvent(event.id)" method="get">
+						<button type="submit" class="btn btn-danger">
+								<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</form>
+				</td>
+			</tr>
+			}
+		</table>
 	</div>
+	<div class="row">
+		<h1>All user</h1>
+		<table class="table table-striped">
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+			</tr>
+			@for(user <- user) {
+			<tr>
+				<td>@user.id</td>
+				<td>@user.username</td>
+			</tr>
+			}
+		</table>
+	</div>
+</div>
 }
