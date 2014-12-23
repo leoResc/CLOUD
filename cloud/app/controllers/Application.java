@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.avaje.ebean.Ebean;
+
 import models.*;
 import scala.collection.parallel.ParIterableLike.Find;
 import views.html.*;
@@ -14,43 +16,51 @@ import play.libs.Json;
 import play.mvc.*;
 
 public class Application extends Controller {
-	
+
 	public static Result deVote(long songId) {
-		
+
 		Song song = Song.find.byId(songId);
 		Logger.info(song.title);
-		
+
 		song.user_likes--;
 		Logger.info(String.valueOf(song.user_likes));
 		song.save();
-		
+
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
-		
+
 		return ok(Json.toJson(songs));
 	}
-	
+
 	public static Result vote(long songId) {
-		
+
 		Song song = Song.find.byId(songId);
 		Logger.info(song.title);
-		
+
 		song.user_likes++;
 		Logger.info(String.valueOf(song.user_likes));
 		song.save();
-		
+
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
 
-		
 		return ok(Json.toJson(songs));
 	}
-	
+
+	public static Result logout() {
+		String username = session("user");
+
+		if (!(username.equals("admin")) && (session("id") != null)) {
+			User.find.ref(session("id")).delete();
+		}
+		session().clear();
+		return redirect(routes.Application.getLogin());
+	}
 
 	public static Result getIndex() {
 		String session = session("user");
 		if (session == null) {
-			return redirect(routes.Application.getLogin());			
+			return redirect(routes.Application.getLogin());
 		}
-		
+
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
 
 		return ok(index.render(songs));
@@ -67,7 +77,7 @@ public class Application extends Controller {
 		List<User> allUser = new Model.Finder(String.class, User.class).all();
 
 		if (user.username.equals("admin")) {
-			if (password.equals("cloud")) {
+			if (password.equals("ozeanien")) {
 				session("user", "admin");
 				return redirect(routes.Application.getIndex());
 			} else
@@ -88,6 +98,7 @@ public class Application extends Controller {
 					if (events.get(i).password.equals(password)) {
 						user.save();
 						session("user", user.username);
+						session("id", String.valueOf(user.id));
 						return redirect(routes.Application.getIndex());
 					}
 				}
@@ -98,16 +109,16 @@ public class Application extends Controller {
 
 	// Returns view createEvent
 	public static Result getCreateEvent() {
-		
+
 		String session = session("user");
-		
+
 		if (session == null) {
-			return redirect(routes.Application.getLogin());			
+			return redirect(routes.Application.getLogin());
 		} else {
 			if (session.equals("admin")) {
 				return ok(createEvent.render());
-			} else {				
-				return redirect(routes.Application.getIndex());	
+			} else {
+				return redirect(routes.Application.getIndex());
 			}
 		}
 	}
