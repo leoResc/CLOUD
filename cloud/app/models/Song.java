@@ -12,12 +12,12 @@ public class Song extends Model{
 	public String title;
 	public String artist;
 	public String genre;
-	public double duration;
+	public long duration;
 	public int user_likes;
 	@Id
 	public long id;
 	
-	public Song(String tit, String art, String gen, double dur, int lik){
+	public Song(String tit, String art, String gen, long dur, int lik){
 		this.title = tit;
 		this.artist = art;
 		this.genre = gen;
