@@ -1,4 +1,4 @@
-@(events: List[Event], user: List[User]) @main("All events"){ }{
+@(events: List[Event], user: List[User], songs: List[Song]) @main("All events"){ }{
 <div class="container">
 	<div class="row">
 		<h1>All events</h1>
@@ -41,6 +41,25 @@
 			<tr>
 				<td>@user.id</td>
 				<td>@user.username</td>
+			</tr>
+			}
+		</table>
+	</div>
+	<div class="row">
+		<h1>All songs</h1>
+		<table class="table table-striped">
+			<tr>
+				<th>Artist</th>
+				<th>Title</th>
+				<th>Genre</th>
+				<th>Duration</th>
+			</tr>
+			@for(song <- songs) {
+			<tr>
+				<td>@song.artist</td>
+				<td>@song.title</td>
+				<td>@song.genre</td>
+				<td>@song.duration</td>
 			</tr>
 			}
 		</table>

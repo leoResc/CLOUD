@@ -49,7 +49,11 @@ public class Application extends Controller {
 		String username = session("user");
 
 		if (!(username.equals("admin")) && (session("id") != null)) {
-			User.find.ref(session("id")).delete();
+			try {
+				User.find.ref(session("id")).delete();
+			} catch(Exception e) {
+				Logger.error("not existing user is trying to log out");
+			}
 		}
 		session().clear();
 		return redirect(routes.Application.getLogin());
@@ -134,7 +138,8 @@ public class Application extends Controller {
 	public static Result overview() {
 		List<Event> events = new Model.Finder(String.class, Event.class).all();
 		List<User> user = new Model.Finder(String.class, User.class).all();
-		return ok(overview.render(events, user));
+		List<Song> songs = new Model.Finder(String.class, Song.class).all();
+		return ok(overview.render(events, user, songs));
 	}
 
 	// Deletes a given event
