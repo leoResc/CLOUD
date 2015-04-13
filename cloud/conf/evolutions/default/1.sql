@@ -4,12 +4,12 @@
 # --- !Ups
 
 create table event (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   name                      varchar(255),
   password                  varchar(255),
   description               varchar(255),
-  begin                     datetime,
-  end                       datetime,
+  begin                     timestamp,
+  end                       timestamp,
   constraint pk_event primary key (id))
 ;
 
@@ -20,7 +20,7 @@ create table playlist (
 ;
 
 create table song (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   title                     varchar(255),
   artist                    varchar(255),
   genre                     varchar(255),
@@ -30,25 +30,41 @@ create table song (
 ;
 
 create table user (
-  id                        bigint auto_increment not null,
+  id                        bigint not null,
   username                  varchar(255),
   constraint pk_user primary key (id))
 ;
+
+create sequence event_seq;
+
+create sequence playlist_seq;
+
+create sequence song_seq;
+
+create sequence user_seq;
 
 
 
 
 # --- !Downs
 
-SET FOREIGN_KEY_CHECKS=0;
+SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table event;
+drop table if exists event;
 
-drop table playlist;
+drop table if exists playlist;
 
-drop table song;
+drop table if exists song;
 
-drop table user;
+drop table if exists user;
 
-SET FOREIGN_KEY_CHECKS=1;
+SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists event_seq;
+
+drop sequence if exists playlist_seq;
+
+drop sequence if exists song_seq;
+
+drop sequence if exists user_seq;
 
