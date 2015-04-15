@@ -1,13 +1,9 @@
 package controllers;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.avaje.ebean.Ebean;
-
 import models.*;
-import scala.collection.parallel.ParIterableLike.Find;
 import views.html.*;
 import play.Logger;
 import play.data.Form;
