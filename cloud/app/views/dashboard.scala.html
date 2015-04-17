@@ -1,4 +1,4 @@
-@dashboardTemplate("Dashboard - Overview") {
+@dashboardTemplate("Dashboard - Overview")(0) {
     <!-- Morris CSS -->
     <link href="@routes.Assets.at("stylesheets/morris.css")" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -6,54 +6,6 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 } {
-
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <span class="glyphicon glyphicon-cloud changeCover" aria-hidden="true"><span class="title">CLOUD</span></span>
-                </li>
-                <li class="images">
-                    <div class="cover">
-                        <img class="image-responsive cover-photo" src="@routes.Assets.at("img/cover1.jpg")">
-                    </div>
-                    <div class="profile">
-                        <img class="img-responsive img-circle profile-picture" src="@routes.Assets.at("img/profile1.jpg")">
-                    </div>
-                </li>
-                <li class="active">
-                    <a href="index.html">Overview</a>
-                </li>
-                <li>
-                    <a href="event.html">Events</a>
-                </li>
-                <li>
-                    <a href="playlist.html">Playlists</a>
-                </li>
-                <li>
-                    <a href="song.html">Songs</a>
-                </li>
-                <li>
-                    <a href="user.html">User</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-            <div class="slide-menu" id="slide-menu">
-                <div class="slide-button">
-                    <span class="glyphicon glyphicon-option-vertical"></span>
-                </div>
-                <ul class="slide-menu-entries">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Logout</a></li>   
-                </ul>
-            </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">

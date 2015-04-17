@@ -1,23 +1,3 @@
-// cover photo
-var $i = 1;
-$('.changeCover').click(function () {
-            
-	$('.cover-photo').effect('slide', 'slow');
-	if ($i == 10) {
-        $i = 1;
-    } else {
-        $i++;
-    }
-	$('.cover-photo').attr('src','img/cover' + $i + '.jpg');
-	$('.cover-photo').show();
-});
-
-// sidebar
-$('#menu-toggle').click(function (e) {
-    e.preventDefault();
-    $('#wrapper').toggleClass('toggled');
-});
-
 // jQuery Knob dial
 $(function ($) {
 	$('.knobdial').knob({
@@ -164,15 +144,4 @@ $('button').click(function () {
 // Tooltips
 $(function () {
    $('[data-toggle="tooltip"]').tooltip();
-});
-
-// slide-menu
-var $open = false;
-$('.slide-button').click(function() {
-    if ($open) {
-        $('.slide-menu').animate({left: '210px', backgroundColor: '#EE6D7A'}, 1000, 'easeInOutExpo');
-    } else {
-        $('.slide-menu').animate({left: '0px', backgroundColor: '#293846'}, 1000, 'easeInOutExpo');
-    }
-    $open = !$open;
 });

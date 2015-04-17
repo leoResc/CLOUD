@@ -665,10 +665,10 @@ body::-webkit-scrollbar-thumb
 .slide-menu {
     position: absolute;
     bottom: 20px;
-    left: 0px;
+    left: 210px;
     width: 230px;
     height: 70px;
-    background-color: #293846;
+    background-color: #EE6D7A;
     box-shadow: -3px 0px 5px #1F2B35;
 }
 
