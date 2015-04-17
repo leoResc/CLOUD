@@ -18,8 +18,8 @@ Given 		The user is on the login page of Cloud
 
 Examples:
     | userName	| password	|
-    | phil		| test		|
-    | leo		| test		|
+    | gordon	| test		|
+    | lea		| test		|
 
 	
 Scenario Outline: 	Casual user types in invalid password
@@ -42,7 +42,7 @@ Examples:
 Scenario Outline: 	Casual user types in invalid nickname
 
 Given 		The user is on the login page of Cloud
-Given 		The user leo exists already
+Given 		The user <invalidUserName> exists already
 
 	When 	The user clicks on the sign in button
 	And 	The user types in the username <invalidUserName>

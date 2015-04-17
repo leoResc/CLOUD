@@ -1,9 +1,9 @@
-require 'rubygems'
-require 'selenium-webdriver'
-require 'rspec/expectations'
-require '././lib/login'
-require '././lib/event'
-require 'rspec'
+require "rubygems"
+require "selenium-webdriver"
+require "rspec/expectations"
+require "././lib/login"
+require "././lib/event"
+require "rspec"
 
 # before all
 selenium_driver = Selenium::WebDriver.for :firefox

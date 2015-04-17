@@ -1,4 +1,4 @@
-require 'utilities'
+require "utilities"
 
 class Event < Utilities
 	

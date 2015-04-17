@@ -1,4 +1,4 @@
-require 'utilities'
+require "utilities"
 
 class Login < Utilities
 	
@@ -7,11 +7,12 @@ class Login < Utilities
 	end
 	
 	def createUser(user)
-		navigate()
-		click('.showLogin')
-		typeIn('#inputUsername', user)
-		typeIn('#inputPassword', 'test')
-		click('.btn')
+		navigate("login")
+		click(".showLogin")
+		typeIn("#inputUsername", user)
+		typeIn("#inputPassword", "test")
+		click(".btn")
+		logout()
 	end
 	
 end

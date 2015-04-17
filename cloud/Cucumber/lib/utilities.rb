@@ -6,13 +6,13 @@ class Utilities
 
 	def navigate(page)
 		case page
-		when 'login'
-			@driver.navigate.to 'http://cloud.licua.de/login'
-		when 'event'
-			@driver.navigate.to 'http://philenius.de/dashboard/event.html'
-		when 'main'
-			@driver.navigate.to 'http://philenius.de/dashboard/index.html'
-	end		
+		when "login"
+			@driver.navigate.to "http://cloud.licua.de/login"
+		when "event"
+			@driver.navigate.to "http://cloud.licua.de/dashboard/event.html"
+		when "main"
+			@driver.navigate.to "http://cloud.licua.de"
+		end		
 	end
 	
 	def typeIn(item, value)
@@ -25,16 +25,19 @@ class Utilities
 	end
 	
 	def checkbox(item)
-		@driver.find_element(:xpath, "(//input[@type='checkbox'])[2]").click
+		checkbox = @driver.find_element(:css, "input.checkbox:nth-of-type(#{item})")
+		unless checkbox.attribute("checked") == ""
+			checkbox.click
+		end
 	end
 
 	def assertTitle(title)
 		case title
-		when 'login'
+		when "login"
 			(@driver.title).should == "Welcome to Cloud"
-		when 'main'
+		when "main"
 			(@driver.title).should == "Cloud"
-		when 'event'
+		when "event"
 			(@driver.title).should == "Dashboard - Events"
 		end
 	end
@@ -44,7 +47,7 @@ class Utilities
 	end
 	
 	def logout()
-		@driver.navigate.to 'http://cloud.licua.de'
+		@driver.navigate.to "http://cloud.licua.de"
 		@driver.find_element(:link, "Logout").click
 	end
 	
