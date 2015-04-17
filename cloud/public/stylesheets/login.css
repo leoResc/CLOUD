@@ -57,6 +57,10 @@ body {
 	border-top-left-radius: 0;
 }
 
+.font-white {
+	color: white;
+}
+
 #backgroundVideo {
 	position: fixed;
 	right: 0;
