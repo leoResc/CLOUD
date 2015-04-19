@@ -622,13 +622,13 @@ body::-webkit-scrollbar-thumb
 
 #overlayUpload {
     width: 95.1%;
-    height: 415px;
-    padding-top: 100px;
+    height: 558px;
+    padding-top: 22%;
     text-align: center;
 }
 
 #uploadList {
-    height: 415px;
+    height: 464px;
     overflow-y: scroll;
     overflow-x: hidden;
 }

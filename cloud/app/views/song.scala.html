@@ -1,4 +1,6 @@
 @dashboardTemplate("Dashboard - Songs")(3) {
+	<!-- Dropzone CSS -->
+    <link href="@routes.Assets.at("stylesheets/dropzone.min.css")" rel="stylesheet">
 } {
     	<!-- Page Content -->
         <div id="page-content-wrapper">
@@ -37,36 +39,28 @@
                             <div id="overlayUpload" hidden>
                                 <img src="@routes.Assets.at("img/Preloader_1.gif")">
                                 <h2>upload in progress ...</h2>
+                                <h2 id="progress"></h2>
                             </div>
-                            <form>
-                                <div class="infobox-content">
-                                    <div class="title">Upload Songs</div>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="form-group">
-                                                <input type="file" class="filestyle" data-input="false" data-buttonText="Choose file(s)" data-buttonName="btn-green" multiple>
-                                            </div>
+                            <div class="infobox-content">
+                            	<div class="title">Upload Songs</div>
+                                <div class="row" id="uploadList">
+	                                <div class="col-lg-12">
+	                                    <form id="dropzone" action="/upload" class="dropzone"></form>
+	                                </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-green" id="upload">Upload</button>
                                         </div>
                                     </div>
-                                    <div class="row" id="uploadList">
-                                        <div class="col-lg-12">
-                                            <table class="table table-striped file-list"></table>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <button type="button" class="btn btn-green" id="upload" disabled>Upload</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-lg-offset-6 pull-right">
-                                            <div class="form-group">
-                                                <button type="button" class="btn btn-red" id="cancel">Clear Selection</button>
-                                            </div>
+                                    <div class="col-lg-3 col-lg-offset-5">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-red" id="cancel">Cancel Upload</button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                        	</div>
                         </div>
                     </div>
                     
@@ -325,37 +319,41 @@
     
     </div> <!-- end wrapper -->
 } {
-	<!-- Bootstrap Filestyle -->
-    <script src="@routes.Assets.at("javascripts/bootstrap-filestyle.min.js")"></script>
+	<!-- Dropzone -->
+	<script src="@routes.Assets.at("javascripts/dropzone.min.js")"></script>
     <script>
-    	//file input
-	    $(':file').filestyle({input: false, buttonText: 'Choose file(s)', buttonName: 'btn-green'});
-	    
-	    $('#cancel').click(function() {
-	        $(':file').filestyle('clear');
-	        $('.file-list').empty();
-	    });
-	    
-	    $(':file').change(function(){
-	        $('.file-list').append('<thead><tr><th>File Name</th><th>File Type</th><th>File Size</th></tr><thead><tbody>');
-	        var onlyMp3 = true;
-	        for (var i = 0; i < this.files.length; i++) {
-	            $('.file-list').append('<tr><td>' + this.files[i].name + '</td><td>' + this.files[i].type + '</td><td>' + Math.round(this.files[i].size/1000000, 0) + 'MB</td></tr>');
-	            if (this.files[i].type != "audio/mp3" && this.files[i].type != "audio/mpeg") {
-	                onlyMp3 = false;
+	    // dropzone
+	    Dropzone.options.dropzone = { 
+			init: function() {                    
+	            var _this = this;
+	            $('#cancel').click(function() {
+	                _this.removeAllFiles(true);
+	            });
+			    $('#upload').click(function() {
+			    	_this.processQueue();
+			        $('#overlayUpload + div').hide('blind', 1000);
+			        $('#overlayUpload').delay(500).show(1000);
+			    });
+			    _this.on('uploadprogress', function(file, percentage, bytesSent) {
+			    	$('#progress').text(Math.round(percentage) + ' %');
+			    });
+			    _this.on('queuecomplete', function() {
+			    	setTimeout(reload, 3000);
+			    });
+	        },
+	        accept: function(file, done) {
+	            if (file.type == "audio/mpeg" || file.type == "audio/mp3") {
+	                done();
+	            } else {
+	                done('no supported file');
 	            }
-	        };
-	        $('.file-list').append('</tbody>');
-	        if (onlyMp3 == true) {
-	            $('#upload').removeAttr('disabled');
-	        } else {
-	            $('#upload').attr('disabled', 'disabled');	
-	        }
-	    });
-	    
-	    $('#upload').click(function() {
-	        $('form').hide('blind', 1000);
-	        $('#overlayUpload').delay(500).show(1000);
-	    });
+	        },
+	        uploadMultiple: true,
+	        parallelUploads: 50,
+	        autoProcessQueue: false
+	    };
+	    function reload() {
+	    	location.reload();
+	    };
     </script>
 }
