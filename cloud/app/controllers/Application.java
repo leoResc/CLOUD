@@ -17,7 +17,7 @@ public class Application extends Controller {
 
 		Song song = Song.find.byId(songId);
 		Logger.info(song.title);
-
+		int bloed = 0;
 		song.user_likes--;
 		Logger.info(String.valueOf(song.user_likes));
 		song.save();
