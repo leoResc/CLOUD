@@ -61,22 +61,26 @@ public class Song extends Model {
 		for (FilePart filePart : files) {
 			String contentType = filePart.getContentType();
 
-			if (contentType.equals("audio/mpeg")) {
+			if (contentType.equals("audio/mpeg")
+					|| contentType.equals("audio/mp3")) {
 
 				File file = filePart.getFile();
 				String fileName = filePart.getFilename();
 
 				// move file to storage location and delete temp file
 				try {
-					FileUtils.moveFile(file,
-							new File(storageLocation, fileName));
+
 					Song song = getID3Tags(file);
-					if (song == null) {
-						countFiles--;
-						play.mvc.Controller
-								.flash("id3Error",
-										"One or more songs were missing the id3 tags artist, title and genre.");
+
+					if (song != null) {
+						FileUtils.moveFile(file, new File(storageLocation,
+								fileName));
+						continue;
 					}
+					countFiles--;
+					play.mvc.Controller
+							.flash("id3Error",
+									"One or more songs were missing the id3 tags artist, title and genre.");
 				} catch (FileExistsException e) {
 					play.mvc.Controller.flash("fileError",
 							"One or more songs existed already.");
@@ -88,16 +92,17 @@ public class Song extends Model {
 				} finally {
 					filePart.getFile().delete();
 				}
-				continue;
+			} else {
+				play.mvc.Controller.flash("fileError",
+						"One or more files were not of file format mp3.");
+				countFiles--;
+				filePart.getFile().delete();
 			}
-			play.mvc.Controller.flash("fileError",
-					"One or more files were not of file format mp3.");
-			countFiles--;
 		}
 		if (countFiles > 0) {
 			play.mvc.Controller.flash("fileSuccess", String.format(
 					"You uploaded successfully %d %s to the database.",
-					countFiles, (countFiles == 1) ? " song" : " songs"));
+					countFiles, (countFiles == 1) ? "song" : "songs"));
 		}
 	}
 
