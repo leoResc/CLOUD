@@ -1,5 +1,10 @@
 package models;
 
+import helliker.id3.CorruptHeaderException;
+import helliker.id3.ID3v2FormatException;
+import helliker.id3.MP3File;
+import helliker.id3.NoMPEGFramesException;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -38,6 +43,12 @@ public class Song extends Model {
 		this.user_likes = likes;
 	}
 
+	/**
+	 * This method does the validation and saving of the songs.
+	 * 
+	 * @param files
+	 *            List of files which shall be processed
+	 */
 	public static void uploadSong(List<FilePart> files) {
 
 		int countFiles = files.size();
@@ -55,15 +66,23 @@ public class Song extends Model {
 				File file = filePart.getFile();
 				String fileName = filePart.getFilename();
 
+				// move file to storage location and delete temp file
 				try {
 					FileUtils.moveFile(file,
 							new File(storageLocation, fileName));
+					Song song = getID3Tags(file);
+					if (song == null) {
+						countFiles--;
+						play.mvc.Controller
+								.flash("id3Error",
+										"One or more songs were missing the id3 tags artist, title and genre.");
+					}
 				} catch (FileExistsException e) {
 					play.mvc.Controller.flash("fileError",
 							"One or more songs existed already.");
 					countFiles--;
 				} catch (IOException e) {
-					play.mvc.Controller.flash("fileError",
+					play.mvc.Controller.flash("serverError",
 							"Internal Server Error");
 					countFiles--;
 				} finally {
@@ -71,13 +90,42 @@ public class Song extends Model {
 				}
 				continue;
 			}
+			play.mvc.Controller.flash("fileError",
+					"One or more files were not of file format mp3.");
 			countFiles--;
 		}
-		play.mvc.Controller.flash("fileSuccess", String.format(
-				"You uploaded successfully %d %s to the database.", countFiles,
-				(countFiles == 1) ? " song" : " songs"));
-		Logger.info(String.format(
-				"You uploaded successfully %d %s to the database.", countFiles,
-				(countFiles == 1) ? "song" : "songs"));
+		if (countFiles > 0) {
+			play.mvc.Controller.flash("fileSuccess", String.format(
+					"You uploaded successfully %d %s to the database.",
+					countFiles, (countFiles == 1) ? " song" : " songs"));
+		}
+	}
+
+	/**
+	 * This method returns the id3 tags artist, title and genre of a given mp3
+	 * file.
+	 * 
+	 * @param file
+	 *            The file which shall be processed.
+	 * @return Returns a object of Song if all information was given, otherwise
+	 *         null
+	 */
+	public static Song getID3Tags(File file) {
+		try {
+			MP3File mp3 = new MP3File(file);
+			String artist = mp3.getArtist();
+			String title = mp3.getTitle();
+			String genre = mp3.getGenre();
+			long duration = mp3.getPlayingTime();
+
+			if (artist.equals("") || title.equals("") || genre.equals("")) {
+				return null;
+			}
+			return new Song(title, artist, genre, duration, 0);
+
+		} catch (NoMPEGFramesException | ID3v2FormatException
+				| CorruptHeaderException | IOException e) {
+			return null;
+		}
 	}
 }
