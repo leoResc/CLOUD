@@ -28,7 +28,7 @@ public class Song extends Model {
 	public String artist;
 	public String genre;
 	public long duration;
-	public int user_likes;
+	public int likes;
 
 	public static Finder<Long, Song> find = new Finder<Long, Song>(Long.class,
 			Song.class);
@@ -40,7 +40,7 @@ public class Song extends Model {
 		this.artist = artist;
 		this.genre = genre;
 		this.duration = duration;
-		this.user_likes = likes;
+		this.likes = likes;
 	}
 
 	/**
