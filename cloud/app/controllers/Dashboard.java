@@ -26,7 +26,8 @@ public class Dashboard extends Controller {
 	}
 	
 	public static Result getSong() {
-		return ok(song.render());
+		List<Song> songs = Song.find.all();
+		return ok(song.render(songs));
 	}
 	
 	public static Result getUser() {
