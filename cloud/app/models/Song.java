@@ -73,6 +73,9 @@ public class Song extends Model {
 					Song song = getID3Tags(file);
 
 					if (song != null) {
+						// rename file according to guidelines
+						fileName = song.artist + "-" + song.title + ".mp3";
+						fileName = fileName.replaceAll("\\s", "");
 						FileUtils.moveFile(file, new File(storageLocation,
 								fileName));
 						continue;
