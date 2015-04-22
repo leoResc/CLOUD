@@ -78,6 +78,8 @@ public class Song extends Model {
 						fileName = fileName.replaceAll("\\s", "");
 						FileUtils.moveFile(file, new File(storageLocation,
 								fileName));
+						// save in database
+						song.save();
 						continue;
 					}
 					countFiles--;
