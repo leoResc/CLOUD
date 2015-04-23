@@ -25,6 +25,7 @@ GET		/songs						controllers.Dashboard.getSong()
 GET		/user						controllers.Dashboard.getUser()
 
 POST	/uploadSong					controllers.Dashboard.uploadSong()
+POST	/deleteSong/:id				controllers.Dashboard.deleteSong(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file				controllers.Assets.at(path="/public", file)
