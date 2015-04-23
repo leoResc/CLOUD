@@ -138,4 +138,22 @@ public class Song extends Model {
 			return null;
 		}
 	}
+
+	/**
+	 * This method deletes a given song on the file system and in the database.
+	 * @param song
+	 */
+	public static void deleteSong(long id) {
+		Song song = Song.find.byId(id);
+		String fileName = song.artist + "-" + song.title + ".mp3";
+		fileName = fileName.replaceAll("\\s", "");
+		
+		File songFile = new File(storageLocation + "/" + fileName);
+		
+		if (songFile.delete()) {
+			song.delete();
+			return;
+		}
+		play.mvc.Controller.flash("fileError", "File could not be deleted");
+	}
 }
