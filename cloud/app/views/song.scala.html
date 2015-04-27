@@ -1,4 +1,6 @@
-@dashboardTemplate("Dashboard - Songs")(3) {
+@(songs: List[Song]) @dashboardTemplate("Dashboard - Songs")(3) {
+	<!-- Dropzone CSS -->
+    <link href="@routes.Assets.at("stylesheets/dropzone.min.css")" rel="stylesheet">
 } {
     	<!-- Page Content -->
         <div id="page-content-wrapper">
@@ -37,36 +39,28 @@
                             <div id="overlayUpload" hidden>
                                 <img src="@routes.Assets.at("img/Preloader_1.gif")">
                                 <h2>upload in progress ...</h2>
+                                <h2 id="progress"></h2>
                             </div>
-                            <form>
-                                <div class="infobox-content">
-                                    <div class="title">Upload Songs</div>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="form-group">
-                                                <input type="file" class="filestyle" data-input="false" data-buttonText="Choose file(s)" data-buttonName="btn-green" multiple>
-                                            </div>
+                            <div class="infobox-content">
+                            	<div class="title">Upload Songs</div>
+                                <div class="row" id="uploadList">
+	                                <div class="col-lg-12">
+	                                    <form id="dropzone" action="/uploadSong" class="dropzone"></form>
+	                                </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-green" id="upload" disabled>Upload</button>
                                         </div>
                                     </div>
-                                    <div class="row" id="uploadList">
-                                        <div class="col-lg-12">
-                                            <table class="table table-striped file-list"></table>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <button type="button" class="btn btn-green" id="upload" disabled>Upload</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-lg-offset-6 pull-right">
-                                            <div class="form-group">
-                                                <button type="button" class="btn btn-red" id="cancel">Clear Selection</button>
-                                            </div>
+                                    <div class="col-lg-3 col-lg-offset-5">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-red" id="cancel">Cancel Upload</button>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                        	</div>
                         </div>
                     </div>
                     
@@ -87,229 +81,12 @@
                                 <div class="title">All Songs</div>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <ul class="list-group flip" id="allSongs">
-                                            <li class="list-group-item">Coldplay - Always In My Head
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Magic
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Ink
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - True Love
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Midnight
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Another's Arms
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Oceans
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - A Sky Full of Stars
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Love Runs Out
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - If I Lose Myself
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Feel Again
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Preacher
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Burning Bridges
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Life In Color
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Au Revoir
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li><li class="list-group-item">Coldplay - Always In My Head
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Magic
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Ink
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - True Love
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Midnight
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Another's Arms
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Oceans
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - A Sky Full of Stars
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Love Runs Out
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - If I Lose Myself
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Feel Again
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Preacher
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Burning Bridges
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Life In Color
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Au Revoir
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li><li class="list-group-item">Coldplay - Always In My Head
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Magic
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Ink
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - True Love
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Midnight
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Another's Arms
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Oceans
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - A Sky Full of Stars
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Love Runs Out
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - If I Lose Myself
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Feel Again
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Preacher
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Burning Bridges
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Life In Color
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Au Revoir
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li><li class="list-group-item">Coldplay - Always In My Head
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Magic
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Ink
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - True Love
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Midnight
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Another's Arms
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Oceans
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - A Sky Full of Stars
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Love Runs Out
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - If I Lose Myself
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Feel Again
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Preacher
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Burning Bridges
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Life In Color
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Au Revoir
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li><li class="list-group-item">Coldplay - Always In My Head
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Magic
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Ink
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - True Love
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Midnight
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Another's Arms
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - Oceans
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">Coldplay - A Sky Full of Stars
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Love Runs Out
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - If I Lose Myself
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Feel Again
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Preacher
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Burning Bridges
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Life In Color
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            <li class="list-group-item">One Republic - Au Revoir
-                                                <a href="#" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
-                                            </li>
-                                            </li>
+                                        <ul class="list-group" id="allSongs">
+                                       	@for(song <- songs) {
+                                        	<li class="list-group-item">@song.artist - @song.title
+                                        		<a href="javascript:deleteSong(@song.id)" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
+                                        	</li>
+                                        }
                                         </ul>
                                     </div>
                                 </div>
@@ -325,37 +102,8 @@
     
     </div> <!-- end wrapper -->
 } {
-	<!-- Bootstrap Filestyle -->
-    <script src="@routes.Assets.at("javascripts/bootstrap-filestyle.min.js")"></script>
-    <script>
-    	//file input
-	    $(':file').filestyle({input: false, buttonText: 'Choose file(s)', buttonName: 'btn-green'});
-	    
-	    $('#cancel').click(function() {
-	        $(':file').filestyle('clear');
-	        $('.file-list').empty();
-	    });
-	    
-	    $(':file').change(function(){
-	        $('.file-list').append('<thead><tr><th>File Name</th><th>File Type</th><th>File Size</th></tr><thead><tbody>');
-	        var onlyMp3 = true;
-	        for (var i = 0; i < this.files.length; i++) {
-	            $('.file-list').append('<tr><td>' + this.files[i].name + '</td><td>' + this.files[i].type + '</td><td>' + Math.round(this.files[i].size/1000000, 0) + 'MB</td></tr>');
-	            if (this.files[i].type != "audio/mp3" && this.files[i].type != "audio/mpeg") {
-	                onlyMp3 = false;
-	            }
-	        };
-	        $('.file-list').append('</tbody>');
-	        if (onlyMp3 == true) {
-	            $('#upload').removeAttr('disabled');
-	        } else {
-	            $('#upload').attr('disabled', 'disabled');	
-	        }
-	    });
-	    
-	    $('#upload').click(function() {
-	        $('form').hide('blind', 1000);
-	        $('#overlayUpload').delay(500).show(1000);
-	    });
-    </script>
+	<!-- Dropzone -->
+	<script src="@routes.Assets.at("javascripts/dropzone.min.js")"></script>
+	<!-- JS for Song Page  -->
+	<script src="@routes.Assets.at("javascripts/song.js")"></script>
 }
