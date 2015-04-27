@@ -77,7 +77,7 @@ function update(response) {
 				+ '</td><td class="col-lg-1"><span id= '
 				+ response[i].id
 				+ ' class="badge"> '
-				+ response[i].user_likes
+				+ response[i].likes
 				+ '</td><td class="col-lg-2"><form name="myForm"> '
 				+ '<button type="button" class="btn btn-default" '
 				+ '	onclick="sendJSON('
