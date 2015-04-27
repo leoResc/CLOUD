@@ -12,6 +12,8 @@ class Utilities
 			@driver.navigate.to "http://cloud.licua.de/dashboard/event.html"
 		when "main"
 			@driver.navigate.to "http://cloud.licua.de"
+		when "song"
+			@driver.navigate.to "localhost:9000/songs"
 		end		
 	end
 	
