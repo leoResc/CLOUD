@@ -4,6 +4,7 @@ Dropzone.options.dropzone = {
 		var _this = this;
 		$('#cancel').click(function() {
 			_this.removeAllFiles(true);
+			$('#upload').attr('disabled', 'disabled');
 		});
 		$('#upload').click(function() {
 			_this.processQueue();
@@ -16,6 +17,11 @@ Dropzone.options.dropzone = {
 		_this.on('queuecomplete', function() {
 			setTimeout(reload, 2500);
 		});
+		_this.on('addedfile', function(file) {
+			if (file.type == "audio/mpeg" || file.type == "audio/mp3") {
+				$('#upload').removeAttr('disabled');
+			}
+		});
 	},
 	accept : function(file, done) {
 		if (file.type == "audio/mpeg" || file.type == "audio/mp3") {
@@ -24,6 +30,7 @@ Dropzone.options.dropzone = {
 			done('no supported file');
 		}
 	},
+	acceptedFiles : '.mp3',
 	uploadMultiple : true,
 	parallelUploads : 50,
 	autoProcessQueue : false
