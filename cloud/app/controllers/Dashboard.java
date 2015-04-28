@@ -15,7 +15,7 @@ public class Dashboard extends Controller {
 	}
 	
 	public static Result getPlaylist() {
-		return ok(playlist.render());
+		return ok(playlist.render(null));
 	}
 	
 	public static Result getSong() {

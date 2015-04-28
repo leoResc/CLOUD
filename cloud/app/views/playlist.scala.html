@@ -1,245 +1,249 @@
-@dashboardTemplate("Dashboard - Playlists")(2) {
+@(songs: List[Song])
+@dashboardTemplate("Dashboard - Playlists")(2){ } {
+<!-- Page Content -->
+<div id="page-content-wrapper">
+
+	<div class="container-fluid">
+
+		<div class="row">
+
+			<div class="col-lg-12">
+				<div class="jumbotron">
+					<h1>Playlists</h1>
+					<p class="light">
+						A playlist can contain several songs. Each event needs at least
+						one playlist.<br>For creating a playlist easily drag and drop
+						songs from the left list to the right list. The left list shows
+						all the songs which are saved on the server in the database. The
+						right list shows your new playlist.
+					</p>
+					<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+						<span class="glyphicon glyphicon-option-vertical"
+						aria-hidden="true"></span> Menu
+					</a>
+				</div>
+			</div>
+
+		</div>
+		<!-- end row -->
+
+		<div class="row">
+
+			<div class="col-lg-6">
+				<div class="infobox">
+					<div class="infobox-heading">
+						<div class="row">
+							<div class="col-xs-7">
+								<h3>
+									Basic list <small>of all available songs</small>
+								</h3>
+							</div>
+							<div class="col-xs-5  text-right">
+								<div class="label label-primary">Permanently stored</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="infobox-content">
+						<div class="title">All Songs</div>
+						<div class="info">Drag & Drop to add to your playlist</div>
+						<div class="row top-buffer">
+							<div class="col-lg-12">
+								<form action="@routes.Dashboard.getSong()" method="get">
+									<ul class="list-group dropable connectedSortable"
+										id="allSongsPlaylist">
+										@if(songs != null){
+										
+											@for(song <- songs){
+											<li class="list-group-item"><input type="checkbox"
+												name=@song.id checked hidden> @song.title</li>
+											}
+										} else {
+											<li class="list-group-item"><input type="checkbox"
+												 checked hidden>Nix gefunden</li>
+										}
+										
+									</ul>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end all songs -->
+
+			<div class="col-lg-6">
+
+				<div class="row">
+
+					<div class="col-lg-12">
+
+						<div class="infobox">
+							<form>
+								<div class="infobox-heading">
+									<div class="row">
+										<div class="col-xs-7">
+											<h3>
+												Basic form <small>for creating a new playlist</small>
+											</h3>
+										</div>
+										<div class="col-xs-5  text-right">
+											<div class="label label-primary">New</div>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="infobox-content">
+									<div class="title">New Playlist</div>
+									<div class="info">Drag & Drop from the left list to add a
+										song to your playlist</div>
+									<div class="row top-buffer">
+										<div class="col-lg-12">
+											<div class="form-group">
+												<ul class="list-group dropable connectedSortable"
+													id="playlist">
+													<li class="list-group-item"><input type="checkbox"
+														name="0001" checked hidden> Coldplay - Another's
+														Arms</li>
+													<li class="list-group-item"><input type="checkbox"
+														name="0002" checked hidden> Coldplay - Midnight</li>
+													<li class="list-group-item"><input type="checkbox"
+														name="0003" checked hidden> Coldplay - True Love</li>
+													<li class="list-group-item"><input type="checkbox"
+														name="0004" checked hidden> Coldplay - Always In
+														My Head</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="infobox-footer">
+									<div class="form-group">
+										<label for="name">Name of playlist</label> <input type="text"
+											class="form-control" name="title" id="name"
+											placeholder="Name" required>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-green">Create
+											Paylist</button>
+									</div>
+									<span class="clearfix"></span>
+								</div>
+							</form>
+						</div>
+
+					</div>
+
+				</div>
+				<!-- end row -->
+
+				<div class="row">
+
+					<div class="col-lg-12">
+						<div class="infobox">
+							<div class="infobox-heading">
+								<div class="row">
+									<div class="col-xs-7">
+										<h3>
+											Basic Form <small>Simple list of all existing
+												playlists</small>
+										</h3>
+									</div>
+									<div class="col-xs-5  text-right">
+										<div class="label label-primary">Permanent</div>
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="infobox-content table-responsive">
+								<div class="title">4 Playlists</div>
+								<div class="info">are stored in the database.</div>
+								<table class="table table-hover table-striped">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Name</th>
+											<th>Amount of songs</th>
+											<th>Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th>0</th>
+											<td>All Songs</td>
+											<td>147</td>
+											<td><a href="#" class="grey"> <span
+													class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+											</a> <span>|</span> <a href="#" class="grey"> <span
+													class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+											</a></td>
+										</tr>
+										<tr>
+											<th>1</th>
+											<td>German Charts</td>
+											<td>35</td>
+											<td><a href="#" class="grey"> <span
+													class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+											</a> <span>|</span> <a href="#" class="grey"> <span
+													class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+											</a></td>
+										</tr>
+										<tr>
+											<th>2</th>
+											<td>Chillout</td>
+											<td>169</td>
+											<td><a href="#" class="grey"> <span
+													class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+											</a> <span>|</span> <a href="#" class="grey"> <span
+													class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+											</a></td>
+										</tr>
+										<tr>
+											<th>3</th>
+											<td>Coldplay - Ghost Stories</td>
+											<td>9</td>
+											<td><a href="#" class="grey"> <span
+													class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+											</a> <span>|</span> <a href="#" class="grey"> <span
+													class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+											</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- end row -->
+
+			</div>
+			<!-- end right side -->
+
+		</div>
+		<!-- end row -->
+
+	</div>
+	<!-- end container-fluid -->
+
+</div>
+<!-- end page-content-wrapper -->
+
+</div>
+<!-- end wrapper -->
 } {
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            
-            <div class="container-fluid">
-                
-                <div class="row">
-                    
-                    <div class="col-lg-12">
-                        <div class="jumbotron">
-                            <h1>Playlists</h1>
-                            <p class="light">A playlist can contain several songs. Each event needs at least one playlist.<br>For creating a playlist easily drag and drop songs from the left list to the right list. The left list shows all the songs which are saved on the server in the database. The right list shows your new playlist.</p>
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
-                                <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Menu
-                            </a>
-                        </div>
-                    </div>
-                    
-                </div> <!-- end row -->
-                
-                <div class="row">
-                
-                     <div class="col-lg-6">
-                         <div class="infobox">
-                             <div class="infobox-heading">
-                                 <div class="row">
-                                     <div class="col-xs-7">
-                                         <h3>Basic list <small>of all available songs</small></h3>    
-                                     </div>
-                                     <div class="col-xs-5  text-right">
-                                         <div class="label label-primary">Permanently stored</div>
-                                     </div>
-                                 </div>
-                             </div>
-                             <hr>
-                             <div class="infobox-content">
-                                 <div class="title">All Songs</div>
-                                 <div class="info">Drag & Drop to add to your playlist</div>
-                                 <div class="row top-buffer">
-                                     <div class="col-lg-12">
-                                         <ul class="list-group dropable connectedSortable" id="allSongsPlaylist">
-                                             <li class="list-group-item">
-                                                 <input type="checkbox" name="0001" checked hidden>
-                                                 Coldplay - Magic
-                                             </li>
-                                             <li class="list-group-item">
-                                                 <input type="checkbox" name="0002" checked hidden>
-                                                 Coldplay - Ink</li>
-                                             <li class="list-group-item">
-                                                 <input type="checkbox" name="0003" checked hidden>
-                                                 Coldplay - A Sky Full of Stars
-                                             </li>
-                                             <li class="list-group-item">
-                                                 <input type="checkbox" name="0004" checked hidden>
-                                                 Coldplay - Oceans
-                                             </li>
-                                         </ul>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div> <!-- end all songs -->
-                     
-                     <div class="col-lg-6">
-                         
-                         <div class="row">
-                         
-                             <div class="col-lg-12">
-                                 
-                                 <div class="infobox">
-                                     <form>
-                                         <div class="infobox-heading">
-                                             <div class="row">
-                                                 <div class="col-xs-7">
-                                                     <h3>Basic form <small>for creating a new playlist</small></h3>    
-                                                 </div>
-                                                 <div class="col-xs-5  text-right">
-                                                     <div class="label label-primary">New</div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                         <hr>
-                                         <div class="infobox-content">
-                                             <div class="title">New Playlist</div>
-                                             <div class="info">Drag & Drop from the left list to add a song to your playlist</div>
-                                             <div class="row top-buffer">
-                                                 <div class="col-lg-12">
-                                                     <div class="form-group">
-                                                         <ul class="list-group dropable connectedSortable" id="playlist">
-                                                             <li class="list-group-item">
-                                                                 <input type="checkbox" name="0001" checked hidden>
-                                                                 Coldplay - Another's Arms
-                                                             </li>
-                                                             <li class="list-group-item">
-                                                                 <input type="checkbox" name="0002" checked hidden>
-                                                                 Coldplay - Midnight
-                                                             </li>
-                                                             <li class="list-group-item">
-                                                                 <input type="checkbox" name="0003" checked hidden>
-                                                                 Coldplay - True Love
-                                                             </li>
-                                                             <li class="list-group-item">
-                                                                 <input type="checkbox" name="0004" checked hidden>
-                                                                 Coldplay - Always In My Head
-                                                             </li>
-                                                         </ul>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                         <div class="infobox-footer">
-                                             <div class="form-group">
-                                                 <label for="name">Name of playlist</label>
-                                                 <input type="text" class="form-control" name="title" id="name" placeholder="Name" required>
-                                             </div>
-                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-green">Create Paylist</button>
-                                             </div>
-                                             <span class="clearfix"></span>
-                                         </div>
-                                     </form>
-                                 </div>
-                             
-                             </div>
-                         
-                         </div> <!-- end row -->
-                         
-                         <div class="row">
-                             
-                             <div class="col-lg-12">
-                                <div class="infobox">
-                                    <div class="infobox-heading">
-                                        <div class="row">
-                                            <div class="col-xs-7">
-                                                <h3>Basic Form <small>Simple list of all existing playlists</small></h3>    
-                                            </div>
-                                            <div class="col-xs-5  text-right">
-                                                <div class="label label-primary">Permanent</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="infobox-content table-responsive">
-                                        <div class="title">4 Playlists</div>
-                                        <div class="info">are stored in the database.</div>
-                                        <table class="table table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Amount of songs</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th>0</th>
-                                                    <td>All Songs</td>
-                                                    <td>147</td>
-                                                    <td>
-                                                        <a href="#" class="grey">
-                                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                        </a>
-                                                        <span>|</span>
-                                                        <a href="#" class="grey">
-                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>1</th>
-                                                    <td>German Charts</td>
-                                                    <td>35</td>
-                                                    <td>
-                                                        <a href="#" class="grey">
-                                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                        </a>
-                                                        <span>|</span>
-                                                        <a href="#" class="grey">
-                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>2</th>
-                                                    <td>Chillout</td>
-                                                    <td>169</td>
-                                                    <td>
-                                                        <a href="#" class="grey">
-                                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                        </a>
-                                                        <span>|</span>
-                                                        <a href="#" class="grey">
-                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>3</th>
-                                                    <td>Coldplay - Ghost Stories</td>
-                                                    <td>9</td>
-                                                    <td>
-                                                        <a href="#" class="grey">
-                                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                        </a>
-                                                        <span>|</span>
-                                                        <a href="#" class="grey">
-                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                         
-                         </div> <!-- end row -->
-                         
-                     </div> <!-- end right side -->
-                    
-                </div> <!-- end row -->
-            
-            </div> <!-- end container-fluid -->
-        
-        </div> <!-- end page-content-wrapper -->
-    
-    </div> <!-- end wrapper -->
-} {
-    <!-- punch -->
-    <script src="@routes.Assets.at("javascripts/touch-punch.min.js")"></script>
-    <script>
-    	// sidebar
-        $('#menu-toggle').click(function(e) {
-            e.preventDefault();
-            $('#wrapper').toggleClass('toggled');
-        });
-        // dropable list
-        $('#allSongsPlaylist, #playlist').sortable({
-            connectWith: '.connectedSortable'
-        });
-        $('#allSongs').disableSelection();
-    </script>
+<!-- punch -->
+<script src="@routes.Assets.at("javascripts/touch-punch.min.js")"></script>
+<script>
+	// sidebar
+	$('#menu-toggle').click(function(e) {
+		e.preventDefault();
+		$('#wrapper').toggleClass('toggled');
+	});
+	// dropable list
+	$('#allSongsPlaylist, #playlist').sortable({
+		connectWith : '.connectedSortable'
+	});
+	$('#allSongs').disableSelection();
+</script>
 }

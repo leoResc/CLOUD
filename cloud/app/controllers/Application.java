@@ -12,6 +12,13 @@ import play.libs.Json;
 import play.mvc.*;
 
 public class Application extends Controller {
+	
+	public static Result getSongs() {
+
+		List<Song> songs = Song.find.all();
+
+		return ok(Json.toJson(songs));
+	}
 
 	public static Result deVote(long songId) {
 
