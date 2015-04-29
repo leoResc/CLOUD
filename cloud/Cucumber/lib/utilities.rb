@@ -9,11 +9,11 @@ class Utilities
 		when "login"
 			@driver.navigate.to "http://cloud.licua.de/login"
 		when "event"
-			@driver.navigate.to "http://cloud.licua.de/dashboard/event.html"
+			@driver.navigate.to "http://cloud.licua.de/events"
 		when "main"
 			@driver.navigate.to "http://cloud.licua.de"
 		when "song"
-			@driver.navigate.to "localhost:9000/songs"
+			@driver.navigate.to "http://cloud.licua.de/songs"
 		end		
 	end
 	
