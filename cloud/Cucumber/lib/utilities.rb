@@ -2,19 +2,37 @@ class Utilities
 
 	def initialize(driver)
 		@driver = driver
+		@admin = false
 	end
 
 	def navigate(page)
-		case page
-		when "login"
-			@driver.navigate.to "http://cloud.licua.de/login"
-		when "event"
-			@driver.navigate.to "http://cloud.licua.de/events"
-		when "main"
-			@driver.navigate.to "http://cloud.licua.de"
-		when "song"
-			@driver.navigate.to "http://cloud.licua.de/songs"
-		end		
+		if $localTesting
+			case page
+			when "login"
+				@driver.navigate.to "localhost:9000/login"
+			when "main"
+				@driver.navigate.to "localhost:9000"
+			when "event"
+				$login.logInAsAdmin()
+				@driver.navigate.to "localhost:9000/events"
+			when "song"
+				$login.logInAsAdmin()
+				@driver.navigate.to "localhost:9000/songs"
+			end		
+		else
+			case page
+			when "login"
+				@driver.navigate.to "http://cloud.licua.de/login"
+			when "main"
+				@driver.navigate.to "http://cloud.licua.de"
+			when "event"
+				$login.logInAsAdmin()
+				@driver.navigate.to "http://cloud.licua.de/events"
+			when "song"
+				$login.logInAsAdmin()
+				@driver.navigate.to "http://cloud.licua.de/songs"
+			end		
+		end
 	end
 	
 	def typeIn(item, value)
@@ -49,8 +67,8 @@ class Utilities
 	end
 	
 	def logout()
-		@driver.navigate.to "http://cloud.licua.de"
+		navigate("main")
 		@driver.find_element(:link, "Logout").click
 	end
-	
+
 end

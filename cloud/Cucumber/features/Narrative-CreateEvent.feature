@@ -6,7 +6,7 @@ so that 	I can set and save settings for a new event
 
 Scenario Outline: 	Admin types in all the information correctly
 
-Given 		The user is on the event page of Cloud
+	Given 	The user is on the event page of Cloud
 
 	When 	The admin types in the name <eventName>
 	And 	The admin types in the password <password>
@@ -20,12 +20,12 @@ Given 		The user is on the event page of Cloud
 	
 	Examples:
 	| eventName | password 	| dateStart  | dateEnd	  | playlist 	|
-	| Test_001 	| test 		| 09.04.2015 | 11.04.2015 | 3			|
-	| Test_002  | test		| 10.04.2015 | 12.04.2015 | 8			|
-	
+	| Test_001 	| test 		| 9.4.2015 | 11.4.2015 | 3			|
+	| Test_002  | test		| 10.4.2015 | 12.4.2015 | 8			|
+
 Scenario Outline: 	Admin sets an invalid ending date
 
-	Given 		The user is on the event page of Cloud
+	Given 	The user is on the event page of Cloud
 
 	When 	The admin types in the name <eventName>
 	And 	The admin types in the password <password>
@@ -39,4 +39,4 @@ Scenario Outline: 	Admin sets an invalid ending date
 	
 	Examples:
 	| eventName | password 	| dateStart  | dateEnd	  | playlist	|
-	| Test_003 	| test 		| 09.06.2015 | 08.06.2015 | 3			|
+	| Test_003 	| test 		| 9.6.2015 | 8.6.2015 | 3			|

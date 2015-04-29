@@ -7,7 +7,7 @@ so that 	I can see the playlist and vote for songs
 
 Scenario Outline: 	Casual user types in all the information correctly
 
-Given 		The user is on the login page of Cloud
+	Given 	The user is on the login page of Cloud
 
 	When 	The user clicks on the sign in button
 	And 	The user types in the username <userName>
@@ -15,7 +15,8 @@ Given 		The user is on the login page of Cloud
 	And 	The user clicks the sign in button
 
 	Then 	The user will see the main page of Cloud
-
+	And 	The user logs out
+	
 Examples:
     | userName	| password	|
     | gordon	| test		|
@@ -24,7 +25,7 @@ Examples:
 	
 Scenario Outline: 	Casual user types in invalid password
 
-Given 		The user is on the login page of Cloud
+	Given 	The user is on the login page of Cloud
 
 	When 	The user clicks on the sign in button
 	And 	The user types in the username <userName>
@@ -33,7 +34,7 @@ Given 		The user is on the login page of Cloud
 
 	Then 	The error message is displayed: Warning! Wrong password for current event.
 
-Examples:
+	Examples:
     | userName	| invalidPassword	|
     | jan		| 1234				|
     | gary		| ljasd				|
@@ -41,8 +42,9 @@ Examples:
 	
 Scenario Outline: 	Casual user types in invalid nickname
 
-Given 		The user is on the login page of Cloud
-Given 		The user <invalidUserName> exists already
+	Given 	The test event exists
+	And 	The user <invalidUserName> exists already
+	And 	The user is on the login page of Cloud
 
 	When 	The user clicks on the sign in button
 	And 	The user types in the username <invalidUserName>
@@ -58,7 +60,7 @@ Examples:
 	
 Scenario Outline: 	The admin logs in
 
-Given 		The user is on the login page of Cloud
+	Given 	The user is on the login page of Cloud
 
 	When 	The user clicks on the sign in button
 	And 	The user types in the username <userName>
@@ -66,7 +68,8 @@ Given 		The user is on the login page of Cloud
 	And 	The user clicks the sign in button
 
 	Then 	The user will see the main page of Cloud
+	And 	The user logs out
 	
-Examples:
+	Examples:
 	| userName	| password	|
 	| admin		| ozeanien	|

@@ -8,10 +8,12 @@ require "rspec"
 
 # before all
 selenium_driver = Selenium::WebDriver.for :firefox
+$localTesting = true
 $utilities = Utilities.new(selenium_driver)
 $login = Login.new(selenium_driver)
 $event = Event.new(selenium_driver)
 $song = Song.new(selenium_driver)
+$adminIsLoggedIn = false
 
 # after all
 at_exit do
