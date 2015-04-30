@@ -14,9 +14,11 @@ create table event (
 ;
 
 create table playlist (
-  name                      varchar(255) not null,
+  id                        bigint not null,
+  song_ids                  varchar(255),
   duration                  double,
-  constraint pk_playlist primary key (name))
+  name                      varchar(255),
+  constraint pk_playlist primary key (id))
 ;
 
 create table song (
