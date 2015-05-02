@@ -6,7 +6,7 @@ libraryDependencies ++= Seq(
   javaJdbc,
   javaEbean,
   cache,
-  "mysql" % "mysql-connector-java" % "5.1.27"
+  "org.apache.directory.studio" % "org.apache.commons.io" % "2.4"
 )     
 
 play.Project.playJavaSettings

@@ -24,9 +24,8 @@ public class Application extends Controller {
 
 		Song song = Song.find.byId(songId);
 		Logger.info(song.title);
-		
-		song.user_likes--;
-		Logger.info(String.valueOf(song.user_likes));
+		song.likes--;
+		Logger.info(String.valueOf(song.likes));
 		song.save();
 
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
@@ -39,8 +38,8 @@ public class Application extends Controller {
 		Song song = Song.find.byId(songId);
 		Logger.info(song.title);
 
-		song.user_likes++;
-		Logger.info(String.valueOf(song.user_likes));
+		song.likes++;
+		Logger.info(String.valueOf(song.likes));
 		song.save();
 
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();

@@ -27,5 +27,8 @@ POST 	/playlists/:id				controllers.Dashboard.savePlaylist(id: Long)
 GET		/editPlaylist/:id			controllers.Dashboard.showPlaylist(id: Long)
 GET		/deletePlaylist/:id			controllers.Dashboard.deletePlaylist(id: Long)			
 
+POST	/uploadSong					controllers.Dashboard.uploadSong()
+POST	/deleteSong/:id				controllers.Dashboard.deleteSong(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file				controllers.Assets.at(path="/public", file)

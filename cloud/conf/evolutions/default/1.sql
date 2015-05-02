@@ -28,7 +28,7 @@ create table song (
   artist                    varchar(255),
   genre                     varchar(255),
   duration                  bigint,
-  user_likes                integer,
+  likes                     integer,
   constraint pk_song primary key (id))
 ;
 

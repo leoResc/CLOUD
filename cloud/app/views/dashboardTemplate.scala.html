@@ -1,133 +1,133 @@
 @(title: String)(activePage: Int)(style:Html)(content: Html)(scripts: Html)
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<title>@title</title>
-	<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-	<!--  Bootstrap Core CSS -->
-	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
-	<!--  Dashboard CSS -->
-	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/simple-sidebar.css")">
-	<!-- Toastr CSS -->
-    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/toastr.min.css")">
-	@style
-</head>
-<body>
-
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <span class="glyphicon glyphicon-cloud changeCover" aria-hidden="true"><span class="title">CLOUD</span></span>
-                </li>
-                <li class="images">
-                    <div class="cover">
-                        <img class="image-responsive cover-photo" src="@routes.Assets.at("img/cover1.jpg")">
-                    </div>
-                    <div class="profile">
-                        <img class="img-responsive img-circle profile-picture" src="@routes.Assets.at("img/profile1.jpg")">
-                    </div>
-                </li>
-                @if(activePage == 0) {
-                	<li class="active">
-                } else {
-                	<li>
-                }
-                    <a href="/dashboard">Overview</a>
-                </li>
-                @if(activePage == 1) {
-                	<li class="active">
-                } else {
-                	<li>
-                }    <a href="events">Events</a>
-                </li>
-                @if(activePage == 2) {
-                	<li class="active">
-                } else {
-                	<li>
-                }
-                    <a href="playlists">Playlists</a>
-                </li>
-                @if(activePage == 3) {
-                	<li class="active">
-                } else {
-                	<li>
-                }
-                    <a href="songs">Songs</a>
-                </li>
-                @if(activePage == 4) {
-                	<li class="active">
-                } else {
-                	<li>
-                }
-                    <a href="user">User</a>
-                </li>
-                @if(activePage == 5) {
-                	<li class="active">
-                } else {
-                	<li>
-                }
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-            <div class="slide-menu" id="slide-menu">
-                <div class="slide-button">
-                    <span class="glyphicon glyphicon-option-vertical"></span>
-                </div>
-                <ul class="slide-menu-entries">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/logout">Logout</a></li>   
-                </ul>
-            </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
-        
-	@content
-    
-    <!-- jQuery -->
-    <script src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
-	<!-- jQuery UI -->
-	<script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
-	<!-- Bootstrap Core JavaScript -->
-    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-    @scripts
-        <script>
-    	// cover photo
-	    var $i = 1;
-	    $('.changeCover').click(function () {
-	                
-	    	$('.cover-photo').effect('slide', 'slow');
-	    	if ($i == 10) {
-	            $i = 1;
-	        } else {
-	            $i++;
-	        }
-	    	$('.cover-photo').attr('src','img/cover' + $i + '.jpg');
-	    	$('.cover-photo').show();
-	    });
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>@title</title>
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+		<!--  Bootstrap Core CSS -->
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+		<!--  Dashboard CSS -->
+		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/simple-sidebar.css")">
+		<!-- Toastr CSS -->
+	    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/toastr.min.css")">
+		@style
+	</head>
+	<body>
 	
-	    // sidebar
-	    $('#menu-toggle').click(function (e) {
-	        e.preventDefault();
-	        $('#wrapper').toggleClass('toggled');
-	    });
-	 	// slide-menu
-	    var $open = false;
-	    $('.slide-button').click(function() {
-	        if ($open) {
-	            $('.slide-menu').animate({left: '210px', backgroundColor: '#EE6D7A'}, 1000, 'easeInOutExpo');
-	        } else {
-	            $('.slide-menu').animate({left: '0px', backgroundColor: '#293846'}, 1000, 'easeInOutExpo');
-	        }
-	        $open = !$open;
-	    });
-    </script>
-</body>
+	    <div id="wrapper">
+	
+	        <!-- Sidebar -->
+	        <div id="sidebar-wrapper">
+	            <ul class="sidebar-nav">
+	                <li class="sidebar-brand">
+	                    <span class="glyphicon glyphicon-cloud changeCover" aria-hidden="true"><span class="title">CLOUD</span></span>
+	                </li>
+	                <li class="images">
+	                    <div class="cover">
+	                        <img class="image-responsive cover-photo" src="@routes.Assets.at("img/cover1.jpg")">
+	                    </div>
+	                    <div class="profile">
+	                        <img class="img-responsive img-circle profile-picture" src="@routes.Assets.at("img/profile1.jpg")">
+	                    </div>
+	                </li>
+	                @if(activePage == 0) {
+	                	<li class="active">
+	                } else {
+	                	<li>
+	                }
+	                    <a href="/dashboard">Overview</a>
+	                </li>
+	                @if(activePage == 1) {
+	                	<li class="active">
+	                } else {
+	                	<li>
+	                }    <a href="events">Events</a>
+	                </li>
+	                @if(activePage == 2) {
+	                	<li class="active">
+	                } else {
+	                	<li>
+	                }
+	                    <a href="playlists">Playlists</a>
+	                </li>
+	                @if(activePage == 3) {
+	                	<li class="active">
+	                } else {
+	                	<li>
+	                }
+	                    <a href="songs">Songs</a>
+	                </li>
+	                @if(activePage == 4) {
+	                	<li class="active">
+	                } else {
+	                	<li>
+	                }
+	                    <a href="user">User</a>
+	                </li>
+	                @if(activePage == 5) {
+	                	<li class="active">
+	                } else {
+	                	<li>
+	                }
+	                    <a href="#">Contact</a>
+	                </li>
+	            </ul>
+	            <div class="slide-menu" id="slide-menu">
+	                <div class="slide-button">
+	                    <span class="glyphicon glyphicon-option-vertical"></span>
+	                </div>
+	                <ul class="slide-menu-entries">
+	                    <li><a href="/">Home</a></li>
+	                    <li><a href="/logout">Logout</a></li>   
+	                </ul>
+	            </div>
+	        </div>
+	        <!-- /#sidebar-wrapper -->
+	        
+		@content
+	    
+	    <!-- jQuery -->
+	    <script src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
+		<!-- jQuery UI -->
+		<script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
+		<!-- Bootstrap Core JavaScript -->
+	    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+	    @scripts
+	    <script>
+	    	// cover photo
+		    var $i = 1;
+		    $('.changeCover').click(function () {
+		                
+		    	$('.cover-photo').effect('slide', 'slow');
+		    	if ($i == 10) {
+		            $i = 1;
+		        } else {
+		            $i++;
+		        }
+		    	$('.cover-photo').attr('src','img/cover' + $i + '.jpg');
+		    	$('.cover-photo').show();
+		    });
+		
+		    // sidebar
+		    $('#menu-toggle').click(function (e) {
+		        e.preventDefault();
+		        $('#wrapper').toggleClass('toggled');
+		    });
+		 	// slide-menu
+		    var $open = false;
+		    $('.slide-button').click(function() {
+		        if ($open) {
+		            $('.slide-menu').animate({left: '210px', backgroundColor: '#EE6D7A'}, 1000, 'easeInOutExpo');
+		        } else {
+		            $('.slide-menu').animate({left: '0px', backgroundColor: '#293846'}, 1000, 'easeInOutExpo');
+		        }
+		        $open = !$open;
+		    });
+	    </script>
+	</body>
 </html>

@@ -14,6 +14,14 @@ When(/^The user clicks the sign in button$/) do
 	$login.click(".btn")
 end
 
-Given(/^The user (.+) exists already$/) do |user|
-	$login.createUser(user)
+And(/^The user (.+) exists already$/) do |user|
+	$login.createUser(user, "test")
+end
+
+And(/^The user logs out$/) do
+	$utilities.logout()
+end
+
+And(/^The test event exists$/) do
+	$event.createTestEvent()
 end

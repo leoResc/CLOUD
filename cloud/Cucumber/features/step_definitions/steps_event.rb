@@ -6,14 +6,6 @@ When(/^The admin types in the password (.+)$/) do |password|
 	$event.typeIn("#password", password)
 end
 
-When(/^The admin selects in the begin (\d+)\.(\d+)\.(\d+)$/) do |arg1, arg2, arg3|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-When(/^The admin selects in the end (\d+)\.(\d+)\.(\d+)$/) do |arg1, arg2, arg3|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 When(/^The admin selects the playlist (\d+)$/) do |playlist|
 	$event.selectPlaylist(playlist)
 end
