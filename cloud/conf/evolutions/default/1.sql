@@ -15,6 +15,7 @@ create table event (
 
 create table playlist (
   id                        bigint not null,
+  num_songs                 integer,
   song_ids                  varchar(255),
   duration                  double,
   name                      varchar(255),

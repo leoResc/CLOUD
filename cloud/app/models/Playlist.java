@@ -17,6 +17,7 @@ public class Playlist extends Model {
 			Long.class, Playlist.class);
 	@OneToMany(mappedBy = "playlist")
 	public ArrayList<Song> songListe;
+	public int numSongs=0;
 	public String songIds="";
 	public double duration;
 	public String name;
@@ -31,7 +32,7 @@ public class Playlist extends Model {
 		this.name = name;
 		this.songListe = songs;
 		this.duration = duration;
-		
+		this.numSongs = songs.size();
 		listToString(songs);
 	}
 	
@@ -45,7 +46,7 @@ public class Playlist extends Model {
 		stringToList(this.songIds);
 	}
 	
-	public ArrayList<Song> stringToList(String ids) {
+	private ArrayList<Song> stringToList(String ids) {
 		String buffer = "";
 		ArrayList<Song> songs = new ArrayList<Song>();
 		
@@ -55,8 +56,9 @@ public class Playlist extends Model {
 			
 			if(ids.charAt(i) == ' '){
 				songs.add(Song.find.byId(Long.valueOf(buffer)));
-				buffer="";
 				Logger.info("new song -->"+buffer);
+				buffer="";
+				numSongs ++;
 			}
 			else {
 				buffer += (ids.charAt(i));

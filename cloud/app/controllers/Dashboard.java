@@ -29,8 +29,8 @@ public class Dashboard extends Controller {
 	public static Result getPlaylist() {
 		List<Song> songs = Song.find.all();
 		List<Playlist> playlists = Playlist.find.all();
-		Logger.info("----------> getPlaylist");
-		return ok(playlist.render(songs,playlistform, playlists, new ArrayList<Song>(), null));
+		long idd = 0;
+		return ok(playlist.render(songs,playlistform, playlists, new ArrayList<Song>(), null, idd ));
 	}
 	
 	public static Result getSong() {
@@ -43,16 +43,59 @@ public class Dashboard extends Controller {
 	
 	public static Result showPlaylist(long id){
 		
-		final Playlist myplaylist = Playlist.find.byId(id);
-		Form<Playlist> filledPlaylist = playlistform.fill(myplaylist);
+		final Playlist foundPlaylist = Playlist.find.byId(id);
+		foundPlaylist.updateListOfSongs();
+		Form<Playlist> filledPlaylist = playlistform.fill(foundPlaylist);
+		
 		List<Song> songs = Song.find.all();
-		List<Playlist> playlists = Playlist.find.all();
-		Logger.info("------------> showPlaylist");
-		myplaylist.updateListOfSongs();
-		return ok(playlist.render(songs,filledPlaylist, playlists, myplaylist.songListe, myplaylist.name));
+		songs = deleteSameSongs(songs, foundPlaylist.songListe);
+		Logger.info(songs.size()+" songs on left side");
+		
+		List<Playlist> allPlaylists = Playlist.find.all();
+		
+		
+		return ok(playlist.render(songs,filledPlaylist, 
+				allPlaylists, foundPlaylist.songListe, foundPlaylist.name, id));
 	}
 	
-	public static Result savePlaylist(){
+	public static Result deletePlaylist(long id) {
+		
+		final Playlist foundPlaylist = Playlist.find.byId(id);
+		foundPlaylist.delete();
+		
+		return redirect(routes.Dashboard.getPlaylist());
+	}
+	
+	public static  List<Song> deleteSameSongs(List<Song> allSongs, List<Song> playlistSongs) {
+		List<Song> songs = allSongs;
+		List<Song> songsCleaned = new ArrayList<Song>();
+		
+		for(int i=0; i<playlistSongs.size(); i++) {
+			
+			Logger.info("Loop with i:" + i+", songs size: "+songs.size() + ", clearedList: "+songsCleaned.size());
+			Song songInList = playlistSongs.get(i);
+			Logger.info("Search for id#"+songInList.id);
+			
+			for(int j=0; j<songs.size(); j++) {
+				Song songToCheck = songs.get(j);
+				Logger.info("Check with id#"+songToCheck.id);
+				
+				if(songInList.id != songToCheck.id){
+					songsCleaned.add(songToCheck);
+					Logger.info(songToCheck.id +" ^ added");
+				}
+			}
+			
+			songs.clear();
+			songs.addAll(songsCleaned);
+			songsCleaned.clear();
+			Logger.info("songs size:"+songs.size());
+		}
+		Logger.info("return " +songs.size()+ " songs");
+		return songs;
+	}
+	
+	public static Result savePlaylist(long idToDelete){
 		
 		Form<Playlist> formPlaylist = Form.form(Playlist.class).bindFromRequest();
 		Map<String, String> myPlaylist = formPlaylist.data();
@@ -60,6 +103,16 @@ public class Dashboard extends Controller {
 		String name = myPlaylist.remove("name");
 		Iterator it = myPlaylist.values().iterator();
 		
+		if(myPlaylist.size() < 1) {
+			//No songs added
+			Logger.info("No songs were added!");
+			return redirect(routes.Dashboard.getPlaylist());
+		}
+		
+		if(idToDelete > 0){
+		Playlist.find.byId(idToDelete).delete();
+		}
+	
 		ArrayList<Song> songs = new ArrayList<Song>();
 		
 		long duration = 0;
