@@ -80,26 +80,21 @@ public class Dashboard extends Controller {
 		
 		for(int i=0; i<playlistSongs.size(); i++) {
 			
-			Logger.info("Loop with i:" + i+", songs size: "+songs.size() + ", clearedList: "+songsCleaned.size());
 			Song songInList = playlistSongs.get(i);
-			Logger.info("Search for id#"+songInList.id);
 			
 			for(int j=0; j<songs.size(); j++) {
 				Song songToCheck = songs.get(j);
-				Logger.info("Check with id#"+songToCheck.id);
 				
 				if(songInList.id != songToCheck.id){
 					songsCleaned.add(songToCheck);
-					Logger.info(songToCheck.id +" ^ added");
 				}
 			}
 			
 			songs.clear();
 			songs.addAll(songsCleaned);
 			songsCleaned.clear();
-			Logger.info("songs size:"+songs.size());
 		}
-		Logger.info("return " +songs.size()+ " songs");
+		
 		return songs;
 	}
 	
@@ -123,6 +118,21 @@ public class Dashboard extends Controller {
 	
 		ArrayList<Song> songs = new ArrayList<Song>();
 		
+		long duration = calculateDuration(it);
+		
+		while (it.hasNext()) {
+			long id = Integer.valueOf((String) it.next());
+			Song song = Song.find.byId(id);
+			songs.add(song);
+		}
+		
+		Playlist playlist = new Playlist(name, songs, duration);
+		playlist.save();
+	
+		return redirect(routes.Dashboard.getPlaylist());
+	}
+	
+	public static long calculateDuration(Iterator it) {
 		long duration = 0;
 		
 		while (it.hasNext()) {
@@ -132,13 +142,8 @@ public class Dashboard extends Controller {
 			
 			Song song = Song.find.byId(id);
 			duration += song.duration;
-			songs.add(song);
 		}
-		
-		Playlist playlist = new Playlist(name, songs, duration);
-		playlist.save();
-	
-		return redirect(routes.Dashboard.getPlaylist());
+		return duration;
 	}
 	
 	private static final Form<Playlist> playlistform = Form.form(Playlist.class);

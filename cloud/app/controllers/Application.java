@@ -20,27 +20,28 @@ public class Application extends Controller {
 		return ok(Json.toJson(songs));
 	}
 
-	public static Result deVote(long songId) {
+	public static Result deVote(long songId, long userId) {
 
 		Song song = Song.find.byId(songId);
 		Logger.info(song.title);
-		song.likes--;
+		Likes likes = new Likes();
+		likes.deleteLike(songId, userId);
 		Logger.info(String.valueOf(song.likes));
-		song.save();
 
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
 
 		return ok(Json.toJson(songs));
 	}
 
-	public static Result vote(long songId) {
+	public static Result vote(long songId, long userId) {
 
 		Song song = Song.find.byId(songId);
 		Logger.info(song.title);
 
-		song.likes++;
+		Likes likes = new Likes();
+		likes.createLike(songId, userId);
+		
 		Logger.info(String.valueOf(song.likes));
-		song.save();
 
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
 

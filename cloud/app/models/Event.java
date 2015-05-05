@@ -18,4 +18,7 @@ public class Event extends Model {
 	public Date begin;
 	public Date end;
 	
+	public Event() {
+		super();
+	}
 }

@@ -43,6 +43,18 @@ public class Song extends Model {
 		this.likes = likes;
 	}
 
+	public void dislike() {
+		if (this.likes >= 1) {
+			this.likes--;
+			this.update();
+		}
+	}
+
+	public void like() {
+		this.likes++;
+		this.update();
+	}
+
 	/**
 	 * This method does the validation and saving of the songs.
 	 * 
@@ -141,15 +153,16 @@ public class Song extends Model {
 
 	/**
 	 * This method deletes a given song on the file system and in the database.
+	 * 
 	 * @param song
 	 */
 	public static void deleteSong(long id) {
 		Song song = Song.find.byId(id);
 		String fileName = song.artist + "-" + song.title + ".mp3";
 		fileName = fileName.replaceAll("\\s", "");
-		
+
 		File songFile = new File(storageLocation + "/" + fileName);
-		
+
 		if (songFile.delete()) {
 			song.delete();
 			return;
