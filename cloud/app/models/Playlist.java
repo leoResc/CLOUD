@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.OneToMany;
 import play.Logger;
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
+
 
 @Entity
 public class Playlist extends Model {
@@ -46,7 +48,13 @@ public class Playlist extends Model {
 		stringToList(this.songIds);
 	}
 	
+	/**
+	 * Creates List of songs of the String with their IDs
+	 * @param ids
+	 * @return Array of songs
+	 */
 	private ArrayList<Song> stringToList(String ids) {
+		
 		String buffer = "";
 		ArrayList<Song> songs = new ArrayList<Song>();
 		

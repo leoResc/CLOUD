@@ -13,6 +13,13 @@ create table event (
   constraint pk_event primary key (id))
 ;
 
+create table likes (
+  id                        bigint not null,
+  user_id                   bigint,
+  song_id                   bigint,
+  constraint pk_likes primary key (id))
+;
+
 create table playlist (
   id                        bigint not null,
   num_songs                 integer,
@@ -40,6 +47,8 @@ create table user (
 
 create sequence event_seq;
 
+create sequence likes_seq;
+
 create sequence playlist_seq;
 
 create sequence song_seq;
@@ -55,6 +64,8 @@ SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists event;
 
+drop table if exists likes;
+
 drop table if exists playlist;
 
 drop table if exists song;
@@ -64,6 +75,8 @@ drop table if exists user;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists event_seq;
+
+drop sequence if exists likes_seq;
 
 drop sequence if exists playlist_seq;
 

@@ -20,6 +20,7 @@ public class Application extends Controller {
 		return ok(Json.toJson(songs));
 	}
 
+	/*
 	public static Result deVote(long songId, long userId) {
 
 		Song song = Song.find.byId(songId);
@@ -32,14 +33,33 @@ public class Application extends Controller {
 
 		return ok(Json.toJson(songs));
 	}
+	*/
+	
+	public static boolean songAlreadyLiked(long userID, long songID) {
+		Likes likes = new Likes();
+		
+		if(likes.findLike(songID, userID) == null) {
+			return false;
+		}
+		return true;
+		
+	}
 
-	public static Result vote(long songId, long userId) {
+	public static Result vote(long userID, long songID) {
 
-		Song song = Song.find.byId(songId);
+		Song song = Song.find.byId(songID);
 		Logger.info(song.title);
 
 		Likes likes = new Likes();
-		likes.createLike(songId, userId);
+		boolean songLiked = songAlreadyLiked(userID, songID);
+		
+		if(!songLiked) {
+			likes.createLike(songID, userID);
+		}
+		else {
+			Logger.info("Dislike");
+			likes.deleteLike(songID, userID);
+		}
 		
 		Logger.info(String.valueOf(song.likes));
 
@@ -70,7 +90,7 @@ public class Application extends Controller {
 
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
 
-		return ok(index.render(songs));
+		return ok(index.render(songs, session("id")));
 	}
 
 	public static Result getLogin() {
@@ -90,8 +110,8 @@ public class Application extends Controller {
 			} else
 				return ok(login.render("Wrong username or password."));
 		} else {
-			for (int i = 0; i < allUser.size(); i++) {
-				if (allUser.get(i).username.equals(user.username)) {
+			for (User getUser : allUser) {
+				if (getUser.username.equals(user.username)) {
 					return ok(login.render("User exists already."));
 				}
 			}
@@ -99,10 +119,10 @@ public class Application extends Controller {
 			Date currentTime = new Date();
 			List<Event> events = new Model.Finder(String.class, Event.class)
 					.all();
-			for (int i = 0; i < events.size(); i++) {
-				if ((currentTime.after(events.get(i).begin))
-						&& (currentTime.before(events.get(i).end))) {
-					if (events.get(i).password.equals(password)) {
+			for (Event getEvent : events) {
+				if ((currentTime.after(getEvent.begin))
+						&& (currentTime.before(getEvent.end))) {
+					if (getEvent.password.equals(password)) {
 						user.save();
 						session("user", user.username);
 						session("id", String.valueOf(user.id));
