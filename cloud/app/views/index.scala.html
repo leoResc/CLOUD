@@ -1,4 +1,4 @@
-@(song: List[Song])
+@(songs: List[Song])(userID: String)
 
 @main("CLOUD") {
 	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/index.css")" />
@@ -69,7 +69,7 @@
 			<div class="panel panel-default">
 				<!-- Table -->
 				<table id="liste_songs" class="table">
-					@for(song <- song) {
+					@for(song <- songs) {
 					<tr>
 						<td>@song.artist</td>
 						<td>@song.title</td>
@@ -78,13 +78,13 @@
 						<td class="col-lg-2">
 							<form name='myForm'>
 								<button type="button" class="btn btn-default"
-									onclick="sendJSON(@song.id,'++');" name="like_me">
+									onclick="sendJSON(@userID, @song.id);" name="like_me">
 									<span class="glyphicon glyphicon-heart" aria-hidden="true">
 									</span>
 								</button>
 								<button type="button" class="btn btn-default" disabled>
 									<span class="glyphicon glyphicon-headphones" aria-hidden="true"
-										onclick="sendJSON(@song.id,'--');"> </span>
+										onclick="sendJSON(@userID, @song.id);"> </span>
 								</button>
 							</form>
 						</td>
@@ -112,3 +112,4 @@
 		</div>
 	</div>
 }
+
