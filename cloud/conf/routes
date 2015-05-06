@@ -13,9 +13,8 @@ GET		/admin/deleteEvent/:id		controllers.Application.deleteEvent(id: Long)
 
 GET		/admin/overview				controllers.Application.overview()
 
-POST	/vote/:id					controllers.Application.vote(id: Long)
-POST	/deVote/:id					controllers.Application.deVote(id: Long)
-									
+POST	/vote/:songID/:userID		controllers.Application.vote(songID: Long, userID: Long)
+
 GET		/logout						controllers.Application.logout()
 
 GET		/dashboard					controllers.Dashboard.getDashboard()
