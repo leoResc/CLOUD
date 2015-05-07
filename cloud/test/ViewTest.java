@@ -64,7 +64,7 @@ public class ViewTest {
 
 			@Override
 			public void run() {
-				Content html = views.html.index.render(new ArrayList<Song>());
+				Content html = views.html.index.render(new ArrayList<Song>(), null);
 
 				assertThat(contentType(html)).isEqualTo("text/html");
 
