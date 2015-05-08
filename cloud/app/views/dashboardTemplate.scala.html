@@ -112,22 +112,11 @@
 		    	$('.cover-photo').attr('src','img/cover' + $i + '.jpg');
 		    	$('.cover-photo').show();
 		    });
-		
 		    // sidebar
 		    $('#menu-toggle').click(function (e) {
 		        e.preventDefault();
 		        $('#wrapper').toggleClass('toggled');
 		    });
-		 	// slide-menu
-		    var $open = false;
-		    $('.slide-button').click(function() {
-		        if ($open) {
-		            $('.slide-menu').animate({left: '210px', backgroundColor: '#EE6D7A'}, 1000, 'easeInOutExpo');
-		        } else {
-		            $('.slide-menu').animate({left: '0px', backgroundColor: '#293846'}, 1000, 'easeInOutExpo');
-		        }
-		        $open = !$open;
-		    });
-	    </script>
+		</script>
 	</body>
 </html>

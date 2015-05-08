@@ -1,3 +1,17 @@
+// cover photo
+var $i = 1;
+$('.changeCover').click(function () {
+            
+	$('.cover-photo').effect('slide', 'slow');
+	if ($i == 11) {
+        $i = 1;
+    } else {
+        $i++;
+    }
+	$('.cover-photo').attr('src','img/cover' + $i + '.jpg');
+	$('.cover-photo').show();
+});
+
 // jQuery Knob dial
 $(function ($) {
 	$('.knobdial').knob({
@@ -144,4 +158,24 @@ $('button').click(function () {
 // Tooltips
 $(function () {
    $('[data-toggle="tooltip"]').tooltip();
+});
+
+// clock
+$(document).ready(function() {
+    var serverTime = new Date();
+    serverTime.setHours($('.hour').text());
+    serverTime.setMinutes($('.minute').text());    
+    var clientTime = new Date();
+    if (Math.abs(clientTime - serverTime) > 600000) {
+        for (var i = 0; i < 15; i++) {
+            $('#time .infobox-footer').delay(700).animate({backgroundColor: '#E16874'}, 300);
+            $('#time .infobox-footer').animate({backgroundColor: '#435361'}, 300);
+        }
+    };
+});
+
+$('#updateTime').click(function() {
+    var update = $(this).find('.glyphicon-download');
+    update.switchClass('glyphicon-download', 'glyphicon-refresh');
+    update.addClass('rotate');
 });
