@@ -1,7 +1,10 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +60,58 @@ public class Dashboard extends Controller {
 		return ok(user.render());
 	}
 
+	public static Result updateTime(String time) {
+		String timeArray[] = time.split(" ");
+		int month;
+		switch (timeArray[1]) {
+		case "Jan":
+			month = Calendar.JANUARY;
+			break;
+		case "Feb":
+			month = Calendar.FEBRUARY;
+			break;
+		case "Mar":
+			month = Calendar.MARCH;
+			break;
+		case "Apr":
+			month = Calendar.APRIL;
+			break;
+		case "May":
+			month = Calendar.MAY;
+			break;
+		case "Jun":
+			month = Calendar.JUNE;
+			break;
+		case "Jul":
+			month = Calendar.JULY;
+			break;
+		case "Aug":
+			month = Calendar.AUGUST;
+			break;
+		case "Sep":
+			month = Calendar.SEPTEMBER;
+			break;
+		case "Oct":
+			month = Calendar.OCTOBER;
+			break;
+		case "Nov":
+			month = Calendar.NOVEMBER;
+			break;
+		case "Dec":
+			month = Calendar.DECEMBER;
+			break;
+		default:
+			month = Calendar.JANUARY;
+		}
+		String date = timeArray[4];
+		int hour = Integer.valueOf(date.substring(0, 2));
+		int minute = Integer.valueOf(date.substring(3, 5));
+		Calendar calendar = new GregorianCalendar(
+				Integer.valueOf(timeArray[3]), month,
+				Integer.valueOf(timeArray[2]), hour, minute);
+		return ok(Json.toJson(calendar.getTime()));
+	}
+
 	public static Result showPlaylist(long id) {
 
 		final Playlist foundPlaylist = Playlist.find.byId(id);
@@ -84,19 +139,18 @@ public class Dashboard extends Controller {
 	public static List<Song> deleteSameSongs(List<Song> allSongs,
 			List<Song> playlistSongs) {
 		List<Song> songsClear = new ArrayList<Song>();
-		
+
 		Iterator<Song> songs = allSongs.listIterator();
 		Iterator<Song> songsPlaylist = playlistSongs.listIterator();
-		
-		
+
 		while (songsPlaylist.hasNext()) {
-			
+
 			Song songInList = songsPlaylist.next();
-			
+
 			while (songs.hasNext()) {
-				
+
 				Song songToCheck = songs.next();
-				
+
 				if (songInList.id != songToCheck.id) {
 					songsClear.add(songToCheck);
 				}
@@ -104,7 +158,7 @@ public class Dashboard extends Controller {
 			songs = songsClear.listIterator();
 			songsClear.clear();
 		}
-		
+
 		return Lists.newArrayList(songs);
 	}
 
