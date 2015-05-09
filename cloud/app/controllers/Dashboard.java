@@ -11,6 +11,7 @@ import java.util.Map;
 
 import akka.event.Logging;
 import models.Playlist;
+import models.ShellCommand;
 import models.Song;
 import play.Logger;
 import play.data.DynamicForm;
@@ -60,55 +61,65 @@ public class Dashboard extends Controller {
 		return ok(user.render());
 	}
 
-	public static Result updateTime(String time) {
-		String timeArray[] = time.split(" ");
+	public static Result updateTime(String date) {
+		String timeArray[] = date.split(" ");
+		int year = Integer.valueOf(timeArray[3]);
 		int month;
+
 		switch (timeArray[1]) {
 		case "Jan":
-			month = Calendar.JANUARY;
+			month = Integer.valueOf(Calendar.JANUARY);
 			break;
 		case "Feb":
-			month = Calendar.FEBRUARY;
+			month = Integer.valueOf(Calendar.FEBRUARY);
 			break;
 		case "Mar":
-			month = Calendar.MARCH;
+			month = Integer.valueOf(Calendar.MARCH);
 			break;
 		case "Apr":
-			month = Calendar.APRIL;
+			month = Integer.valueOf(Calendar.APRIL);
 			break;
 		case "May":
-			month = Calendar.MAY;
+			month = Integer.valueOf(Calendar.MAY);
 			break;
 		case "Jun":
-			month = Calendar.JUNE;
+			month = Integer.valueOf(Calendar.JUNE);
 			break;
 		case "Jul":
-			month = Calendar.JULY;
+			month = Integer.valueOf(Calendar.JULY);
 			break;
 		case "Aug":
-			month = Calendar.AUGUST;
+			month = Integer.valueOf(Calendar.AUGUST);
 			break;
 		case "Sep":
-			month = Calendar.SEPTEMBER;
+			month = Integer.valueOf(Calendar.SEPTEMBER);
 			break;
 		case "Oct":
-			month = Calendar.OCTOBER;
+			month = Integer.valueOf(Calendar.OCTOBER);
 			break;
 		case "Nov":
-			month = Calendar.NOVEMBER;
+			month = Integer.valueOf(Calendar.NOVEMBER);
 			break;
 		case "Dec":
-			month = Calendar.DECEMBER;
+			month = Integer.valueOf(Calendar.DECEMBER);
 			break;
 		default:
-			month = Calendar.JANUARY;
+			month = Integer.valueOf(Calendar.JANUARY);
 		}
-		String date = timeArray[4];
-		int hour = Integer.valueOf(date.substring(0, 2));
-		int minute = Integer.valueOf(date.substring(3, 5));
-		Calendar calendar = new GregorianCalendar(
-				Integer.valueOf(timeArray[3]), month,
-				Integer.valueOf(timeArray[2]), hour, minute);
+
+		int day = Integer.valueOf(timeArray[2]);
+		String time = timeArray[4];
+		int hour = Integer.valueOf(time.substring(0, 2));
+		int minute = Integer.valueOf(time.substring(3, 5));
+		
+		Calendar calendar = new GregorianCalendar(year, month, day, hour,
+				minute);
+		String shellCommand = "sudo date -s \"" + year + "-"
+				+ (month < 10 ? "0" : "") + (month + 1) + "-"
+				+ (day < 10 ? "0" : "") + day + " " + time + "\"";
+		ShellCommand command = new ShellCommand(shellCommand);
+		command.executeShellCommand();
+		
 		return ok(Json.toJson(calendar.getTime()));
 	}
 
