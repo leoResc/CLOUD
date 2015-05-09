@@ -187,7 +187,7 @@ $('#updateTime').click(function() {
 $('#updateTime').click(function() {
 	var date = new Date();
 	$.ajax({
-		url : '/updateTime/' + date,
+		url : '/updateTime/' + date.getTime(),
 		type : 'POST',
 		success : function(response) {
 			updated = true;
