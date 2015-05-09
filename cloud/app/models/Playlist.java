@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.google.common.collect.Lists;
+
 import play.Logger;
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
@@ -17,6 +19,7 @@ import play.db.ebean.Model.Finder;
 public class Playlist extends Model {
 	public static Finder<Long, Playlist> find = new Finder<Long, Playlist>(
 			Long.class, Playlist.class);
+	
 	@OneToMany(mappedBy = "playlist")
 	public ArrayList<Song> songListe;
 	public int numSongs=0;
@@ -77,4 +80,32 @@ public class Playlist extends Model {
 		
 		return songs;
 	}
+	
+
+	public static List<Song> deleteSameSongs(List<Song> allSongs,
+			List<Song> playlistSongs) {
+		List<Song> songsClear = new ArrayList<Song>();
+
+		Iterator<Song> songs = allSongs.listIterator();
+		Iterator<Song> songsPlaylist = playlistSongs.listIterator();
+
+		while (songsPlaylist.hasNext()) {
+
+			Song songInList = songsPlaylist.next();
+
+			while (songs.hasNext()) {
+
+				Song songToCheck = songs.next();
+
+				if (songInList.id != songToCheck.id) {
+					songsClear.add(songToCheck);
+				}
+			}
+			songs = songsClear.listIterator();
+			songsClear.clear();
+		}
+
+		return Lists.newArrayList(songs);
+	}
+
 }
