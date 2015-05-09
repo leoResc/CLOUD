@@ -6,16 +6,14 @@
 GET 	/							controllers.Application.getIndex()
 GET     /login                      controllers.Application.getLogin()
 POST	/login						controllers.Application.login()
+GET		/logout						controllers.Application.logout()
+
+POST	/vote/:userid/:songid		controllers.Application.vote(userid: Long, songid: Long)									
 
 GET		/admin/createEvent			controllers.Application.getCreateEvent()
 POST	/admin/createEvent			controllers.Application.createEvent()
-GET		/admin/deleteEvent/:id		controllers.Application.deleteEvent(id: Long)
-
+GET		/admin/deleteEvent/:id		controllers.Dashboard.deleteEvent(id: Long)
 GET		/admin/overview				controllers.Application.overview()
-
-POST	/vote/:userid/:songid		controllers.Application.vote(userid: Long, songid: Long)
-									
-GET		/logout						controllers.Application.logout()
 
 GET		/dashboard					controllers.Dashboard.getDashboard()
 GET		/events						controllers.Dashboard.getEvent()
@@ -24,7 +22,7 @@ GET		/songs						controllers.Dashboard.getSong()
 GET		/user						controllers.Dashboard.getUser()
 
 POST 	/playlists/:id				controllers.Dashboard.savePlaylist(id: Long)
-GET		/editPlaylist/:id			controllers.Dashboard.showPlaylist(id: Long)
+GET		/editPlaylist/:id			controllers.Dashboard.editPlaylist(id: Long)
 GET		/deletePlaylist/:id			controllers.Dashboard.deletePlaylist(id: Long)			
 
 POST	/uploadSong					controllers.Dashboard.uploadSong()
