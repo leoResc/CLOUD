@@ -50,6 +50,7 @@ public class Playlist extends Model {
 		for (Song song : this.songList) {
 			this.duration += song.duration;
 		}
+		this.duration /= 60;
 	}
 
 	/**
