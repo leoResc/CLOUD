@@ -87,31 +87,45 @@ toastr.options.onHidden = function () {
                 default:
                     alert('error');
         };
+    } else {
+    	$('#' + id).removeClass('active');
     }
     $dismiss = false;
 };
 $('.shutdown').click(function () {
-    Command: toastr['error']('Do you really want to shut down?<br><button class="btn btn-red btn-cancel-red" onclick="$dismiss=true">Cancel</button>');
+	if (!$(this).hasClass('active')) {
+		Command: toastr['error']('Do you really want to shut down?<br><button class="btn btn-red btn-cancel-red" onclick="$dismiss=true">Cancel</button>');
+	}
 });
 
 $('.thunder').click(function () {
-    Command: toastr['success']('A thunder is starting...<br><button class="btn btn-green btn-cancel-green" onclick="$dismiss=true;">Cancel</button>');
+	if (!$(this).hasClass('active')) {
+		Command: toastr['success']('A thunder is starting...<br><button class="btn btn-green btn-cancel-green" onclick="$dismiss=true;">Cancel</button>');
+	}
 });
 
 $('.thunderstorm').click(function () {
-    Command: toastr['success']('The thunderstorm is starting...<br><button class="btn btn-green btn-cancel-green" onclick="$dismiss=true;">Cancel</button>');
+	if (!$(this).hasClass('active')) {
+		Command: toastr['success']('The thunderstorm is starting...<br><button class="btn btn-green btn-cancel-green" onclick="$dismiss=true;">Cancel</button>');
+	}
 });
 
 $('.ledtest').click(function() {
-   Command: toastr['success']('LED test ist starting...<br><button class="btn btn-green btn-cancel-green" onclick="$dismiss=true;">Cancel</button>'); 
+	if (!$(this).hasClass('active')) {
+		Command: toastr['success']('LED test ist starting...<br><button class="btn btn-green btn-cancel-green" onclick="$dismiss=true;">Cancel</button>'); 
+	}
 });
 
 $('.soundreactive').click(function() {
-   Command: toastr['success']('The sound reactive mode is starting...<br><button class="btn btn-green btn-cancel-green" onclick="$dismiss=true;">Cancel</button>'); 
+	if (!$(this).hasClass('active')) {
+		Command: toastr['success']('The sound reactive mode is starting...<br><button class="btn btn-green btn-cancel-green" onclick="$dismiss=true;">Cancel</button>'); 
+	}
 });
 
 $('.pulsating').click(function() {
-   Command: toastr['success']('The pulsating mode is starting...<br><button class="btn btn-green btn-cancel-green" onclick="$dismiss=true;">Cancel</button>'); 
+	if (!$(this).hasClass('active')) {
+		Command: toastr['success']('The pulsating mode is starting...<br><button class="btn btn-green btn-cancel-green" onclick="$dismiss=true;">Cancel</button>'); 
+	}
 });
 
 // Morris chart
@@ -136,9 +150,19 @@ new Morris.Area({
     resize: true
 });
 
-// button active state
-$('button').click(function () {
-    $(this).toggleClass('active')
+var id;
+//buttons active state control
+$('button').click(function() {
+ if (!$(this).hasClass('active')) {
+     id = $(this).attr('id');
+     if (id.indexOf('play') >= 0 || id.indexOf('pause') >= 0 || id.indexOf('forward') >= 0) {
+         $('div.music-control button').removeClass('active');
+         $(this).addClass('active');
+     } else {
+         $('#modes button').removeClass('active');
+         $(this).addClass('active');
+     }
+ };
 });
 
 // Tooltips

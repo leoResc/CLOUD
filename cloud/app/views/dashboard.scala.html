@@ -126,13 +126,13 @@
                         </div>
                         <div class="row top-buffer">
                             <div class="col-lg-4 col-xs-4">
-                                <button class="btn btn-green btn-circle-xl active"><span class="glyphicon glyphicon-play"></span></button>
+                                <button class="btn btn-green btn-circle-xl" id="play1"><span class="glyphicon glyphicon-play"></span></button>
                             </div>
                             <div class="col-lg-4 col-xs-4">
-                                <button class="btn btn-green btn-circle-xl"><span class="glyphicon glyphicon-pause"></span></button>
+                                <button class="btn btn-green btn-circle-xl active" id="pause1"><span class="glyphicon glyphicon-pause"></span></button>
                             </div>
                             <div class="col-lg-4 col-xs-4">
-                                <button class="btn btn-green btn-circle-xl"><span class="glyphicon glyphicon-step-forward"></span></button>
+                                <button class="btn btn-green btn-circle-xl" id="forward1"><span class="glyphicon glyphicon-step-forward"></span></button>
                             </div>
                         </div>
                     </div>
@@ -177,13 +177,13 @@
                         </div>
                         <div class="row top-buffer">
                             <div class="col-lg-4 col-xs-4">
-                                <button class="btn btn-green btn-circle-xl active fill"><span class="glyphicon glyphicon-play"></span></button>
+                                <button class="btn btn-green btn-circle-xl fill" id="play2"><span class="glyphicon glyphicon-play"></span></button>
                             </div>
                             <div class="col-lg-4 col-xs-4">
-                                <button class="btn btn-green btn-circle-xl fill"><span class="glyphicon glyphicon-pause"></span></button>
+                                <button class="btn btn-green btn-circle-xl fill active" id="pause2"><span class="glyphicon glyphicon-pause"></span></button>
                             </div>
                             <div class="col-lg-4 col-xs-4">
-                                <button class="btn btn-green btn-circle-xl fill"><span class="glyphicon glyphicon-step-forward"></span></button>
+                                <button class="btn btn-green btn-circle-xl fill" id="forward2"><span class="glyphicon glyphicon-step-forward"></span></button>
                             </div>
                         </div>
                     </div>
@@ -278,7 +278,7 @@
                         <div id="chart" style="height: 225px;"></div>
                     </div>
                     
-                    <div class="col-lg-3 col-md-6 text-center">
+                    <div class="col-lg-3 col-md-6 text-center" id="modes">
                         <div class="row">
                             <div class="col-lg-12">
                                 <h2>Controls / Modes</h2>    
@@ -286,32 +286,32 @@
                         </div>
                         <div class="row top-buffer">
                             <div class="col-lg-4 col-xs-4">
-                                <button class="btn btn-red btn-red-control btn-circle-xl shutdown" data-toggle="tooltip" data-placement="bottom" title="Shutdown" onclick="$operation=0">
+                                <button class="btn btn-red btn-red-control btn-circle-xl shutdown" data-toggle="tooltip" data-placement="bottom" title="Shutdown" onclick="$operation=0" id="shutdown">
                                     <span class="glyphicon glyphicon-off"></span>
                                 </button>
                             </div>
                             <div class="col-lg-4 col-xs-4">
-                                <button class="btn btn-grey btn-circle-xl thunder" data-toggle="tooltip" data-placement="bottom" title="Thunder (Motion detection)" onclick="$operation=1">
+                                <button class="btn btn-grey btn-circle-xl thunder active" data-toggle="tooltip" data-placement="bottom" title="Thunder (Motion detection)" onclick="$operation=1" id="thunder">
                                     <span class="glyphicon glyphicon-cloud"></span>
                                 </button>
                             </div>
                             <div class="col-lg-4 col-xs-4">
-                                <button class="btn btn-green btn-circle-xl ledtest" data-toggle="tooltip" data-placement="bottom" title="LED Test" onclick="$operation=2">
+                                <button class="btn btn-green btn-circle-xl ledtest" data-toggle="tooltip" data-placement="bottom" title="LED Test" onclick="$operation=2" id="test">
                                     <span class="glyphicon glyphicon-lamp"></span>
                                 </button>
                             </div>
                             <div class="col-lg-4 col-xs-4 top-buffer">
-                                <button class="btn btn-blue btn-circle-xl thunderstorm" data-toggle="tooltip" data-placement="bottom" title="Thunderstorm" onclick="$operation=3">
+                                <button class="btn btn-blue btn-circle-xl thunderstorm" data-toggle="tooltip" data-placement="bottom" title="Thunderstorm" onclick="$operation=3" id="thunderstorm">
                                     <span class="glyphicon glyphicon-thunderstorm"></span>
                                 </button>
                             </div>
                             <div class="col-lg-4 col-xs-4 top-buffer">
-                                <button class="btn btn-grey btn-circle-xl soundreactive" data-toggle="tooltip" data-placement="bottom" title="Music Mode (Sound reactive)" onclick="$operation=4">
+                                <button class="btn btn-grey btn-circle-xl soundreactive" data-toggle="tooltip" data-placement="bottom" title="Music Mode (Sound reactive)" onclick="$operation=4" id="soundreactive">
                                     <span class="glyphicon glyphicon-music"></span>
                                 </button>
                             </div>
                             <div class="col-lg-4 col-xs-4 top-buffer">
-                                <button class="btn btn-orange btn-circle-xl pulsating" data-toggle="tooltip" data-placement="bottom" title="Pulsating Light" onclick="$operation=5">
+                                <button class="btn btn-orange btn-circle-xl pulsating" data-toggle="tooltip" data-placement="bottom" title="Pulsating Light" onclick="$operation=5" id="pulsating">
                                     <span class="glyphicon glyphicon-pulse"></span>
                                 </button>
                             </div>
