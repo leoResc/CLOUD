@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 
-import play.Logger;
 import play.db.ebean.Model;
 import play.mvc.Http.MultipartFormData.FilePart;
 
@@ -32,7 +31,7 @@ public class Song extends Model {
 
 	public static Finder<Long, Song> find = new Finder<Long, Song>(Long.class,
 			Song.class);
-	public static File storageLocation = new File("C:/songs");
+	public static File storageLocation = new File("../../songs/");
 
 	public Song(String title, String artist, String genre, long duration,
 			int likes) {

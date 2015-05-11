@@ -22,10 +22,10 @@ create table likes (
 
 create table playlist (
   id                        bigint not null,
-  num_songs                 integer,
-  song_ids                  varchar(255),
-  duration                  double,
   name                      varchar(255),
+  number_of_songs           integer,
+  duration                  double,
+  song_ids                  varchar(255),
   constraint pk_playlist primary key (id))
 ;
 

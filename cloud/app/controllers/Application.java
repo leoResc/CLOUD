@@ -12,37 +12,20 @@ import play.libs.Json;
 import play.mvc.*;
 
 public class Application extends Controller {
-	
+
 	public static Result getSongs() {
-
 		List<Song> songs = Song.find.all();
-
 		return ok(Json.toJson(songs));
 	}
 
-	/*
-	public static Result deVote(long songId, long userId) {
-
-		Song song = Song.find.byId(songId);
-		Logger.info(song.title);
-		Likes likes = new Likes();
-		likes.deleteLike(songId, userId);
-		Logger.info(String.valueOf(song.likes));
-
-		List<Song> songs = new Model.Finder(String.class, Song.class).all();
-
-		return ok(Json.toJson(songs));
-	}
-	*/
-	
 	public static boolean songAlreadyLiked(long userID, long songID) {
 		Likes likes = new Likes();
-		
-		if(likes.findLike(songID, userID) == null) {
+
+		if (likes.findLike(songID, userID) == null) {
 			return false;
 		}
 		return true;
-		
+
 	}
 
 	public static Result vote(long userID, long songID) {
@@ -52,15 +35,14 @@ public class Application extends Controller {
 
 		Likes likes = new Likes();
 		boolean songLiked = songAlreadyLiked(userID, songID);
-		
-		if(!songLiked) {
+
+		if (!songLiked) {
 			likes.createLike(songID, userID);
-		}
-		else {
+		} else {
 			Logger.info("Dislike");
 			likes.deleteLike(songID, userID);
 		}
-		
+
 		Logger.info(String.valueOf(song.likes));
 
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
@@ -74,7 +56,7 @@ public class Application extends Controller {
 		if (!(username.equals("admin")) && (session("id") != null)) {
 			try {
 				User.find.ref(session("id")).delete();
-			} catch(Exception e) {
+			} catch (Exception e) {
 				Logger.error("not existing user is trying to log out");
 			}
 		}
@@ -163,10 +145,5 @@ public class Application extends Controller {
 		List<User> user = new Model.Finder(String.class, User.class).all();
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
 		return ok(overview.render(events, user, songs));
-	}
-
-	// Deletes a given event
-	public static Result deleteEvent(long id) {
-		return TODO;
 	}
 }

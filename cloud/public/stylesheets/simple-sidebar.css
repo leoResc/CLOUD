@@ -8,6 +8,11 @@
 	src: url('../fonts/OpenSans.ttf');
 }
 
+@font-face {
+    font-family: Digital;
+    src: url('../fonts/Digital.ttf');
+}
+
 * {
     font-family: Open Sans;
 }
@@ -216,8 +221,13 @@
     border-radius: 0px;
 }
 
+div.panel-footer {   
+    /background-color: #435361;
+}
+
 .panel-green > a {
     color: #19AA8E;
+    /color: white;
 }
 
 .panel-green > .panel-heading:hover {
@@ -317,7 +327,7 @@
     background-color: #38B89F;
     position: relative;
     top: 15px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
 }
 
 .infobox hr {
@@ -334,25 +344,16 @@
 
 .infobox-footer {
     padding: 10px 15px;
-    color: #38B89F;
-    background-color: #f5f5f5;
+    color: white;
+    /color: #38B89F;
+    background-color: #435361;
+    /background-color: #F5F5F5;
     border-bottom: 1px solid #ddd;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
 }
 
-/* green button */
-.btn-green-circle {
-    width: 30px;
-    heigth: 30px;
-    margin: 2px;
-    padding: 6px 0px;
-    border-radius: 50%;
-    font-size: 12px;
-    line-height: 1.42875;
-    box-shadow: 1px 3px 0px 0.01px #2F4050;
-}
-
+/* green and red button */
 .btn:focus {
     outline: 0 !important;
 }
@@ -458,8 +459,8 @@
 }
 
 .music-control {
-    margin-top: 15px;
-    margin-bottom: 20px;
+    margin: 15px 0px 20px 0px;
+    padding: 0;
 }
 
 a.green {
@@ -620,41 +621,45 @@ body::-webkit-scrollbar-thumb
                0 20px 20px rgba(0,0,0,.15);
 }
 
+
 #overlayUpload {
     width: 95.1%;
     height: 558px;
     padding-top: 22%;
     text-align: center;
 }
+#uploadList, #playlist, #allSongs, #allSongsPlaylist, #allPlaylists, #allUser {
+    overflow-y: scroll;
+    overflow-x: hidden;    
+}
 
 #uploadList {
     height: 464px;
-    overflow-y: scroll;
-    overflow-x: hidden;
 }
 
 #playlist {
     height: 350px;
-    overflow-y: scroll;
-    overflow-x: hidden;
 }
 
 #allSongs {
     height: 493px;
-    overflow-y: scroll;
-    overflow-x: hidden; 
 }
 
 #allSongsPlaylist {
     height: 844px;
-    overflow-y: scroll;
-    overflow-x: hidden; 
+}
+
+#allPlaylists {
+    height: 270px;
 }
 
 #allUser {
     height: 420px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+}
+
+#time {
+    padding-top: 20px;
+    margin-bottom: 30px;
 }
 
 .input-group-addon {
@@ -662,19 +667,20 @@ body::-webkit-scrollbar-thumb
     border-color: #e5e6e7;
 }
 
+/* slide menu */
 .slide-menu {
     position: absolute;
     bottom: 20px;
-    left: 210px;
-    width: 230px;
-    height: 70px;
+    left: 0px;
+    width: 250px;
+    height: 60px;
     background-color: #EE6D7A;
     box-shadow: -3px 0px 5px #1F2B35;
 }
 
 .slide-button {
     position: absolute;
-    top: 20px;
+    top: 15px;
     left: 8px;
     color: white;
     font-size: 25px;
@@ -685,7 +691,7 @@ body::-webkit-scrollbar-thumb
     position: relative;
     left: 40px;
     padding: 0;
-    font-size: 20px;
+    font-size: 16px;
     list-style-type: none;
     background-color: #EE6D7A;
 }
@@ -702,4 +708,17 @@ body::-webkit-scrollbar-thumb
 
 .slide-menu-entries li:hover {
     background-color: #E16874;
+}
+
+/* clock */
+.digital {
+    font-family: Digital;
+    font-size: 5em !important;
+    color: #435361;
+    text-shadow: 2px 2px 0px #e5e6e7;
+    line-height: 1;
+}
+
+.digital span {
+    font-family: Digital;
 }
