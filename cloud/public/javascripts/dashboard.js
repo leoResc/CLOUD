@@ -102,7 +102,8 @@ function changeMode(mode) {
 		success : function(response) {
 		},
 		error : function(data, request) {
-			alert("Error: Failed to apply mode to CLOUD! " + data);
+			$('#modes button').removeClass('active');
+			alert("Error: Failed to apply mode to CLOUD!");
 		}
 	});
 }
