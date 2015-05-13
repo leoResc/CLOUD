@@ -82,30 +82,30 @@ toastr.options.onHidden = function () {
         switch ($operation) {
                 case 0:
                     $('.fullscreen').show('fold', 1000);
+                    changeMode($operation);
                     break;
-                case 1:
-                    alert('Message to server: thunder');
-                    break;
-                case 2:
-                    alert('Message to server: ledtest');
-                    break;
-                case 3:
-                    alert('Message to server: thunderstorm');
-                    break;
-                case 4:
-                    alert('Message to server: soundreactive');
-                    break;
-                case 5:
-                alert('Message to server: pulsating');
+                case 1: case 2: case 3: case 4: case 5:
+                    changeMode($operation);
                     break;
                 default:
-                    alert('error');
+                    alert('Error! The selected mode is not allowed');
         };
     } else {
     	$('#' + id).removeClass('active');
     }
     $dismiss = false;
 };
+function changeMode(mode) {
+	$.ajax({
+		url : '/changeMode/' + mode,
+		type : 'POST',
+		success : function(response) {
+		},
+		error : function(data, request) {
+			alert("Error: Failed to apply mode to CLOUD! " + data);
+		}
+	});
+}
 $('.shutdown').click(function () {
 	if (!$(this).hasClass('active')) {
 		Command: toastr['error']('Do you really want to shut down?<br><button class="btn btn-red btn-cancel-red" onclick="$dismiss=true">Cancel</button>');
