@@ -7,6 +7,6 @@ libraryDependencies ++= Seq(
   javaEbean,
   cache,
   "org.apache.directory.studio" % "org.apache.commons.io" % "2.4"
-)     
+)
 
 play.Project.playJavaSettings
