@@ -35,8 +35,7 @@ public class DashboardTest {
 		sortedSongs.add(song_5);
 		sortedSongs.add(song_6);
 
-		List<Song> gotSongs = controllers.Dashboard.deleteSameSongs(allSongs,
-				deleteSongs);
+		List<Song> gotSongs = models.Playlist.deleteSameSongs(deleteSongs);
 
 		for (int i = 0; i < gotSongs.size(); i++) {
 			assertThat(gotSongs.get(i)).isEqualTo(sortedSongs.get(i));
