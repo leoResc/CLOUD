@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import play.db.ebean.Model;
 
@@ -22,7 +21,6 @@ public class Playlist extends Model {
 	public String name;
 	public int numberOfSongs;
 	public double duration;
-	@OneToMany(mappedBy = "playlist")
 	public ArrayList<Song> songList;
 	public String songIDs;
 
@@ -117,7 +115,7 @@ public class Playlist extends Model {
 	}
 
 	public static List<Song> deleteSameSongs(List<Song> playlistSongs) {
-		
+
 		List<Song> allSongs = Song.find.all();
 		Iterator<Song> songsPlaylist = playlistSongs.listIterator();
 

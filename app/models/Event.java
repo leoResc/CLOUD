@@ -19,6 +19,5 @@ public class Event extends Model {
 	public Date end;
 	
 	public Event() {
-		super();
 	}
 }

@@ -17,6 +17,5 @@ public class User extends Model {
 			User.class);
 
 	public User() {
-		super();
 	}
 }
