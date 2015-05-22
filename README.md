@@ -1,4 +1,4 @@
-CLOUD
-=====
+This is your new Play application
+=====================================
 
-rainy
+This file will be packaged with your application, when using `play dist`.
