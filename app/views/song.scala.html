@@ -1,0 +1,109 @@
+@(songs: List[Song]) @dashboardTemplate("Dashboard - Songs")(3) {
+	<!-- Dropzone CSS -->
+    <link href="@routes.Assets.at("stylesheets/dropzone.min.css")" rel="stylesheet">
+} {
+    	<!-- Page Content -->
+        <div id="page-content-wrapper">
+            
+            <div class="container-fluid">   
+            
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="jumbotron">
+                            <h1>Songs</h1>
+                            <p class="light">On this site you can manage all your songs. On the left, you can upload new songs to the server. And on the right side is an overview about all tunes which have been already uploaded.<br>Important note: <code>Only mp3-files</code> are allowed. Furthermore, each song needs at minimum the following <code>id3-tags: title, artist and genre</code>.
+                                Otherwise, the server won't be able to assign songs correctly and to play-back them. 
+                            </p>
+                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+                                <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Menu
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    
+                    <div class="col-lg-6">
+                        <div class="infobox">
+                            <div class="infobox-heading">
+                                <div class="row">
+                                    <div class="col-xs-7">
+                                        <h3>Basic form <small>Simple form for uploading new songs</small></h3>    
+                                    </div>
+                                    <div class="col-xs-5  text-right">
+                                        <div class="label label-primary">New</div>
+                                    </div>
+                                </div>                               
+                            </div>
+                            <hr>
+                            <div id="overlayUpload" hidden>
+                                <img src="@routes.Assets.at("img/Preloader_1.gif")">
+                                <h2>upload in progress ...</h2>
+                                <h2 id="progress"></h2>
+                            </div>
+                            <div class="infobox-content">
+                            	<div class="title">Upload Songs</div>
+                                <div class="row" id="uploadList">
+	                                <div class="col-lg-12">
+	                                    <form id="dropzone" action="/uploadSong" class="dropzone"></form>
+	                                </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-green" id="upload" disabled>Upload</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-lg-offset-5">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-red" id="cancel">Cancel Upload</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        	</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="infobox">
+                            <div class="infobox-heading">
+                                <div class="row">
+                                    <div class="col-xs-7">
+                                        <h3>Basic form <small>Simple form for viewing all songs</small></h3>    
+                                    </div>
+                                    <div class="col-xs-5  text-right">
+                                        <div class="label label-primary">Permanently stored</div>
+                                    </div>
+                                </div>        
+                            </div>
+                            <hr>
+                            <div class="infobox-content">
+                                <div class="title">All Songs</div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <ul class="list-group" id="allSongs">
+                                       	@for(song <- songs) {
+                                        	<li class="list-group-item">@song.artist - @song.title
+                                        		<a href="javascript:deleteSong(@song.id)" class="grey"><span class="glyphicon glyphicon-trash pull-right" aria-hidden="true"></span></a>
+                                        	</li>
+                                        }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div> <!-- end row -->
+                
+            </div> <!-- end container-fluid -->
+        
+        </div> <!-- end page-content-wrapper -->
+    
+    </div> <!-- end wrapper -->
+} {
+	<!-- Dropzone -->
+	<script src="@routes.Assets.at("javascripts/dropzone.min.js")"></script>
+	<!-- JS for Song Page  -->
+	<script src="@routes.Assets.at("javascripts/song.js")"></script>
+}

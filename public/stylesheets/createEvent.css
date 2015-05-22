@@ -1,0 +1,47 @@
+body{
+  	background: linear-gradient(#BDC7B4, #676767); /* Standard syntax */
+	background: -webkit-linear-gradient(#BDC7B4, #676767); /* For Safari 5.1 to 6.0 */
+  	background: -o-linear-gradient(#BDC7B4, #676767); /* For Opera 11.1 to 12.0 */
+  	background: -moz-radial-gradient(#BDC7B4, #676767); /* For Firefox 3.6 to 15 */
+}
+
+
+.menu {
+	position: fixed;
+	right: 5%;
+	background-color: white;
+	width: auto;
+	float: left;
+	height: auto;
+	z-index: 100;
+	border-radius: 0px 0px 5px 5px;
+	box-shadow: 0px 0px 15px 0px black;
+	padding: 0px 10px 0px 10px;
+	color: #5cb85c;
+}
+
+.menu > a {
+	color: #5cb85c;
+	font-size: 20px;
+}
+
+.glyphicon:hover {
+	color: #6DDA6D;
+}
+
+.divide {
+	font-size: 25px;
+}
+
+.alert {
+	position: fixed;
+	bottom: 5px;
+	right: 5%;
+	width: 20%;
+}
+
+.alert .btn {
+		position: relative;
+		float: right;
+	}
+}
