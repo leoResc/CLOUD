@@ -1,37 +1,28 @@
 package controllers;
 
-import play.Logger;
+import models.ShellCommand;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 public class CommunicationRA extends Controller {
 
-	static String startSerial = "import serial\n"
-			+ "ser = serial.Serial('/dev/ttyACM0',9600)";
-	static boolean serialAviable = false;
-
 	public static Result changeMode(int mode) {
-		Logger.info("mode " + mode + " requested");
-		if (!serialAviable) {
-			startConnection();
-		}
-		System.out.println("ser.write('" + mode + "')");
-		return ok();
-	}
 
-	public static Result displayArduinoMessage() {
-		if (!serialAviable) {
-			startConnection();
-		}
-		System.out.println("ser.readline()");
-		return ok();
-	}
-	
-	public static void startConnection() {
-		Logger.info("communication started");
-		System.out.println("python");
-		System.out.println(startSerial);
-		serialAviable = true;
-	}
+		if ((mode >= 0) & (mode <= 9)) {
+			ShellCommand command = new ShellCommand("cd python");
+			command.executeShellCommand();
+			
+			command = new ShellCommand("python communicationArduino.py " + mode);
+			command.executeShellCommand();
+			
+			if(mode == 0) {
+				command = new ShellCommand("sudo shutdown -h now");
+				command.executeShellCommand();
+			}
 
+			return ok();
+		}
+		
+		return badRequest();
+	}
 }
