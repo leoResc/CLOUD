@@ -31,7 +31,7 @@ public class Song extends Model {
 
 	public static Finder<Long, Song> find = new Finder<Long, Song>(Long.class,
 			Song.class);
-	public static File storageLocation = new File("../../songs/");
+	public static File storageLocation = new File("../songs/");
 
 	public Song(String title, String artist, String genre, long duration,
 			int likes) {

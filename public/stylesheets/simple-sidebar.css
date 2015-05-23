@@ -624,7 +624,7 @@ body::-webkit-scrollbar-thumb
 
 #overlayUpload {
     width: 95.1%;
-    height: 558px;
+    height: 510px;
     padding-top: 22%;
     text-align: center;
 }
@@ -642,7 +642,7 @@ body::-webkit-scrollbar-thumb
 }
 
 #allSongs {
-    height: 493px;
+    height: 512px;
 }
 
 #allSongsPlaylist {
