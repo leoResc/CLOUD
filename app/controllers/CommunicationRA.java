@@ -9,10 +9,7 @@ public class CommunicationRA extends Controller {
 	public static Result changeMode(int mode) {
 
 		if ((mode >= 0) & (mode <= 9)) {
-			ShellCommand command = new ShellCommand("cd python");
-			command.executeShellCommand();
-			
-			command = new ShellCommand("python communicationArduino.py " + mode);
+			ShellCommand command = new ShellCommand("python communicationArduino.py " + mode);
 			command.executeShellCommand();
 			
 			if(mode == 0) {
