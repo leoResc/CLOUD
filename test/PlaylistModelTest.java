@@ -1,14 +1,15 @@
-import static org.fest.assertions.Assertions.*;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.inMemoryDatabase;
 import static play.test.Helpers.running;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import models.Playlist;
 import models.Song;
 
+import static org.junit.Assert.*;
 import org.junit.*;
 
 public class PlaylistModelTest {
@@ -45,9 +46,9 @@ public class PlaylistModelTest {
 				List<Song> remainingAllSongs = Playlist
 						.deleteSameSongs(playlistSongs);
 
-				assertThat(remainingAllSongs.contains(song2));
-				assertThat(remainingAllSongs.contains(song4));
-				assertThat(remainingAllSongs.contains(song6));
+				assertTrue(remainingAllSongs.contains(song2));
+				assertTrue(remainingAllSongs.contains(song4));
+				assertTrue(remainingAllSongs.contains(song6));
 
 			}
 
@@ -56,7 +57,7 @@ public class PlaylistModelTest {
 	}
 
 	/**
-	 * Tets method for Playlist.savePlaylist()
+	 * Test method for Playlist.savePlaylist()
 	 */
 	@Test
 	public void savePlaylist() {
@@ -93,10 +94,58 @@ public class PlaylistModelTest {
 				playlist.setSongList(playlistSongs);
 				playlist.listToString();
 				playlist.calculateAndSetDuration();
+				playlist.save();
 
-				List<Playlist> storedPlaylist = Playlist.find.all();
+				List<Playlist> storedPlaylists = Playlist.find.all();
 
-				assertThat(storedPlaylist.contains(playlist));
+				assertTrue(storedPlaylists.contains(playlist));
+			}
+		});
+	}
+
+	/**
+	 * Test method for Playlist.stringToList()
+	 */
+	@Test
+	public void stringToList() {
+		running(fakeApplication(inMemoryDatabase()), new Runnable() {
+
+			@Override
+			public void run() {
+				Playlist playlist = new Playlist("Test");
+				ArrayList<Song> playlistSongs = new ArrayList<Song>();
+
+				song1.save();
+				song2.save();
+				song3.save();
+				song4.save();
+				song5.save();
+				song6.save();
+				
+				playlistSongs.add(song1);
+				playlistSongs.add(song2);
+				playlistSongs.add(song3);
+				playlistSongs.add(song4);
+				playlistSongs.add(song5);
+				playlistSongs.add(song6);
+
+				String ids = "";
+				Iterator<Song> iterator = playlistSongs.iterator();
+				while (iterator.hasNext()) {
+					ids += String.valueOf(iterator.next().id) + " ";
+				}
+				
+				playlist.setSongList(playlistSongs);
+				playlist.listToString();
+				playlist.save();
+				
+				boolean found = false;
+				for (Playlist p : Playlist.find.all()) {
+					if (p.songIDs.equals(ids)) {
+						found = true;
+					}
+				}
+				assertTrue(found);
 			}
 		});
 	}
