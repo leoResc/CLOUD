@@ -8,7 +8,7 @@ require "rspec"
 
 # before all
 selenium_driver = Selenium::WebDriver.for :remote, url: 'http://localhost:8001'
-$localTesting = true
+$localTesting = false
 $utilities = Utilities.new(selenium_driver)
 $login = Login.new(selenium_driver)
 $event = Event.new(selenium_driver)
