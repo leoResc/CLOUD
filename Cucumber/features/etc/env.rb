@@ -10,7 +10,7 @@ require "rspec"
 # before all
 headless = Headless.new
 headless.start
-selenium_driver = Selenium::WebDriver.for :firefox
+selenium_driver = Selenium::WebDriver.for :iceweasel
 
 $localTesting = true
 
