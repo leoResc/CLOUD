@@ -7,7 +7,7 @@ require "././lib/song"
 require "rspec"
 
 # before all
-selenium_driver = Selenium::WebDriver.for :firefox
+selenium_driver = Selenium::WebDriver.for :remote, url: 'http://localhost:8001'
 $localTesting = true
 $utilities = Utilities.new(selenium_driver)
 $login = Login.new(selenium_driver)
