@@ -147,4 +147,35 @@ public class PlaylistModelTest {
 		});
 	}
 
+	/**
+	 * Test method for Playlist.listToString()
+	 */
+	@Test
+	public void listToString() {
+		running(fakeApplication(inMemoryDatabase()), new Runnable() {
+
+			@Override
+			public void run() {
+				Playlist playlist = new Playlist("Test");
+				ArrayList<Song> playlistSongs = new ArrayList<Song>();
+
+				playlistSongs.add(song1);
+				playlistSongs.add(song2);
+				playlistSongs.add(song3);
+				playlistSongs.add(song4);
+				playlistSongs.add(song5);
+				playlistSongs.add(song6);
+
+				playlist.setSongList(playlistSongs);
+				playlist.listToString();
+
+				String ids = "";
+				for (Song song : playlistSongs) {
+					ids += song.id + " ";
+				}
+
+				assertTrue(ids.equals(playlist.songIDs));
+			}
+		});
+	}
 }
