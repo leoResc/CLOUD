@@ -1,15 +1,19 @@
-import static org.junit.Assert.*;
-import static org.fest.assertions.Assertions.*;
-import static play.test.Helpers.*;
+package models;
+
+import static org.fest.assertions.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
+import static play.test.Helpers.fakeApplication;
+import static play.test.Helpers.inMemoryDatabase;
+import static play.test.Helpers.running;
 
 import java.util.List;
-import models.Likes;
-import org.junit.*;
 
-public class ModelTest {
+import org.junit.Ignore;
+
+public class LikesModelTest {
 
 	/**
-	 * Model: Likes.setID()
+	 * Test method for Likes.setID()
 	 */
 	@Ignore
 	public void LikesSetID() {
@@ -40,4 +44,5 @@ public class ModelTest {
 			}
 		});
 	}
+
 }

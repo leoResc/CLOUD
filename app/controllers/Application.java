@@ -127,7 +127,7 @@ public class Application extends Controller {
 			if (session.equals("admin")) {
 				return ok(createEvent.render());
 			} else {
-				return redirect(routes.Application.getIndex());
+				return unauthorized(views.html.forbidden.render());
 			}
 		}
 	}
