@@ -95,10 +95,10 @@ public class SongModelTest {
 
 					Song song = Song.getID3Tags(file);
 
-					assertThat(artist).equals(song.artist);
-					assertThat(title).equals(song.title);
-					assertThat(genre).equals(song.genre);
-					assertThat(duration).equals(song.duration);
+					assertThat(artist).isEqualTo(song.artist);
+					assertThat(title).isEqualTo(song.title);
+					assertThat(genre).isEqualTo(song.genre);
+					assertThat(duration).isEqualTo(song.duration);
 					
 				} catch (IOException | NoMPEGFramesException
 						| ID3v2FormatException | CorruptHeaderException e) {
