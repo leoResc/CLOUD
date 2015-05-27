@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.*;
 
+import play.Logger;
+
 public class PlaylistModelTest {
 
 	private Song song1 = new Song("title1", "artist1", "gerne1", 10, 1);
@@ -175,6 +177,40 @@ public class PlaylistModelTest {
 				}
 
 				assertTrue(ids.equals(playlist.songIDs));
+			}
+		});
+	}
+
+	/**
+	 * Test method for Playlist.calculateAndSetDuration()
+	 */
+	@Test
+	public void calculateAndSetDuration() {
+		running(fakeApplication(inMemoryDatabase()), new Runnable() {
+
+			@Override
+			public void run() {
+
+				ArrayList<Song> songs = new ArrayList<Song>();
+				songs.add(song1);
+				songs.add(song2);
+				songs.add(song3);
+				songs.add(song4);
+				songs.add(song5);
+				songs.add(song6);
+
+				double duration = 0;
+				for (Song song : songs) {
+					duration += song.duration;
+				}
+
+				duration /= 60;
+
+				Playlist playlist = new Playlist("test");
+				playlist.setSongList(songs);
+				playlist.calculateAndSetDuration();
+				
+				assertTrue(duration == playlist.duration);
 			}
 		});
 	}
