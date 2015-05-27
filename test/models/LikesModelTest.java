@@ -1,46 +1,110 @@
 package models;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.inMemoryDatabase;
 import static play.test.Helpers.running;
 
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 import org.junit.Ignore;
+import org.junit.Test;
+
+import com.avaje.ebeaninternal.server.cluster.mcast.McastPacketControl;
 
 public class LikesModelTest {
 
-	/**
-	 * Test method for Likes.setID()
-	 */
-	@Ignore
-	public void LikesSetID() {
+	@Test
+	public void test_setDongID() {
 		running(fakeApplication(inMemoryDatabase()), new Runnable() {
 
 			@Override
 			public void run() {
-				Likes likes = new Likes();
-				long song = 123;
-				long user = 456;
-				likes.createLike(song, user);
-				likes.save();
-				String id = song + "" + user;
 
-				List<Likes> allLikes = Likes.find.all();
-				Likes savedLike = null;
+				Likes like = new Likes();
 
-				for (Likes like : allLikes) {
-					if (like.songID == song && like.userID == user) {
-						savedLike = like;
-					}
-				}
+				like.setSongID(123);
 
-				assertNotNull(savedLike);
-				assertThat(savedLike.id).isEqualTo(Long.valueOf(id));
-				assertThat(savedLike.songID).isEqualTo(song);
-				assertThat(savedLike.userID).isEqualTo(user);
+				assert (true);
+			}
+		});
+	}
+
+	@Test
+	public void test_setUserID() {
+		running(fakeApplication(inMemoryDatabase()), new Runnable() {
+
+			@Override
+			public void run() {
+
+				Likes like = new Likes();
+
+				like.setUserID(123);
+
+				assert (true);
+			}
+		});
+	}
+
+	@Test
+	public void test_deleteLike() {
+		running(fakeApplication(inMemoryDatabase()), new Runnable() {
+
+			@Override
+			public void run() {
+				Song mockSong = new Song("a", "b", "c", 234, 0);
+				mockSong.save();
+				
+				Likes mockLike = new Likes();
+				mockLike.songID = mockSong.id;
+				mockLike.save();
+
+				Likes like = Likes.find.all().get(0);
+				like.deleteLike(mockLike.songID, mockLike.userID);
+
+				Likes deletedLike = Likes.find.byId(like.id);
+
+				assertTrue(deletedLike == null);
+			}
+		});
+	}
+
+	@Test
+	public void test_findLike() {
+		running(fakeApplication(inMemoryDatabase()), new Runnable() {
+
+			@Override
+			public void run() {
+				Likes mockLike = new Likes();
+				mockLike.songID = mockLike.id;
+				mockLike.userID = 5;
+				mockLike.save();
+
+				Song mockSong = new Song("a", "b", "c", 234, 0);
+				mockSong.save();
+
+				List<Likes> likes = Likes.find.all();
+				assertTrue(likes.contains(mockLike));
+			}
+		});
+	}
+
+	@Test
+	public void test_createLike() {
+		running(fakeApplication(inMemoryDatabase()), new Runnable() {
+
+			@Override
+			public void run() {
+				Song mockSong = new Song("a", "b", "c", 234, 0);
+				mockSong.save();
+
+				Likes like = new Likes();
+
+				like = like.createLike(mockSong.id, 222);
+
+				assertTrue(like.songID == mockSong.id);
+				assertTrue(like.userID == 222);
 			}
 		});
 	}
