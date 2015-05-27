@@ -1,3 +1,4 @@
+package models;
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.contentAsString;
 import static play.test.Helpers.contentType;
@@ -22,7 +23,7 @@ import org.junit.Test;
 import play.data.Form;
 import play.mvc.Content;
 
-public class SongTest {
+public class SongModelTest {
 
 	@Test
 	public void test_deleteSong() {
