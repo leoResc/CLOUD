@@ -2,10 +2,11 @@ require "rubygems"
 require "selenium-webdriver"
 require "rspec/expectations"
 require "headless"
+require "rspec"
+require "././lib/utilities"
 require "././lib/login"
 require "././lib/event"
 require "././lib/song"
-require "rspec"
 
 # before all
 headless = Headless.new
