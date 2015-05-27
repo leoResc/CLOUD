@@ -1,50 +1,19 @@
 package models;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.inMemoryDatabase;
 import static play.test.Helpers.running;
 
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.avaje.ebeaninternal.server.cluster.mcast.McastPacketControl;
+
 public class LikesModelTest {
-
-	/**
-	 * Test method for Likes.setID()
-	 */
-	@Ignore
-	public void LikesSetID() {
-		running(fakeApplication(inMemoryDatabase()), new Runnable() {
-
-			@Override
-			public void run() {
-				Likes likes = new Likes();
-				long song = 123;
-				long user = 456;
-				likes.createLike(song, user);
-				likes.save();
-				String id = song + "" + user;
-
-				List<Likes> allLikes = Likes.find.all();
-				Likes savedLike = null;
-
-				for (Likes like : allLikes) {
-					if (like.songID == song && like.userID == user) {
-						savedLike = like;
-					}
-				}
-
-				assertNotNull(savedLike);
-				assertThat(savedLike.id).isEqualTo(Long.valueOf(id));
-				assertThat(savedLike.songID).isEqualTo(song);
-				assertThat(savedLike.userID).isEqualTo(user);
-			}
-		});
-	}
 
 	@Test
 	public void test_setDongID() {
@@ -84,14 +53,19 @@ public class LikesModelTest {
 
 			@Override
 			public void run() {
+				Song mockSong = new Song("a", "b", "c", 234, 0);
+				mockSong.save();
+				
+				Likes mockLike = new Likes();
+				mockLike.songID = mockSong.id;
+				mockLike.save();
 
 				Likes like = Likes.find.all().get(0);
-
-				like.deleteLike(like.songID, like.userID);
+				like.deleteLike(mockLike.songID, mockLike.userID);
 
 				Likes deletedLike = Likes.find.byId(like.id);
 
-				assertThat(deletedLike).equals(null);
+				assertTrue(deletedLike == null);
 			}
 		});
 	}
@@ -102,14 +76,16 @@ public class LikesModelTest {
 
 			@Override
 			public void run() {
+				Likes mockLike = new Likes();
+				mockLike.songID = mockLike.id;
+				mockLike.userID = 5;
+				mockLike.save();
+
+				Song mockSong = new Song("a", "b", "c", 234, 0);
+				mockSong.save();
 
 				List<Likes> likes = Likes.find.all();
-				Likes like = likes.get(0);
-
-				Likes foundLike = like.findLike(like.songID, like.userID);
-
-				assertThat(like.songID).equals(foundLike.songID);
-				assertThat(like.userID).equals(foundLike.userID);
+				assertTrue(likes.contains(mockLike));
 			}
 		});
 	}
@@ -120,13 +96,15 @@ public class LikesModelTest {
 
 			@Override
 			public void run() {
+				Song mockSong = new Song("a", "b", "c", 234, 0);
+				mockSong.save();
 
 				Likes like = new Likes();
 
-				like = like.createLike(111, 222);
+				like = like.createLike(mockSong.id, 222);
 
-				assertThat(like.songID).equals(111);
-				assertThat(like.userID).equals(222);
+				assertTrue(like.songID == mockSong.id);
+				assertTrue(like.userID == 222);
 			}
 		});
 	}
