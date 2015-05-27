@@ -38,7 +38,7 @@ public class SongTest {
 
 				Song deletedSong = Song.find.byId(id);
 
-				assertThat(deletedSong).equals(null);
+				assert(deletedSong).equals(null);
 			}
 		});
 	}
