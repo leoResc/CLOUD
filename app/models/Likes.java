@@ -61,7 +61,7 @@ public class Likes extends Model {
 	 * @param song
 	 * @param user
 	 */
-	public void createLike(long song, long user) {
+	public Likes createLike(long song, long user) {
 
 		Likes like = findLike(song, user);
 
@@ -75,6 +75,7 @@ public class Likes extends Model {
 			mySong.like();
 		}
 
+		return this;
 	}
 
 	/**
