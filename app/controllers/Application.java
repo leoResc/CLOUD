@@ -127,7 +127,7 @@ public class Application extends Controller {
 			if (session.equals("admin")) {
 				return ok(createEvent.render());
 			} else {
-				return badRequest(views.html.forbidden.render());
+				return unauthorized(views.html.forbidden.render());
 			}
 		}
 	}
