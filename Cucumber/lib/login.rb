@@ -1,6 +1,6 @@
-require "utilities"
+require "seleniumUtilities"
 
-class Login < Utilities
+class Login < SeleniumUtilities
 	
 	def initialize(driver)
 		@driver = driver

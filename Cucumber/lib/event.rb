@@ -1,6 +1,6 @@
-require "utilities"
+require "seleniumUtilities"
 
-class Event < Utilities
+class Event < SeleniumUtilities
 	
 	def initialize(driver)
 		@driver = driver

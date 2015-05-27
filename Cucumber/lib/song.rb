@@ -1,6 +1,6 @@
-require "utilities"
+require "seleniumUtilities"
 
-class Song < Utilities
+class Song < SeleniumUtilities
 	
 	@songname
 	
