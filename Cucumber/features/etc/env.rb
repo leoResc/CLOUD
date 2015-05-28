@@ -1,20 +1,21 @@
 require "rubygems"
 require "selenium-webdriver"
 require "rspec/expectations"
-require "headless"
-require "././lib/login"
-require "././lib/event"
-require "././lib/song"
+#require "headless"
 require "rspec"
+require "/home/phil/CLOUD/Cucumber/lib/seleniumUtilities"
+require "/home/phil/CLOUD/Cucumber/lib/login"
+require "/home/phil/CLOUD/Cucumber/lib/event"
+require "/home/phil/CLOUD/Cucumber/lib/song"
 
 # before all
-headless = Headless.new
-headless.start
+#headless = Headless.new
+#headless.start
 selenium_driver = Selenium::WebDriver.for :firefox
 
-$localTesting = true
+$localTesting = false
 
-$utilities = Utilities.new(selenium_driver)
+$seleniumUtilities = SeleniumUtilities.new(selenium_driver)
 $login = Login.new(selenium_driver)
 $event = Event.new(selenium_driver)
 $song = Song.new(selenium_driver)
@@ -24,5 +25,5 @@ $adminIsLoggedIn = false
 at_exit do
 	sleep(1)
 	selenium_driver.quit
-	headless.destroy
+#	headless.destroy
 end

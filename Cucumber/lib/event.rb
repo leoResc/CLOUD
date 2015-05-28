@@ -1,6 +1,6 @@
-require "utilities"
+require "/home/phil/CLOUD/Cucumber/lib/seleniumUtilities"
 
-class Event < Utilities
+class Event < SeleniumUtilities
 	
 	def initialize(driver)
 		@driver = driver

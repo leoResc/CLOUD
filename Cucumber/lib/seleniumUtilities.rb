@@ -1,4 +1,4 @@
-class Utilities
+class SeleniumUtilities
 
 	def initialize(driver)
 		@driver = driver
@@ -56,7 +56,7 @@ class Utilities
 		when "login"
 			(@driver.title).should == "Welcome to Cloud"
 		when "main"
-			(@driver.title).should == "Cloud"
+			(@driver.title).should == "CLOUD"
 		when "event"
 			(@driver.title).should == "Dashboard - Events"
 		end

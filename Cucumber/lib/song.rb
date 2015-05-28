@@ -1,6 +1,6 @@
-require "utilities"
+require "/home/phil/CLOUD/Cucumber/lib/seleniumUtilities"
 
-class Song < Utilities
+class Song < SeleniumUtilities
 	
 	@songname
 	
