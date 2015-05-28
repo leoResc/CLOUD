@@ -7,6 +7,7 @@ import helliker.id3.NoMPEGFramesException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ import play.db.ebean.Model;
 import play.mvc.Http.MultipartFormData.FilePart;
 
 @Entity
-public class Song extends Model {
+public class Song extends Model implements Comparable<Song> {
 
 	@Id
 	public long id;
@@ -168,4 +169,10 @@ public class Song extends Model {
 		}
 		play.mvc.Controller.flash("fileError", "File could not be deleted");
 	}
+
+	@Override
+	public int compareTo(Song o) {
+		return o.likes - this.likes;
+	}
+
 }
