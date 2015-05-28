@@ -127,7 +127,7 @@ public class Application extends Controller {
 			if (session.equals("admin")) {
 				return ok(createEvent.render());
 			} else {
-				return unauthorized(views.html.forbidden.render());
+				return unauthorized(views.html.forbidden.render("UNAUTHORIZED"));
 			}
 		}
 	}
@@ -145,5 +145,9 @@ public class Application extends Controller {
 		List<User> user = new Model.Finder(String.class, User.class).all();
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
 		return ok(overview.render(events, user, songs));
+	}
+	
+	public static Result NotFound(String uri) {
+		return badRequest(views.html.forbidden.render("BAD REQUEST"));
 	}
 }

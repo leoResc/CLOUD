@@ -1,10 +1,11 @@
+@(message: String)
 @main("CLOUD"){
 		<link rel="stylesheet" href="@routes.Assets.at("stylesheets/error.css")"
 }{
 	<div class="container">
 		<h1>
 			FORBIDDEN<br>
-			<span>UNAUTHORIZED</span>
+			<span>@message</span>
 		</h1>
 		<div class="text-center">
 			<a class="btn" href="@routes.Application.getIndex()" role="button"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
