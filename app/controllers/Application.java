@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +48,10 @@ public class Application extends Controller {
 		Logger.info(String.valueOf(song.likes));
 
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
+		Collections.sort(songs);
+		for(Song s : songs) {
+			Logger.info(String.valueOf(s.title + " -> " + s.likes));
+		}
 
 		return ok(Json.toJson(songs));
 	}
@@ -71,7 +77,7 @@ public class Application extends Controller {
 		}
 
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
-
+		Collections.sort(songs);
 		return ok(index.render(songs, session("id")));
 	}
 
@@ -86,7 +92,9 @@ public class Application extends Controller {
 		List<User> allUser = new Model.Finder(String.class, User.class).all();
 
 		if (user.username.equals("admin")) {
-			if (password.equals("ozeanien")) {
+			if (HashHelper
+					.checkPassword(password,
+							"$2a$10$KrIA0hwvvVelMHRa411sXO7eQENK.JXUNfSOG9FpR1RZVCTfeEPxC")) {
 				session("user", "admin");
 				return redirect(routes.Application.getIndex());
 			} else
@@ -106,7 +114,8 @@ public class Application extends Controller {
 						&& (currentTime.before(getEvent.end))) {
 					if (getEvent.password.equals(password)) {
 						user.save();
-						session("user", user.username);
+						session("user",
+								HashHelper.createPassword(user.username));
 						session("id", String.valueOf(user.id));
 						return redirect(routes.Application.getIndex());
 					}
@@ -146,7 +155,7 @@ public class Application extends Controller {
 		List<Song> songs = new Model.Finder(String.class, Song.class).all();
 		return ok(overview.render(events, user, songs));
 	}
-	
+
 	public static Result NotFound(String uri) {
 		return badRequest(views.html.forbidden.render("BAD REQUEST"));
 	}
