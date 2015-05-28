@@ -1,4 +1,4 @@
-require "/home/phil/CLOUD/Cucumber/lib/seleniumUtilities"
+require "seleniumUtilities"
 
 class Event < SeleniumUtilities
 	
