@@ -1,7 +1,6 @@
 package models;
-import static org.fest.assertions.Assertions.assertThat;
-import static play.test.Helpers.contentAsString;
-import static play.test.Helpers.contentType;
+
+import static org.junit.Assert.*;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.inMemoryDatabase;
 import static play.test.Helpers.running;
@@ -15,22 +14,35 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Playlist;
 import models.Song;
 
+import org.junit.Ignore;
 import org.junit.Test;
-
-import play.data.Form;
-import play.mvc.Content;
 
 public class SongModelTest {
 
-	@Test
+	private Song song1 = new Song("title1", "artist1", "gerne1", 10, 1);
+	private Song song2 = new Song("title2", "artist2", "gerne2", 11, 2);
+	private Song song3 = new Song("title3", "artist3", "gerne1", 12, 3);
+	private Song song4 = new Song("title4", "artist4", "gerne4", 13, 1);
+	private Song song5 = new Song("title5", "artist5", "gerne1", 14, 0);
+	private Song song6 = new Song("title6", "artist6", "gerne3", 15, 4);
+
+	@Ignore
 	public void test_deleteSong() {
 		running(fakeApplication(inMemoryDatabase()), new Runnable() {
 
 			@Override
 			public void run() {
+				List<Song> playlistSongs = new ArrayList<Song>();
+
+				song1.save();
+				song2.save();
+				song3.save();
+				song4.save();
+				song5.save();
+				song6.save();
+
 				List<Song> songs = Song.find.all();
 				Song song = songs.get(0);
 				long id = song.id;
@@ -39,7 +51,7 @@ public class SongModelTest {
 
 				Song deletedSong = Song.find.byId(id);
 
-				assert(deletedSong).equals(null);
+				assertTrue(deletedSong == null);
 			}
 		});
 	}
@@ -50,13 +62,22 @@ public class SongModelTest {
 
 			@Override
 			public void run() {
+				List<Song> playlistSongs = new ArrayList<Song>();
+
+				song1.save();
+				song2.save();
+				song3.save();
+				song4.save();
+				song5.save();
+				song6.save();
+
 				List<Song> songs = Song.find.all();
 				Song song = songs.get(0);
 				int likes = song.likes;
 
 				song.dislike();
 
-				assertThat(song.likes).equals(likes - 1);
+				assertTrue(song.likes == (likes - 1));
 			}
 		});
 	}
@@ -67,13 +88,22 @@ public class SongModelTest {
 
 			@Override
 			public void run() {
+				List<Song> playlistSongs = new ArrayList<Song>();
+
+				song1.save();
+				song2.save();
+				song3.save();
+				song4.save();
+				song5.save();
+				song6.save();
+
 				List<Song> songs = Song.find.all();
 				Song song = songs.get(0);
 				int likes = song.likes;
 
 				song.like();
 
-				assertThat(song.likes).equals(likes + 1);
+				assertTrue(song.likes == (likes + 1));
 			}
 		});
 	}
@@ -95,11 +125,11 @@ public class SongModelTest {
 
 					Song song = Song.getID3Tags(file);
 
-					assertThat(artist).isEqualTo(song.artist);
-					assertThat(title).isEqualTo(song.title);
-					assertThat(genre).isEqualTo(song.genre);
-					assertThat(duration).isEqualTo(song.duration);
-					
+					assertTrue(artist.equals(song.artist));
+					assertTrue(title.equals(song.title));
+					assertTrue(genre.equals(song.genre));
+					assertTrue(duration == song.duration);
+
 				} catch (IOException | NoMPEGFramesException
 						| ID3v2FormatException | CorruptHeaderException e) {
 					assert (false);
