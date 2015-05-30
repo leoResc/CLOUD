@@ -122,15 +122,17 @@ body {
 				 0 20px 20px rgba(0,0,0,.15);
 }
 
-.alert {
-	position: fixed;
-	bottom: 2%;
-	right: 2%;
-	width: 20%;
+#toast-container > .toast:before {
+	position: relative;
+	font-family: 'Glyphicons Halflings';
+    font-size: 44px;
+    line-height: 18px;
+    float: left;
+    color: #FFF;
+    padding-right: 0.5em;
+    margin: 0.3em 0em auto -0.9em;
 }
 
-.alert .btn {
-		position: relative;
-		float: right;
-	}
+#toast-container > .toast-info:before {
+    content: '\2601';
 }

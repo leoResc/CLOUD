@@ -57,14 +57,17 @@ public class Application extends Controller {
 	public static Result logout() {
 		String username = session("user");
 
-		if (!(username.equals("admin")) && (session("id") != null)) {
-			try {
-				User.find.ref(session("id")).delete();
-			} catch (Exception e) {
-				Logger.error("not existing user is trying to log out");
+		if (username != null) {
+			if (!(username.equals("admin")) && (session("id") != null)) {
+				try {
+					User.find.ref(session("id")).delete();
+				} catch (Exception e) {
+					Logger.error("not existing user is trying to log out");
+				}
 			}
 		}
 		session().clear();
+		flash("info", "Thanks for visiting CLOUD. Have a nice day, bye ...");
 		return redirect(routes.Application.getLogin());
 	}
 
@@ -80,7 +83,7 @@ public class Application extends Controller {
 	}
 
 	public static Result getLogin() {
-		return ok(login.render(""));
+		return ok(login.render());
 	}
 
 	// validates sign ins
@@ -96,11 +99,14 @@ public class Application extends Controller {
 				session("user", "admin");
 				return redirect(routes.Application.getIndex());
 			} else
-				return ok(login.render("Wrong username or password."));
+				flash("error", "Wrong username or password ...");
+				return ok(login.render());
 		} else {
 			for (User getUser : allUser) {
 				if (getUser.username.equals(user.username)) {
-					return ok(login.render("User exists already."));
+					flash("error", "The user " + getUser.username
+							+ "exists already ...");
+					return ok(login.render());
 				}
 			}
 
@@ -119,7 +125,8 @@ public class Application extends Controller {
 					}
 				}
 			}
-			return ok(login.render("Wrong password for current event."));
+			flash("error", "You selected the wrong password for current event ...");
+			return ok(login.render());
 		}
 	}
 
@@ -140,8 +147,6 @@ public class Application extends Controller {
 			}
 		}
 	}
-
-
 
 	// Returns all events
 	public static Result overview() {

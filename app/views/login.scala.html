@@ -1,5 +1,3 @@
-@(message: String)
-
 @main("Welcome to Cloud"){
 	<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/login.css")">
 	}{
@@ -23,12 +21,6 @@
 		
 		<audio src="@routes.Assets.at("img/waves.mp3")" autoplay loop id="waves"></audio>
 	</div> <!-- /container -->
-	
-	@if(message) {
-		<div class="alert alert-danger" role="alert">
-			<button class="btn btn-danger" onclick="dismiss()"><span class="glyphicon glyphicon-remove"></span></button>
-			<strong>Warning!</strong> @message
-		</div>
-	}
+}{
 	<script type="text/javascript" src="@routes.Assets.at("javascripts/login.js")"></script>
 }    
