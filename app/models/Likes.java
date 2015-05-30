@@ -9,14 +9,14 @@ import play.db.ebean.Model;
 
 @Entity
 public class Likes extends Model {
-	public long userID;
-	public long songID;
+	public static Finder<Long, Likes> find = new Finder<Long, Likes>(
+			Long.class, Likes.class);
 
 	@Id
 	public long id;
+	public long userID;
+	public long songID;
 
-	public static Finder<Long, Likes> find = new Finder<Long, Likes>(
-			Long.class, Likes.class);
 
 	public Likes() {
 	}
