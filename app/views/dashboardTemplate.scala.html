@@ -102,10 +102,11 @@
 	                    <li><a href="/logout">Logout</a></li>   
 	                </ul>
 	            </div>
-	        </div>
-	        <!-- /#sidebar-wrapper -->
-	        
+	        </div> <!-- /#sidebar-wrapper -->
+	    
 		@content
+	    
+	    </div> <!-- end wrapper -->
 	    
 	    <!-- jQuery -->
 	    <script src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
@@ -113,6 +114,8 @@
 		<script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
 		<!-- Bootstrap Core JavaScript -->
 	    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+   		<!-- Toastr.js -->
+    	<script src="@routes.Assets.at("javascripts/toastr.min.js")"></script>
 	    @scripts
 	    <script>
 	    	// cover photo
@@ -133,6 +136,42 @@
 		        e.preventDefault();
 		        $('#wrapper').toggleClass('toggled');
 		    });
+			// toastr
+		    toastr.options = {
+					'closeButton': false,
+				    'debug': true,
+				    'newestOnTop': false,
+				    'progressBar': true,
+				    'positionClass': 'toast-top-right',
+				    'preventDuplicates': false,
+				    'onclick': null,
+				    'showDuration': '300',
+				    'hideDuration': '1000',
+				    'timeOut': '7000',
+				    'extendedTimeOut': '1000',
+				    'showEasing': 'swing',
+				    'hideEasing': 'linear',
+				    'showMethod': 'show',
+				    'hideMethod': 'fadeOut'
+			};
 		</script>
+	@if(flash.containsKey("success")) {
+		<script>Command: toastr['success']('@flash.get("success")');</script>
+	}
+	@if(flash.containsKey("error")) {
+		<script>Command: toastr['error']('@flash.get("error")');</script>
+	}
+	@if(flash.containsKey("info")) {
+		<script>Command: toastr['info']('@flash.get("info")');</script>
+	}
+	@if(flash.containsKey("warning")) {
+		<script>Command: toastr['warning']('@flash.get("warning")');</script>
+	}
+	@if(flash.containsKey("uploadWarning")) {
+		<script>Command: toastr['warning']('@flash.get("uploadWarning")');</script>
+	}
+	@if(flash.containsKey("fileError")) {
+		<script>Command: toastr['error']('@flash.get("fileError")');</script>
+	}
 	</body>
 </html>

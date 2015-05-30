@@ -13,7 +13,6 @@ import models.EventPlaylist;
 import models.Playlist;
 import models.ShellCommand;
 import models.Song;
-import play.Logger;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -139,13 +138,11 @@ public class Dashboard extends Controller {
 		event.password = postData.get("password")[0];
 		event.description = postData.get("description")[0];
 		String begin = postData.get("begin")[0];
-		Logger.info("begin was " + begin);
 		String end = postData.get("end")[0];
-		Logger.info("end was " + end);
 
 		// no date selected or exception while parsing date
 		if (!event.setDate(begin, end)) {
-			Logger.info("exception while date parsing");
+			flash("error", "You didn't select any begin or end for the event ...");
 			return ok(views.html.event.render(allPlaylists, allEvents));
 		}
 		;
@@ -169,7 +166,7 @@ public class Dashboard extends Controller {
 
 		// no playlists selected
 		if (count == 0) {
-			Logger.info("No playlist selcted");
+			flash("error", "You didn't select any playlist for the event ...");
 			Event.find.byId(event.id).delete();
 		}
 

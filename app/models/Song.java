@@ -1,5 +1,6 @@
 package models;
 
+import static play.mvc.Controller.flash;
 import helliker.id3.CorruptHeaderException;
 import helliker.id3.ID3v2FormatException;
 import helliker.id3.MP3File;
@@ -7,7 +8,6 @@ import helliker.id3.NoMPEGFramesException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -66,8 +66,7 @@ public class Song extends Model implements Comparable<Song> {
 		int countFiles = files.size();
 
 		if (files.isEmpty()) {
-			play.mvc.Controller.flash("fileError",
-					"No files were selected for upload.");
+			flash("error", "No files were selected for upload.");
 			return;
 		}
 		for (FilePart filePart : files) {
@@ -95,29 +94,26 @@ public class Song extends Model implements Comparable<Song> {
 						continue;
 					}
 					countFiles--;
-					play.mvc.Controller
-							.flash("id3Error",
-									"One or more songs were missing the id3 tags artist, title and genre.");
+					flash("error",
+							"One or more songs were missing the id3 tags artist, title and genre ...");
 				} catch (FileExistsException e) {
-					play.mvc.Controller.flash("fileError",
-							"One or more songs existed already.");
+					flash("uploadWarning", "One or more songs have already been uploaded before ...");
 					countFiles--;
 				} catch (IOException e) {
-					play.mvc.Controller.flash("serverError",
-							"Internal Server Error");
+					flash("error", "Internal Server Error");
 					countFiles--;
 				} finally {
 					filePart.getFile().delete();
 				}
 			} else {
-				play.mvc.Controller.flash("fileError",
+				flash("fileError",
 						"One or more files were not of file format mp3.");
 				countFiles--;
 				filePart.getFile().delete();
 			}
 		}
 		if (countFiles > 0) {
-			play.mvc.Controller.flash("fileSuccess", String.format(
+			flash("success", String.format(
 					"You uploaded successfully %d %s to the database.",
 					countFiles, (countFiles == 1) ? "song" : "songs"));
 		}
@@ -167,7 +163,7 @@ public class Song extends Model implements Comparable<Song> {
 			song.delete();
 			return;
 		}
-		play.mvc.Controller.flash("fileError", "File could not be deleted");
+		flash("fileError", "The selected file could not be deleted ...");
 	}
 
 	@Override
