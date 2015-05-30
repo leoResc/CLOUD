@@ -4,7 +4,6 @@ import java.util.Iterator;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import play.Logger;
 import play.db.ebean.Model;
 
 @Entity
@@ -16,7 +15,6 @@ public class Likes extends Model {
 	public long id;
 	public long userID;
 	public long songID;
-
 
 	public Likes() {
 	}
@@ -47,7 +45,6 @@ public class Likes extends Model {
 		this.songID = song;
 
 		if (like != null) {
-			Logger.info("Like will be deleted: " + like.songID);
 			like.delete();
 			Song mySong = Song.find.byId(song);
 			mySong.dislike();
@@ -69,7 +66,6 @@ public class Likes extends Model {
 		this.songID = song;
 
 		if (like == null) {
-			Logger.info("Like abgeschickt : " + song);
 			this.save();
 			Song mySong = Song.find.byId(song);
 			mySong.like();
@@ -98,8 +94,6 @@ public class Likes extends Model {
 				return like;
 			}
 		}
-
-		Logger.info("NOT FOUND song: " + song + ", user: " + user);
 
 		return null;
 	}
