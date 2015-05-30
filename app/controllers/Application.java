@@ -1,17 +1,8 @@
 package controllers;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import com.fasterxml.jackson.databind.JsonNode;
-
 import models.*;
 import views.html.*;
 import play.Logger;
@@ -19,7 +10,6 @@ import play.data.Form;
 import play.db.ebean.Model;
 import play.libs.Json;
 import play.mvc.*;
-import play.mvc.Http.MultipartFormData;
 
 public class Application extends Controller {
 
@@ -114,7 +104,7 @@ public class Application extends Controller {
 				}
 			}
 
-			Date currentTime = new Date();
+			Calendar currentTime = Calendar.getInstance();
 			List<Event> events = new Model.Finder(String.class, Event.class)
 					.all();
 			for (Event getEvent : events) {
@@ -151,34 +141,7 @@ public class Application extends Controller {
 		}
 	}
 
-	public static Result createEvent() {
-		Map<String, String[]> postData = request().body().asFormUrlEncoded();
 
-		Event event = new Event();
-		event.name = postData.get("name")[0];
-		event.password = postData.get("password")[0];
-		event.description = postData.get("description")[0];
-		String begin = postData.get("begin")[0];
-		String end = postData.get("end")[0];
-		event.save();
-
-		Set<String> postSet = postData.keySet();
-		Iterator<String> iterator = postSet.iterator();
-
-		while (iterator.hasNext()) {
-			String key = iterator.next();
-			if (!(key.equals("name") || key.equals("password")
-					|| key.equals("description") || key.equals("begin") || key
-						.equals("end"))) {
-				EventPlaylist eventPlaylist = new EventPlaylist(event.id, Long.parseLong(key));
-				eventPlaylist.save();
-			}
-		}
-
-		List<Playlist> allPlaylists = Playlist.find.all();
-		List<Event> allEvents = Event.find.all();
-		return ok(views.html.event.render(allPlaylists, allEvents));
-	}
 
 	// Returns all events
 	public static Result overview() {

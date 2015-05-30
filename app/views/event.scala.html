@@ -40,7 +40,7 @@
                                 <div class="title">Create Event</div>
                                 <div class="info"></div>
 
-                                <form class="top-buffer" action="@routes.Application.createEvent()" method="post">
+                                <form class="top-buffer" action="@routes.Dashboard.saveEvent()" method="post">
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="form-group">
@@ -143,8 +143,8 @@
                                             <td>@event.name</td>
                                             <td>@event.password</td>
                                             <td>@event.description</td>
-                                            <td>@event.begin</td>
-                                            <td>@event.end</td>
+                                            <td>@event.getBegin()</td>
+                                            <td>@event.getEnd()</td>
                                             <td>
                                                 <a href="#" class="grey">
                                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>

@@ -10,7 +10,6 @@
 				<th>Description</th>
 				<th>Beginning</th>
 				<th>Ending</th>
-				<th></th>
 			</tr>
 			@for(event <- events) {
 			<tr>
@@ -20,12 +19,6 @@
 				<td>@event.description</td>
 				<td>@event.begin</td>
 				<td>@event.end</td>
-				<td><form action="@routes.Dashboard.deleteEvent(event.id)" method="get">
-						<button type="submit" class="btn btn-danger">
-								<span class="glyphicon glyphicon-remove"></span>
-						</button>
-					</form>
-				</td>
 			</tr>
 			}
 		</table>

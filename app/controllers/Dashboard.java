@@ -6,21 +6,19 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import models.Event;
+import models.EventPlaylist;
 import models.Playlist;
 import models.ShellCommand;
 import models.Song;
+import play.Logger;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Result;
-import views.html.dashboard;
-import views.html.event;
-import views.html.playlist;
-import views.html.song;
-import views.html.user;
 
 public class Dashboard extends Controller {
 
@@ -28,29 +26,29 @@ public class Dashboard extends Controller {
 			.form(Playlist.class);
 
 	public static Result getDashboard() {
-		return ok(dashboard.render());
+		return ok(views.html.dashboard.render());
 	}
 
 	public static Result getEvent() {
 		List<Playlist> playlists = Playlist.find.all();
 		List<Event> allEvents = Event.find.all();
-		return ok(event.render(playlists, allEvents));
+		return ok(views.html.event.render(playlists, allEvents));
 	}
 
 	public static Result getPlaylist() {
 		List<Song> allSongs = Song.find.all();
 		List<Playlist> allPlaylists = Playlist.find.all();
-		return ok(playlist.render(allSongs, playlistform, allPlaylists,
+		return ok(views.html.playlist.render(allSongs, playlistform, allPlaylists,
 				new ArrayList<Song>(), null, 0l));
 	}
 
 	public static Result getSong() {
 		List<Song> songs = Song.find.all();
-		return ok(song.render(songs));
+		return ok(views.html.song.render(songs));
 	}
 
 	public static Result getUser() {
-		return ok(user.render());
+		return ok(views.html.user.render());
 	}
 
 	public static Result deleteEvent(long id) {
@@ -129,5 +127,52 @@ public class Dashboard extends Controller {
 		Song.deleteSong(id);
 		List<Song> songs = Song.find.all();
 		return ok(Json.toJson(songs));
+	}
+
+	public static Result saveEvent() {
+		List<Playlist> allPlaylists = Playlist.find.all();
+		List<Event> allEvents = Event.find.all();
+		Map<String, String[]> postData = request().body().asFormUrlEncoded();
+
+		Event event = new Event();
+		event.name = postData.get("name")[0];
+		event.password = postData.get("password")[0];
+		event.description = postData.get("description")[0];
+		String begin = postData.get("begin")[0];
+		Logger.info("begin was " + begin);
+		String end = postData.get("end")[0];
+		Logger.info("end was " + end);
+
+		// no date selected or exception while parsing date
+		if (!event.setDate(begin, end)) {
+			Logger.info("exception while date parsing");
+			return ok(views.html.event.render(allPlaylists, allEvents));
+		}
+		;
+		event.save();
+
+		Set<String> postSet = postData.keySet();
+		Iterator<String> iterator = postSet.iterator();
+		int count = 0;
+
+		while (iterator.hasNext()) {
+			String key = iterator.next();
+			if (!(key.equals("name") || key.equals("password")
+					|| key.equals("description") || key.equals("begin") || key
+						.equals("end"))) {
+				count++;
+				EventPlaylist eventPlaylist = new EventPlaylist(event.id,
+						Long.parseLong(key));
+				eventPlaylist.save();
+			}
+		}
+
+		// no playlists selected
+		if (count == 0) {
+			Logger.info("No playlist selcted");
+			Event.find.byId(event.id).delete();
+		}
+
+		return ok(views.html.event.render(allPlaylists, allEvents));
 	}
 }
