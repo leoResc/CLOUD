@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import models.Event;
 import models.Playlist;
 import models.ShellCommand;
 import models.Song;
@@ -31,7 +32,9 @@ public class Dashboard extends Controller {
 	}
 
 	public static Result getEvent() {
-		return ok(event.render());
+		List<Playlist> playlists = Playlist.find.all();
+		List<Event> allEvents = Event.find.all();
+		return ok(event.render(playlists, allEvents));
 	}
 
 	public static Result getPlaylist() {

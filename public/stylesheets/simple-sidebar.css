@@ -662,6 +662,14 @@ body::-webkit-scrollbar-thumb
     margin-bottom: 30px;
 }
 
+#selectPlaylist {
+	font-weight: 700;
+}
+
+#ListOfSelectPlaylist div{
+    float: left;   
+}
+
 .input-group-addon {
     top: 0px;
     border-color: #e5e6e7;

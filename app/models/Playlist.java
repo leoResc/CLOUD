@@ -20,7 +20,7 @@ public class Playlist extends Model {
 	public long id;
 	public String name;
 	public int numberOfSongs;
-	public double duration;
+	public long duration;
 	public ArrayList<Song> songList;
 	public String songIDs;
 
