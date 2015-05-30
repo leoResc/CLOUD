@@ -1,178 +1,193 @@
 @(playlists: List[Playlist])(events: List[Event])
 @dashboardTemplate("Dashboard - Events")(1) {
-	<!-- Datedropper CSS -->
-	<link href="@routes.Assets.at("stylesheets/datedropper.css")" rel="stylesheet">
+<!-- Datedropper CSS -->
+<link href="@routes.Assets.at("stylesheets/datedropper.css")" rel="stylesheet">
 } {
-   		<!-- Page Content -->
-        <div id="page-content-wrapper">
-            
-            <div class="container-fluid">
-                
-                <div class="row">
-                    
-                    <div class="col-lg-12">
-                        <div class="jumbotron">
-                            <h1>Events</h1>
-                            <p class="light">An event is a temporally restricted and intended happening. Events can be a birthday party, a (product) presentation, or any other kind of party.<br>Each event has a name, a corresponding password, a beginning date and an ending date. Additionally, you can add a small description. And at least, a minimum of one playlist has to be selected.</p>
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
-                                <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Menu
-                            </a>
-                        </div>
-                    </div>
-                    
-                </div> <!-- end row -->
-                            
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="infobox">
-                            <div class="infobox-heading">
-                                <div class="row">
-                                    <div class="col-xs-7">
-                                        <h3>Basic form <small>Simple form for creating a new event</small></h3>    
-                                    </div>
-                                    <div class="col-xs-5  text-right">
-                                        <div class="label label-primary">New</div>
-                                    </div>
-                                </div>                               
-                            </div>
-                            <hr>
-                            <div class="infobox-content">
-                                <div class="title">Create Event</div>
-                                <div class="info"></div>
+<!-- Page Content -->
+<div id="page-content-wrapper">
 
-                                <form class="top-buffer" action="@routes.Dashboard.saveEvent()" method="post">
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <label for="name">Name of event</label>
-                                                <input type="text" class="form-control" id="name" name="name" placeholder="Name" autocomplete="off" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="password">Password for the event</label>
-                                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <label for="begin">The begin of the event</label>
-                                                <input type="text" class="form-control" id="begin" name="begin" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="end">The end of the event</label>
-                                                <input type="text" class="form-control" id="end" name="end" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="row">
-                                            	<div id="selectPlaylist">Choose at least one playlist:</div>
-    	                                        <div class="col-lg-12" id="ListOfSelectPlaylist">
-                                           		@for((playlist,index) <- playlists.zipWithIndex) {
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                            @if(index == 0) {
-                                                                <input type="checkbox" name="@playlist.id" checked>
-                                                            } else {
-                                                                <input type="checkbox" name="@playlist.id">                                                            
-                                                            }
-                                                                <span></span>
-                                                                @playlist.name (@playlist.numberOfSongs Songs - @playlist.duration minutes)
-                                                            </label>
-                                                        </div>
-                                            		</div>
-                                          		}
-                                            	</div>
-                                        	</div>
-                                        </div>
-                                    </div> <!-- end row -->
-                                    
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label for="description">Description of the event</label>
-                                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Description"></textarea>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-lg-1 top-buffer">
-                                            <div class="form-group top-buffer">
-                                                <button type="submit" class="btn btn-green top-buffer">Create Event</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- end row -->
-                
-                <div class="row">
-                    
-                    <div class="col-lg-12">
-                        <div class="infobox">
-                            <div class="infobox-heading">
-                                <div class="row">
-                                    <div class="col-xs-7">
-                                        <h3>Basic Form <small>Simple list of all existing events</small></h3>    
-                                    </div>
-                                    <div class="col-xs-5  text-right">
-                                        <div class="label label-primary">Scheduled</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="infobox-content table-responsive">
-                                <div class="title">3 Events</div>
-                                <div class="info">are stored in the database.</div>
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Password</th>
-                                            <th>Description</th>
-                                            <th>Beginning date</th>
-                                            <th>Ending date</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @for(event <- events) {
-                                        <tr>
-                                            <th>@event.id</th>
-                                            <td>@event.name</td>
-                                            <td>@event.password</td>
-                                            <td>@event.description</td>
-                                            <td>@event.getBegin()</td>
-                                            <td>@event.getEnd()</td>
-                                            <td>
-                                                <a href="#" class="grey">
-                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                     }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div> <!-- end row -->
-                
-            </div> <!-- end container-fluid -->
-            
-        </div> <!-- end page-content-wrapper -->
-        
-    </div>  <!-- end wrapper -->
+	<div class="container-fluid">
+
+		<div class="row">
+
+			<div class="col-lg-12">
+				<div class="jumbotron">
+					<h1>Events</h1>
+					<p class="light">
+						An event is a temporally restricted and intended happening. Events
+						can be a birthday party, a (product) presentation, or any other
+						kind of party.<br>Each event has a name, a corresponding
+						password, a beginning date and an ending date. Additionally, you
+						can add a small description. And at least, a minimum of one
+						playlist has to be selected.
+					</p>
+					<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+						<span class="glyphicon glyphicon-option-vertical"
+						aria-hidden="true"></span> Menu
+					</a>
+				</div>
+			</div>
+
+		</div>
+		<!-- end row -->
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="infobox">
+					<div class="infobox-heading">
+						<div class="row">
+							<div class="col-xs-7">
+								<h3>
+									Basic form <small>Simple form for creating a new event</small>
+								</h3>
+							</div>
+							<div class="col-xs-5  text-right">
+								<div class="label label-primary">New</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="infobox-content">
+						<div class="title">Create Event</div>
+						<div class="info"></div>
+
+						<form class="top-buffer" action="@routes.Dashboard.saveEvent()"
+							method="post">
+							<div class="row">
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label for="name">Name of event</label> <input type="text"
+											class="form-control" id="name" name="name" placeholder="Name"
+											autocomplete="off" required>
+									</div>
+									<div class="form-group">
+										<label for="password">Password for the event</label> <input
+											type="password" class="form-control" id="password"
+											name="password" placeholder="Password" required>
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label for="begin">The begin of the event</label> <input
+											type="text" class="form-control" id="begin" name="begin"
+											required>
+									</div>
+									<div class="form-group">
+										<label for="end">The end of the event</label> <input
+											type="text" class="form-control" id="end" name="end" required>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="row">
+										<div id="selectPlaylist">Choose at least one playlist:</div>
+										<div class="col-lg-12" id="ListOfSelectPlaylist">
+											@for((playlist,index) <- playlists.zipWithIndex) {
+											<div class="form-group">
+												<div class="checkbox">
+													<label> @if(index == 0) { <input type="checkbox"
+														name="@playlist.id" checked> } else { <input
+														type="checkbox" name="@playlist.id"> } <span></span>
+														@playlist.name (@playlist.numberOfSongs Songs -
+														@playlist.duration minutes)
+													</label>
+												</div>
+											</div>
+											}
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- end row -->
+
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label for="description">Description of the event</label>
+										<textarea class="form-control" id="description"
+											name="description" rows="3" placeholder="Description"></textarea>
+									</div>
+								</div>
+
+								<div class="col-lg-1 top-buffer">
+									<div class="form-group top-buffer">
+										<button type="submit" class="btn btn-green top-buffer">Create
+											Event</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end row -->
+
+		<div class="row">
+
+			<div class="col-lg-12">
+				<div class="infobox">
+					<div class="infobox-heading">
+						<div class="row">
+							<div class="col-xs-7">
+								<h3>
+									Basic Form <small>Simple list of all existing events</small>
+								</h3>
+							</div>
+							<div class="col-xs-5  text-right">
+								<div class="label label-primary">Scheduled</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="infobox-content table-responsive">
+						<div class="title">3 Events</div>
+						<div class="info">are stored in the database.</div>
+						<table class="table table-hover table-striped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Password</th>
+									<th>Description</th>
+									<th>Beginning date</th>
+									<th>Ending date</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody id="updateList">
+								@for(event <- events) {
+								<tr>
+									<th>@event.id</th>
+									<td>@event.name</td>
+									<td>@event.password</td>
+									<td>@event.description</td>
+									<td>@event.getBegin()</td>
+									<td>@event.getEnd()</td>
+									<td><a href="javascript:deleteEvent(@event.id)"
+										class="grey"> <span class="glyphicon glyphicon-trash"
+											aria-hidden="true"></span>
+									</a></td>
+								</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- end row -->
+
+	</div>
+	<!-- end container-fluid -->
+
+</div>
+<!-- end page-content-wrapper -->
+
+</div>
+<!-- end wrapper -->
 } {
-	<!-- Datedropper -->
-	<script src="@routes.Assets.at("javascripts/datedropper.min.js")"></script>
-	<script>
-		// dateDropper
-        var date = new Date();
-		$('#begin').dateDropper({ format: 'd/m/y', lock: 'from', placeholder: 'Beginning date', color: '#19aa8d', minYear: 2015, maxYear: 2060 });
-		$('#end').dateDropper({ format: 'd/m/y', lock: 'from', placeholder: 'Ending date', color: '#19aa8d', minYear: 2015, maxYear: 2060 });
-        // sidebar
-    </script>
+<!-- Datedropper -->
+<script src="@routes.Assets.at("javascripts/datedropper.min.js")"></script>
+<script src="@routes.Assets.at("javascripts/event.js")"></script>
 }
