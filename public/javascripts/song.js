@@ -40,13 +40,9 @@ function reload() {
 };
 // delete song
 function deleteSong(id) {
-	modelData = JSON.stringify(id);
 	$.ajax({
 		url : '/deleteSong/' + id,
 		type : 'POST',
-		contentType : 'application/json',
-		data : modelData,
-		dataType : 'json html',
 		converters : {
 			'text json' : true
 		},

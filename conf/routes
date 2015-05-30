@@ -19,6 +19,7 @@ GET		/songs						controllers.Dashboard.getSong()
 GET		/user						controllers.Dashboard.getUser()
 
 POST	/events						controllers.Dashboard.saveEvent()
+POST	/events/:id					controllers.Dashboard.deleteEvent(id: Long)
 
 POST 	/playlists/:id				controllers.Dashboard.savePlaylist(id: Long)
 GET		/editPlaylist/:id			controllers.Dashboard.editPlaylist(id: Long)

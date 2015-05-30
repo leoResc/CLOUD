@@ -37,8 +37,8 @@ public class Dashboard extends Controller {
 	public static Result getPlaylist() {
 		List<Song> allSongs = Song.find.all();
 		List<Playlist> allPlaylists = Playlist.find.all();
-		return ok(views.html.playlist.render(allSongs, playlistform, allPlaylists,
-				new ArrayList<Song>(), null, 0l));
+		return ok(views.html.playlist.render(allSongs, playlistform,
+				allPlaylists, new ArrayList<Song>(), null, 0l));
 	}
 
 	public static Result getSong() {
@@ -48,10 +48,6 @@ public class Dashboard extends Controller {
 
 	public static Result getUser() {
 		return ok(views.html.user.render());
-	}
-
-	public static Result deleteEvent(long id) {
-		return TODO;
 	}
 
 	public static Result updateTime(String date) {
@@ -142,7 +138,8 @@ public class Dashboard extends Controller {
 
 		// no date selected or exception while parsing date
 		if (!event.setDate(begin, end)) {
-			flash("error", "You didn't select any begin or end for the event ...");
+			flash("error",
+					"You didn't select any begin or end for the event ...");
 			return ok(views.html.event.render(allPlaylists, allEvents));
 		}
 		;
@@ -170,6 +167,13 @@ public class Dashboard extends Controller {
 			Event.find.byId(event.id).delete();
 		}
 
-		return ok(views.html.event.render(allPlaylists, allEvents));
+		return redirect(routes.Dashboard.getEvent());
+	}
+
+	public static Result deleteEvent(long id) {
+		Event event = Event.find.byId(id);
+		event.delete();
+		List<Event> allEvents = Event.find.all();
+		return ok(Json.toJson(allEvents));
 	}
 }
