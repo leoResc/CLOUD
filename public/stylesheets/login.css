@@ -6,7 +6,6 @@
 body {
 	padding-top: 13%;
 	padding-bottom: 40px;
-	background-color: black;
 }
 
 .form-signin {
@@ -23,6 +22,7 @@ body {
 	text-shadow: 0 0 5px #3E3014;
 	-moz-text-shadow: 0 0 5px #3E3014;
 	-webkit-text-shadow: 0 0 5px #3E3014;
+	color: white;
 }
 
 .form-signin .checkbox {
@@ -57,11 +57,9 @@ body {
 	border-top-left-radius: 0;
 }
 
-.font-white {
-	color: white;
-}
-
 #backgroundVideo {
+    background: url('../img/background.jpg') no-repeat;
+    background-size: cover;
 	position: fixed;
 	right: 0;
 	bottom: 0;
@@ -72,9 +70,30 @@ body {
 	z-index: -100;
 }
 
+#backgroundImage {
+    background: url('../img/backgroundMobile.jpg') no-repeat;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+	min-height: 100%;
+    z-index: -100;
+}
+
 .showLogin {
 	margin: 0px auto;
 	display: block;
+}
+
+@media screen and (max-width: 767px) {
+    
+    .title {
+        font-size: 6em !important;
+        margin-left: -15px;
+        padding-top: 10vh;
+    }
+
 }
 
 .title {
@@ -85,41 +104,54 @@ body {
 	text-align: center;
 	color: white;
 	text-shadow: 0 1px 0 #ccc,
-				 0 2px 0 #c9c9c9,
-				 0 3px 0 #bbb,
-				 0 4px 0 #b9b9b9,
-				 0 5px 0 #aaa,
-				 0 6px 1px rgba(0,0,0,.1),
-				 0 0 5px rgba(0,0,0,.1),
-				 0 1px 3px rgba(0,0,0,.3),
-				 0 3px 5px rgba(0,0,0,.2),
-				 0 5px 10px rgba(0,0,0,.25),
-				 0 10px 10px rgba(0,0,0,.2),
-				 0 20px 20px rgba(0,0,0,.15);
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
 	-moz-text-shadow: 0 1px 0 #ccc,
-				 0 2px 0 #c9c9c9,
-				 0 3px 0 #bbb,
-				 0 4px 0 #b9b9b9,
-				 0 5px 0 #aaa,
-				 0 6px 1px rgba(0,0,0,.1),
-				 0 0 5px rgba(0,0,0,.1),
-				 0 1px 3px rgba(0,0,0,.3),
-				 0 3px 5px rgba(0,0,0,.2),
-				 0 5px 10px rgba(0,0,0,.25),
-				 0 10px 10px rgba(0,0,0,.2),
-				 0 20px 20px rgba(0,0,0,.15);
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
 	-webkit-text-shadow: 0 1px 0 #ccc,
-				 0 2px 0 #c9c9c9,
-				 0 3px 0 #bbb,
-				 0 4px 0 #b9b9b9,
-				 0 5px 0 #aaa,
-				 0 6px 1px rgba(0,0,0,.1),
-				 0 0 5px rgba(0,0,0,.1),
-				 0 1px 3px rgba(0,0,0,.3),
-				 0 3px 5px rgba(0,0,0,.2),
-				 0 5px 10px rgba(0,0,0,.25),
-				 0 10px 10px rgba(0,0,0,.2),
-				 0 20px 20px rgba(0,0,0,.15);
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}
+
+.alert-info {
+	position: fixed;
+	bottom: 2%;
+	right: 2%;
+	width: 20%;
+}
+
+.alert .btn {
+		position: relative;
+		float: right;
+	}
 }
 
 #toast-container > .toast:before {

@@ -12,15 +12,22 @@
 	       	<input id="inputPassword" type="password" class="form-control" placeholder="password" name="password" required>
 	       	<button class="btn btn-lg btn-danger btn-block" type="submit">Sign in</button>
 	   	</form>
-	   	
-	   	<button class="btn btn-lg btn-danger showLogin">Sign in</button>
-			
-		<video autoplay loop muted id="backgroundVideo">
-			<source src="@routes.Assets.at("img/beach.webm")" type="video/webm"/>
-		</video>
-		
-		<audio src="@routes.Assets.at("img/waves.mp3")" autoplay loop id="waves"></audio>
-	</div> <!-- /container -->
+	    	
+	    	<button class="btn btn-lg btn-danger showLogin">Sign in</button>
+				
+            <div class="hidden-xs" id="mobile">
+                <video autoplay loop muted poster="@routes.Assets.at("img/background.jpg")" id="backgroundVideo">
+				    <source src="@routes.Assets.at("img/beach.mp4")" type="video/mp4"/>
+				    <source src="@routes.Assets.at("img/beach.webm")" type="video/webm"/>
+			     </video>
+			</div>
+                        
+            <div class="visible-xs" id="backgroundImage">
+            </div>
+            
+			<audio src="@routes.Assets.at("img/waves.mp3")" autoplay loop id="waves"></audio>
+            
+		</div> <!-- /container -->
 }{
 	<script type="text/javascript" src="@routes.Assets.at("javascripts/login.js")"></script>
 }    
