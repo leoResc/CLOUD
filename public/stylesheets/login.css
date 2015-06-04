@@ -141,19 +141,6 @@ body {
                0 20px 20px rgba(0,0,0,.15);
 }
 
-.alert-info {
-	position: fixed;
-	bottom: 2%;
-	right: 2%;
-	width: 20%;
-}
-
-.alert .btn {
-		position: relative;
-		float: right;
-	}
-}
-
 #toast-container > .toast:before {
 	position: relative;
 	font-family: 'Glyphicons Halflings';
