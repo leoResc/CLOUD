@@ -97,7 +97,8 @@ public class Song extends Model implements Comparable<Song> {
 					flash("error",
 							"One or more songs were missing the id3 tags artist, title and genre ...");
 				} catch (FileExistsException e) {
-					flash("uploadWarning", "One or more songs have already been uploaded before ...");
+					flash("uploadWarning",
+							"One or more songs have already been uploaded before ...");
 					countFiles--;
 				} catch (IOException e) {
 					flash("error", "Internal Server Error");
@@ -169,6 +170,15 @@ public class Song extends Model implements Comparable<Song> {
 	@Override
 	public int compareTo(Song o) {
 		return o.likes - this.likes;
+	}
+
+	public static boolean songAlreadyLiked(long userID, long songID) {
+		Likes likes = new Likes();
+
+		if (likes.findLike(songID, userID) == null) {
+			return false;
+		}
+		return true;
 	}
 
 }

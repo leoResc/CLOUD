@@ -14,6 +14,7 @@ public class Event extends Model {
 
 	public static Finder<Long, Event> find = new Finder<Long, Event>(
 			Long.class, Event.class);
+	
 	@Id
 	public long id;
 	public String name;
@@ -34,7 +35,7 @@ public class Event extends Model {
 	 *            Ending date in the format dd/mm/yyyy
 	 * @return true if everything went fine; false if an exception occured
 	 */
-	public boolean setDate(String begin, String end) {
+	public int setDate(String begin, String end) {
 		try {
 			int day = Integer.valueOf(begin.substring(0, 2));
 			int month = Integer.valueOf(begin.substring(3, 5));
@@ -51,10 +52,12 @@ public class Event extends Model {
 			Calendar calendarEnd = new GregorianCalendar();
 			calendarEnd.set(year, month - 1, day);
 			this.end = calendarEnd;
-
-			return true;
+			if (calendarEnd.before(calendarBegin)) {
+				return -1;
+			}
+			return 0;
 		} catch (Exception e) {
-			return false;
+			return -2;
 		}
 	}
 

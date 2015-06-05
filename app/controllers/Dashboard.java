@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import models.Event;
 import models.EventPlaylist;
 import models.Playlist;
@@ -18,6 +20,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Result;
+import views.html.event;
 
 public class Dashboard extends Controller {
 
@@ -25,16 +28,40 @@ public class Dashboard extends Controller {
 			.form(Playlist.class);
 
 	public static Result getDashboard() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		return ok(views.html.dashboard.render());
 	}
 
 	public static Result getEvent() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		List<Playlist> playlists = Playlist.find.all();
 		List<Event> allEvents = Event.find.all();
 		return ok(views.html.event.render(playlists, allEvents));
 	}
 
 	public static Result getPlaylist() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		List<Song> allSongs = Song.find.all();
 		List<Playlist> allPlaylists = Playlist.find.all();
 		return ok(views.html.playlist.render(allSongs, playlistform,
@@ -42,15 +69,39 @@ public class Dashboard extends Controller {
 	}
 
 	public static Result getSong() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		List<Song> songs = Song.find.all();
 		return ok(views.html.song.render(songs));
 	}
 
 	public static Result getUser() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		return ok(views.html.user.render());
 	}
 
 	public static Result updateTime(String date) {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(Long.valueOf(date));
 
@@ -70,7 +121,14 @@ public class Dashboard extends Controller {
 	}
 
 	public static Result editPlaylist(long id) {
-
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		List<Song> allSongs = Song.find.all();
 		List<Playlist> allPlaylists = Playlist.find.all();
 
@@ -85,7 +143,14 @@ public class Dashboard extends Controller {
 	}
 
 	public static Result deletePlaylist(long id) {
-
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		Playlist playlist = Playlist.find.byId(id);
 		if (playlist != null) {
 			playlist.delete();
@@ -95,7 +160,14 @@ public class Dashboard extends Controller {
 	}
 
 	public static Result savePlaylist(long id) {
-
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		Form<Playlist> formPlaylist = Form.form(Playlist.class)
 				.bindFromRequest();
 		Map<String, String> myPlaylist = formPlaylist.data();
@@ -112,6 +184,14 @@ public class Dashboard extends Controller {
 	}
 
 	public static Result uploadSong() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<MultipartFormData.FilePart> files = body.getFiles();
 		Song.uploadSong(files);
@@ -119,12 +199,28 @@ public class Dashboard extends Controller {
 	}
 
 	public static Result deleteSong(long id) {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		Song.deleteSong(id);
 		List<Song> songs = Song.find.all();
 		return ok(Json.toJson(songs));
 	}
 
 	public static Result saveEvent() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		List<Playlist> allPlaylists = Playlist.find.all();
 		List<Event> allEvents = Event.find.all();
 		Map<String, String[]> postData = request().body().asFormUrlEncoded();
@@ -137,12 +233,16 @@ public class Dashboard extends Controller {
 		String end = postData.get("end")[0];
 
 		// no date selected or exception while parsing date
-		if (!event.setDate(begin, end)) {
+		int setDate = event.setDate(begin, end);
+		if (setDate == -2) {
 			flash("error",
 					"You didn't select any begin or end for the event ...");
 			return ok(views.html.event.render(allPlaylists, allEvents));
+		} else if (setDate == -1) {
+			flash("error",
+					"The ending date of the event isn't before the beginning date ...");
+			return ok(views.html.event.render(allPlaylists, allEvents));
 		}
-		;
 		event.save();
 
 		Set<String> postSet = postData.keySet();
@@ -171,6 +271,14 @@ public class Dashboard extends Controller {
 	}
 
 	public static Result deleteEvent(long id) {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+			}
+		}
 		Event event = Event.find.byId(id);
 		event.delete();
 		List<Event> allEvents = Event.find.all();
