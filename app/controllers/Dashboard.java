@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
@@ -15,6 +16,7 @@ import models.EventPlaylist;
 import models.Playlist;
 import models.ShellCommand;
 import models.Song;
+import models.User;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -36,7 +38,9 @@ public class Dashboard extends Controller {
 				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
 			}
 		}
-		return ok(views.html.dashboard.render());
+		int countUser = User.find.findRowCount();
+		int countSongs = Song.find.findRowCount();
+		return ok(views.html.dashboard.render(countUser, countSongs));
 	}
 
 	public static Result getEvent() {
@@ -93,6 +97,11 @@ public class Dashboard extends Controller {
 		return ok(views.html.user.render());
 	}
 
+	public static Result getTime() {
+		Calendar calendar = Calendar.getInstance();
+		return ok(Json.toJson(calendar.getTime()));
+	}
+	
 	public static Result updateTime(String date) {
 		String session = session("user");
 		if (session == null) {

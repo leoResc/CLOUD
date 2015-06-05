@@ -1,3 +1,4 @@
+@(countUser: Int)(countSongs: Int)
 @dashboardTemplate("Dashboard - Overview")(0) {
     <!-- Morris CSS -->
     <link href="@routes.Assets.at("stylesheets/morris.css")" rel="stylesheet">
@@ -34,7 +35,7 @@
                                         <span class="glyphicon glyphicon-user glyphicon-huge" aria-hidden="true"></span>
                                     </div>
                                     <div class="col-xs-10 text-right">
-                                        <div class="huge">26</div>
+                                        <div class="huge">@countUser</div>
                                         <div class="">User are registered.</div>
                                     </div>                                    
                                 </div>
@@ -57,7 +58,7 @@
                                         <span class="glyphicon glyphicon-music glyphicon-huge" aria-hidden="true"></span>
                                     </div>
                                     <div class="col-xs-10 text-right">
-                                        <div class="huge">245</div>
+                                        <div class="huge">@countSongs</div>
                                         <div class="">Songs are stored in the database.</div>
                                     </div>                                    
                                 </div>
@@ -202,7 +203,7 @@
                             </div>
                             <hr>
                             <div class="infobox-content">
-                                <div class="title">26 User</div>
+                                <div class="title">@countUser User</div>
                                 <div class="info">are registered.</div>
                             </div>
                             <a href="#">
@@ -229,7 +230,7 @@
                             </div>
                             <hr>
                             <div class="infobox-content">
-                                <div class="title">254 Songs</div>
+                                <div class="title">@countSongs Songs</div>
                                 <div class="info">are stored in the database.</div>
                             </div>
                             <a href="#">
@@ -293,7 +294,7 @@
                             <hr>
                             <div class="infobox-content">
                                 <div class="title digital text-center">
-                                    <span class="hour">09</span>:<span class="minute">20</span>
+                                    <span class="hour">19</span>:<span class="minute">25</span>
                                 </div>
                                 <div class="info text-center date">
                                     Wednesday, May 05, 2015

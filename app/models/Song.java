@@ -15,6 +15,7 @@ import javax.persistence.Id;
 
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
+import org.h2.command.Command;
 
 import play.db.ebean.Model;
 import play.mvc.Http.MultipartFormData.FilePart;
@@ -118,6 +119,8 @@ public class Song extends Model implements Comparable<Song> {
 					"You uploaded successfully %d %s to the database.",
 					countFiles, (countFiles == 1) ? "song" : "songs"));
 		}
+		ShellCommand comand = new ShellCommand("mpc update");
+		comand.executeShellCommand();
 	}
 
 	/**

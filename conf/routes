@@ -28,6 +28,7 @@ GET		/deletePlaylist/:id			controllers.Dashboard.deletePlaylist(id: Long)
 POST	/uploadSong					controllers.Dashboard.uploadSong()
 POST	/deleteSong/:id				controllers.Dashboard.deleteSong(id: Long)
 
+GET		/getTime					controllers.Dashboard.getTime()
 POST	/updateTime/:time			controllers.Dashboard.updateTime(time: String)
 
 POST	/changeMode/:mode			controllers.CommunicationRA.changeMode(mode: Int)
