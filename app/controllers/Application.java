@@ -7,7 +7,6 @@ import java.util.List;
 import models.Event;
 import models.HashHelper;
 import models.Likes;
-import models.Playlist;
 import models.Song;
 import models.User;
 import play.Logger;
@@ -16,10 +15,7 @@ import play.db.ebean.Model;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.event;
-import views.html.landing;
-import views.html.login;
-import views.html.overview;
+import views.html.*;
 
 public class Application extends Controller {
 
@@ -115,6 +111,6 @@ public class Application extends Controller {
 	}
 
 	public static Result NotFound(String uri) {
-		return badRequest(views.html.forbidden.render("BAD REQUEST"));
+		return badRequest(forbidden.render("BAD REQUEST"));
 	}
 }

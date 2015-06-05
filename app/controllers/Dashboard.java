@@ -2,14 +2,11 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 import models.Event;
 import models.EventPlaylist;
@@ -22,7 +19,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Result;
-import views.html.event;
+import views.html.*;
 
 public class Dashboard extends Controller {
 
@@ -35,12 +32,12 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		int countUser = User.find.findRowCount();
 		int countSongs = Song.find.findRowCount();
-		return ok(views.html.dashboard.render(countUser, countSongs));
+		return ok(dashboard.render(countUser, countSongs));
 	}
 
 	public static Result getEvent() {
@@ -49,7 +46,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<Playlist> playlists = Playlist.find.all();
@@ -63,7 +60,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<Song> allSongs = Song.find.all();
@@ -78,11 +75,11 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<Song> songs = Song.find.all();
-		return ok(views.html.song.render(songs));
+		return ok(song.render(songs));
 	}
 
 	public static Result getUser() {
@@ -91,10 +88,10 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
-		return ok(views.html.user.render());
+		return ok(user.render());
 	}
 
 	public static Result getTime() {
@@ -108,7 +105,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		Calendar calendar = new GregorianCalendar();
@@ -135,7 +132,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<Song> allSongs = Song.find.all();
@@ -157,7 +154,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		Playlist playlist = Playlist.find.byId(id);
@@ -174,7 +171,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		Form<Playlist> formPlaylist = Form.form(Playlist.class)
@@ -198,7 +195,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		MultipartFormData body = request().body().asMultipartFormData();
@@ -213,7 +210,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		Song.deleteSong(id);
@@ -227,7 +224,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<Playlist> allPlaylists = Playlist.find.all();
@@ -285,7 +282,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(views.html.forbidden.render("NOT AUTHORIZED"));
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		Event event = Event.find.byId(id);
