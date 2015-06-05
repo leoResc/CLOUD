@@ -1,0 +1,308 @@
+@(songs: List[Song])(userID: String)(userName: String)
+
+@main("CLOUD") {
+	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/landing.css")" />
+	<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/simple-sidebar.css")" />
+}{
+
+	<div class="parallax">
+	
+		<div class="parallax-layer parallax-layer-back">
+			<div class="header"></div>
+		</div>
+
+		<div class="parallax-layer parallax-layer-base" id="parallax-container">
+		
+			<div class="row bar">
+				<div class="col-lg-3 pull-right user">
+					<img class="image-responsive img-circle user-picture" src="">
+					<span class="username">@userName</span>
+					<button type="button" class="btn btn-default dropdown">
+						<span class="glyphicon glyphicon-chevron-down"></span>
+					</button>
+					<div class="dropdownmenu" hidden>
+						<div class="list-group">
+							<ul>
+								<a href="#" class="list-group-item disabled"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Message</a>
+								<a href="@routes.Dashboard.getDashboard()" class="list-group-item"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Dashboard</a>
+								<a href="@routes.Application.logout()" class="list-group-item">
+									<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+								</a>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="wrapper">
+				
+				<div class="container">
+
+					<div class="row">
+
+						<div class="page-header">
+							<h1 class="huge">Welcome to CLOUD<small></small></h1>
+						</div>
+						<div class="col-lg-12">
+							<div class="infobox">
+								<div class="infobox-heading">
+									<div class="row">
+										<div class="col-xs-7">
+											<h3>Current Event <small>Short description of current Event</small></h3>
+										</div>
+										<div class="col-xs-5  text-right">
+											<div class="label label-primary">Current</div>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="infobox-content">
+									<div class="title">Description:</div>
+									<div class="info"></div>
+									<div class="row">
+										<div class="col-lg-12">
+											<p>Hey everbody,<br>today is Lea's birthday. I wanna welcome everybody and thank you for coming!<br>
+												I'm happy that we're celebrating Lea's 15th birthday together with the whole family. Have a lot of fun!</p>
+											<p>And of course we're listening to her favourite playlist :)</p>
+										</div>
+									</div>
+								</div>            
+							</div>
+						</div>
+					
+					</div> <!-- end row -->
+					
+					<div class="row">
+						
+						<div class="col-lg-12">
+						
+							<div class="infobox">
+								<div class="infobox-heading">
+									<div class="row">
+										<div class="col-xs-7">
+											<h3>Current Playlist <small>List containing all songs of the current event</small></h3>    
+										</div>
+										<div class="col-xs-5  text-right">
+											<div class="label label-primary">Currently Played</div>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="infobox-content table-responsive" id="playlistLandingPage">
+									<div class="title">78 Songs</div>
+									<div class="info"></div>
+									<table class="table table-hover table-striped">
+										<thead>
+											<tr>
+												<th class="hidden-xs">Ranking</th>
+												<th>Title</th>
+												<th>Artist</th>
+												<th class="hidden-xs">Genre</th>
+												<th class="hidden-xs">Duration</th>
+												<th>Likes</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody id="playlist">
+										@for((song,index) <- songs.zipWithIndex) {
+											<tr>
+												<th class="hidden-xs">@(index+1)</th>
+												<td>@song.title</td>
+												<td>@song.artist</td>
+												<td class="hidden-xs">@song.genre</td>
+												<td class="hidden-xs">@(song.duration/60):@(song.duration%60)@if((song.duration%60)<10){0}</td>
+												<td>@song.likes</td>
+												<td>
+													<a href="javascript:vote(@userID, @song.id)" class="green">
+														<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+													</a>
+												</td>
+											</tr>
+										}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						
+						</div>
+						
+					</div> <!-- end row -->
+
+					<div class="row"> <!-- genre row -->
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre1.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Pop</h2>
+									<p>Pop arose in the 1950s and derived from rock and roll.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre3.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Hits</h2>
+									<p>Hit-songs describes popular or electronic music from Europe.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre8.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Dubstep</h2>
+									<p>Dubstep is a genre of electronic dance music originated from London.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre12.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Reggae</h2>
+									<p>Reggae evolved in the 1960s from Jazz. It's often refered to as Jamaican dance music</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre13.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Rap</h2>
+									<p>Rap is defined as spoken or chanted rythming lyrics.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre6.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Blues</h2>
+									<p>Blues is a genre that originated in African-American communities in the USA.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre9.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Indie Rock</h2>
+									<p>Indie rock is a genre of alternative rock originated in UK.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre14.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Heavy Metal</h2>
+									<p>Metal is a genre of rock music that developed in the late 1960s.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre17.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Soul</h2>
+									<p>Soul music is a genre that originated in the USA in the 1950s.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre16.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Jazz</h2>
+									<p>Jazz is a genre of music that originated in African American communities.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre18.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Country</h2>
+									<p>Country music originated in Southern United States.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre19.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Electronic</h2>
+									<p>Electronic music employs electronic musical instruments and technology.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre10.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>House</h2>
+									<p>House music is a genre of electronic dance music that originated in the early 1980s.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre20.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Classical</h2>
+									<p>Classical music is art music produced or rooted in the traditions of Western music.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre22.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Rock</h2>
+									<p>Rock music is a music genre that originated as "rock and roll" in the 1950s.</p>
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-3 genre-item">
+							<a class="genre">
+								<img class="img-responsive genre-image" src="@routes.Assets.at("img/genre21.jpg")" alt="">
+								<div class="genre-gradient"></div>
+								<div class="genre-caption">
+									<h2>Hip-Hop</h2>
+									<p>Hip hop as music and culture formed during the 1970s in New York City.</p>
+								</div>
+							</a>
+						</div>
+					</div> <!-- end row -->            
+
+				</div> <!-- end container -->
+			
+			</div> <!-- end wrapper -->
+			
+			<div class="visible-xs" id="mobile"></div>
+			
+		</div> <!-- end parallax-base -->
+        
+	</div> <!-- end parallax -->
+
+	
+}{
+	<script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
+	<script src="@routes.Assets.at("javascripts/landing.js")"></script>
+}

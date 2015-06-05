@@ -1,0 +1,228 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    width: 100%;
+    background-color: #F7F7F7;
+}
+
+/* parallax */
+@media screen and (max-width: 767px) {
+
+	.parallax {
+		perspective: none !important;
+		height: 100vh;
+		overflow-x: hidden;
+		overflow-y: auto;
+		perspective-origin-x: 50% 50% !important;
+	}
+	
+	.parallax-layer {
+		transform-origin-x: 50% 50% 0 !important;
+	}
+	
+	.parallax-layer-base {
+		transform: none !important;
+	}
+	
+	.parallax-layer-back {
+		-webkit-transform: none !important;
+		-moz-transform: none !important;
+	}
+
+	.parallax-layer-deep {
+		transform: none !important;
+	}
+
+	.header {
+		background-image: url('../img/landing3mobile.jpg') !important;
+        background-position: 0px 0px !important;
+	}
+    
+    .genre-caption h2 {
+        top: 0px !important;
+    }
+}
+
+.parallax {
+    perspective: 1px;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective-origin-x: 100%;
+}
+
+.parallax-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform-origin-x: 100%;
+}
+
+.parallax-layer-base {
+    transform: translateZ(0);
+}
+
+#parallax-container {
+    top: 60vh;
+}
+
+.parallax-layer-back {
+    -webkit-transform: translateZ(-1px) scale(2);
+    -moz-transform: translateZ(-1px) scale(2.1);
+}
+
+.parallax-layer-deep {
+    transform: translateZ(-2px) scale(3);
+}
+
+.header {
+    background-image: url('../img/landing3.jpg');
+    background-size: cover;
+    background-position: 0px -300px;
+    background-repeat: no-repeat;
+    position: relative;
+    height: 100vh;
+}
+
+.header + img {
+    position: absolute;
+    z-index: 1;
+    top: -500px;
+    left: 30vw;
+    width: 75vh;
+}
+
+.bar {
+    height: 60px;
+    margin: 0;
+    background-color: white;
+    position: relative;
+}
+
+.username {
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1;
+    color: #293846;
+}
+
+.username, .dropdown {
+    position: relative;
+    top: -20px;
+}
+
+.user-picture {
+    position: relative;
+    z-index: 200;
+    width: 100px;
+    top: -50px;
+    margin-left: 0px;
+    box-shadow: 2px 5px 10px 1px black;
+}
+
+.dropdownmenu {
+    position: absolute;
+    top: 60px;
+    width: 250px;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.dropdownmenu .list-group-item {
+    box-shadow: 0px 5px #19AA8E;
+    border: none;
+    transition: border-left 0.4s;
+}
+
+.dropdownmenu .list-group-item:hover {
+    border-left: solid 10px #19AA8E;
+}
+
+.glyphicon-heart, .glyphicon-heart-empty {
+    margin: -5px 0px 0px 20px;
+    font-size: 1.8em;
+}
+
+#tape {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+#playlistLandingPage {
+    height: 600px;
+}
+
+th:last-child, td:last-child {
+    width: 10px !important;
+    padding-left: 0px !important;
+    padding-right: 50px !important;
+}
+
+.genres {
+    background-color: #2F4050;
+    margin: 0px;
+    padding-top: 15px;
+}
+
+/* figures */
+.genre-item {
+    overflow: hidden;
+    padding: 0;
+    margin: 0px;
+}
+
+.genre-image {
+    float: left;
+}
+
+.genre-gradient {
+    background: linear-gradient(45deg, #22682A 0%, #9B4A1B 40%, #3A342A 100%) repeat scroll 0% 0%;
+    opacity: 0.2;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.genre-caption {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    width: 200px;
+    height: 100%;
+    text-align: right;
+    padding-left: 2em;
+    color: white;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    backface-visibility: hidden;
+}
+
+.genre-caption h2 {
+    position: relative;
+    float: right;
+    top: 35px;
+    margin: 10px 10px;
+    font-size: 2em;
+}
+
+.genre-caption p {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 10px;
+    text-align: right;
+}
+
+.place {
+    height: 500px;
+}
