@@ -185,14 +185,21 @@ $(function () {
    $('[data-toggle="tooltip"]').tooltip();
 });
 
-// clock
 var updated = false;
 $(document).ready(function() {
+    // clock
     setInterval(warning, 2000);
+	$.ajax({
+		url : '/getTime',
+		type : 'GET',
+		success : function(response) {
+			setTime(response, false);
+		}
+	});
 });
 
 function warning() {
-	if(!updated ) {
+	if(!updated) {
 		var serverTime = new Date();
 	    serverTime.setHours($('.hour').text());
 	    serverTime.setMinutes($('.minute').text());    
@@ -217,39 +224,44 @@ $('#updateTime').click(function() {
 		success : function(response) {
 			updated = true;
 			response = JSON.parse(response);
-			var date = new Date();
-			date.setTime(response);
-			$('.hour').text(date.getHours() <= 9 ? '0' + date.getHours():date.getHours());
-			$('.minute').text(date.getMinutes() <= 9 ? '0' + date.getMinutes():date.getMinutes());
-			var day;
-			switch(date.getDay()) {
-				case 0: day = 'Sunday'; break;
-				case 1: day = 'Monday'; break;
-				case 2: day = 'Tuesday'; break;
-				case 3: day = 'Wednesday'; break;
-				case 4: day = 'Thursday'; break;
-				case 5: day = 'Friday'; break;
-				case 6: day = 'Saturday'; break;
-			}
-			var month;
-			switch(date.getMonth()) {
-				case 0: month = 'January'; break;
-				case 1: month = 'February'; break;
-				case 2: month = 'March'; break;
-				case 3: month = 'April'; break;
-				case 4: month = 'May'; break;
-				case 5: month = 'June'; break;
-				case 6: month = 'July'; break;
-				case 7: month = 'August'; break;
-				case 8: month = 'September'; break;
-				case 9: month = 'October'; break;
-				case 10: month = 'November'; break;
-				case 11: month = 'December'; break;
-			}
-			$('.date').text(day + ', ' + month + ' ' + date.getDate() + ', ' + date.getFullYear());
-			$('#updateTime').find('.glyphicon').toggleClass('glyphicon-ok');
-			$('#time .infobox-footer').delay(700).animate({backgroundColor: '#38B89F'}, 300);
-	        $('#time .infobox-footer').animate({backgroundColor: '#435361'}, 300);
+			setTime(response, true);	
 		}
 	});
 });
+function setTime(response, updatedTime) {
+	var date = new Date();
+	date.setTime(response);
+	$('.hour').text(date.getHours() <= 9 ? '0' + date.getHours():date.getHours());
+	$('.minute').text(date.getMinutes() <= 9 ? '0' + date.getMinutes():date.getMinutes());
+	var day;
+	switch(date.getDay()) {
+		case 0: day = 'Sunday'; break;
+		case 1: day = 'Monday'; break;
+		case 2: day = 'Tuesday'; break;
+		case 3: day = 'Wednesday'; break;
+		case 4: day = 'Thursday'; break;
+		case 5: day = 'Friday'; break;
+		case 6: day = 'Saturday'; break;
+	}
+	var month;
+	switch(date.getMonth()) {
+		case 0: month = 'January'; break;
+		case 1: month = 'February'; break;
+		case 2: month = 'March'; break;
+		case 3: month = 'April'; break;
+		case 4: month = 'May'; break;
+		case 5: month = 'June'; break;
+		case 6: month = 'July'; break;
+		case 7: month = 'August'; break;
+		case 8: month = 'September'; break;
+		case 9: month = 'October'; break;
+		case 10: month = 'November'; break;
+		case 11: month = 'December'; break;
+	}
+	$('.date').text(day + ', ' + month + ' ' + date.getDate() + ', ' + date.getFullYear());
+	if(updatedTime) {
+		$('#updateTime').find('.glyphicon').toggleClass('glyphicon-ok');
+		$('#time .infobox-footer').delay(700).animate({backgroundColor: '#38B89F'}, 300);
+		$('#time .infobox-footer').animate({backgroundColor: '#435361'}, 300);
+	}
+}
