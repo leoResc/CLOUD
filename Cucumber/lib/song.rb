@@ -17,9 +17,10 @@ class Song < SeleniumUtilities
 	end
 	
 	def waitForUpload()
-		while @driver.find_element(:id, "progress").text != "100 %" do
-			sleep(1)
-		end
+		# no upload possible as dropzone is not accessible by selenium webdriver
+		#while @driver.find_element(:id, "progress").text != "100 %" do
+		#	sleep(1)
+		#end
 		sleep(3)
 	end
 	
