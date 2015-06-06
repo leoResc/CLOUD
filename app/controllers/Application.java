@@ -52,7 +52,7 @@ public class Application extends Controller {
 			for (User getUser : allUser) {
 				if (getUser.username.equals(user.username)) {
 					flash("error", "The user " + getUser.username
-							+ "exists already ...");
+							+ " exists already ...");
 					return ok(login.render());
 				}
 			}
