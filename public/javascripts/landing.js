@@ -6,7 +6,15 @@ $('.dropdown').click(function() {
 	}, 1000);
 });
 // user icon
-var icon = Math.floor((Math.random() * 8) + 1);
+var name = $('span.username').text();
+var icon;
+if (name == 'admin') {
+	icon = 5;
+} else if (name.charAt(name.length - 1) === 'a') {
+	icon = Math.floor((Math.random() * 4) + 1);
+} else {
+	icon = Math.floor((Math.random() * 4) + 5);
+}
 $('.user-picture').attr('src', 'assets/icons/user' + icon + '.png');
 // voting
 var likedSongs = new Array();
