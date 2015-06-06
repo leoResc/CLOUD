@@ -10,10 +10,6 @@ class Song < SeleniumUtilities
 	
 	def uploadSong(song)
 		# selenium cannot handle the dropzone -> manually select file
-		@songname = song
-		sleep(15)
-		filename = './features/TestSong.mp3'
-		file = File.join(Dir.pwd, filename)
 	end
 	
 	def buttonEnabled()

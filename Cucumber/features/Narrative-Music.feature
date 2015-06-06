@@ -4,6 +4,11 @@ As			admin
 I want		to play, pause, stop and forward music
 so that		the music played changes accordingly.
 
+Scenario: The admin is logged in
+
+	Given 	The admin is logged in
+
+
 Scenario: The admin starts the music
 
 	Given 	The user is on the dashboard page of Cloud

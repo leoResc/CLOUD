@@ -4,39 +4,46 @@ As 			admin
 I want 		to create an event
 so that 	I can set and save settings for a new event
 
+Scenario: The admin is logged in
+
+	Given 	The admin is logged in
+	And 	The admin deletes all old events
+
+
 Scenario Outline: 	Admin types in all the information correctly
 
 	Given 	The user is on the event page of Cloud
 
 	When 	The admin types in the name <eventName>
 	And 	The admin types in the password <password>
-	And 	The admin selects in the begin <dateStart>
-	And 	The admin selects in the end <dateEnd>
-	And 	The admin selects the playlist <playlist>
+	And 	The admin selects the begin
+	And 	The admin selects the end
+	And 	The admin selects a playlist
 	And 	The admin writes a description
 	And 	The admin clicks on create event
 
 	Then 	The admin will see the new event on the event page
 	
 	Examples:
-	| eventName | password 	| dateStart  | dateEnd	  | playlist 	|
-	| Test_001 	| test 		| 9.4.2015 | 11.4.2015 | 3			|
-	| Test_002  | test		| 10.4.2015 | 12.4.2015 | 8			|
+	| eventName | password 	|
+	| Test_001 	| test1 	|
+	| Test_002  | test2		|
 
-Scenario Outline: 	Admin sets an invalid ending date
+	
+Scenario Outline: 	Admin forgets to select a beginning and ending date
 
 	Given 	The user is on the event page of Cloud
 
 	When 	The admin types in the name <eventName>
 	And 	The admin types in the password <password>
-	And 	The admin selects in the begin <dateStart>
-	And 	The admin selects in the end <dateEnd>
-	And 	The admin selects the playlist <playlist>
+	And 	The admin selects no begin
+	And 	The admin selects no end
+	And 	The admin selects a playlist
 	And 	The admin writes a description
 	And 	The admin clicks on create event
 
-	Then 	The error message is displayed: Warning! The ending date is before the beginning date.
+	Then 	The error message is displayed: You didn't select any begin or end for the event ...
 	
 	Examples:
-	| eventName | password 	| dateStart  | dateEnd	  | playlist	|
-	| Test_003 	| test 		| 9.6.2015 | 8.6.2015 | 3			|
+	| eventName | password 	|
+	| Test_003 	| test3 	|

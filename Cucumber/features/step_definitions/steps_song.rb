@@ -7,7 +7,7 @@ Then(/^The button upload will enable$/) do
 end
 
 Then(/^The admin clicks on the upload button$/) do
-	$utilities.click("#upload")
+	$seleniumUtilities.click("#upload")
 end
 
 Then(/^The admin waits the upload to finish$/) do
