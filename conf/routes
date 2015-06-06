@@ -29,6 +29,9 @@ POST	/deleteSong/:id				controllers.Dashboard.deleteSong(id: Long)
 GET		/getTime					controllers.Dashboard.getTime()
 POST	/updateTime/:time			controllers.Dashboard.updateTime(time: String)
 
+POST	/user/:id					controllers.Dashboard.deleteUser(id: Long)
+POST	/deleteAllUser				controllers.Dashboard.deleteAllUser()
+
 POST	/changeMode/:mode			controllers.CommunicationRA.changeMode(mode: Int)
 
 # Map static resources from the /public folder to the /assets URL path
