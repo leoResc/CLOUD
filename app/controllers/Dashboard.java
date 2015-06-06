@@ -91,12 +91,42 @@ public class Dashboard extends Controller {
 				return badRequest(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
-		return ok(user.render());
+		List<User> allUser = User.find.all();
+		return ok(user.render(allUser));
 	}
 
 	public static Result getTime() {
 		Calendar calendar = Calendar.getInstance();
 		return ok(Json.toJson(calendar.getTime()));
+	}
+	
+	public static Result deleteUser(long id) {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
+			}
+		}
+		User.byId.byId(id).delete();
+		return ok(Json.toJson(User.find.all()));
+	}
+	
+	public static Result deleteAllUser() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return badRequest(forbidden.render("NOT AUTHORIZED"));
+			}
+		}
+		List<User> alluser = User.find.all();
+		for (User user : alluser) {
+			user.delete();
+		}
+		return redirect(routes.Dashboard.getUser());
 	}
 	
 	public static Result updateTime(String date) {
