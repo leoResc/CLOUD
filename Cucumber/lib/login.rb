@@ -9,21 +9,30 @@ class Login < SeleniumUtilities
 	def createUser(user, password)
 		navigate("login")
 		click(".showLogin")
+		sleep(1)
 		typeIn("#inputUsername", user)
 		typeIn("#inputPassword", password)
 		click(".btn")
-		logout()
+		@driver.manage.delete_all_cookies
 	end
 	
 	def logInAsAdmin()
-		if !$adminIsLoggedIn
-			navigate("login")
-			click(".showLogin")
-			typeIn("#inputUsername", "admin")
-			typeIn("#inputPassword", "ozeanien")
-			click(".btn")
-			$adminIsLoggedIn = true
+		navigate("login")
+		click(".showLogin")
+		sleep(1)
+		typeIn("#inputUsername", "admin")
+		typeIn("#inputPassword", "ozeanien")
+		click(".btn")
+	end
+	
+	def logout()
+		if @driver.title != "CLOUD"
+			navigate("main")
 		end
+		@driver.find_element(:xpath, "//button[@type='button']").click
+		sleep(1)
+		@driver.find_element(:link, "Logout").click
+		sleep(1)
 	end
 	
 end

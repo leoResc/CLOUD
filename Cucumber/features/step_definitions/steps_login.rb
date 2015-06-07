@@ -1,5 +1,6 @@
 When(/^The user clicks on the sign in button$/) do
 	$login.click(".showLogin")
+	sleep(1)
 end
 
 When(/^The user types in the username (.+)$/) do |userName|
@@ -19,9 +20,10 @@ And(/^The user (.+) exists already$/) do |user|
 end
 
 And(/^The user logs out$/) do
-	$utilities.logout()
+	$login.logout()
 end
 
 And(/^The test event exists$/) do
+	$login.logInAsAdmin()
 	$event.createTestEvent()
 end

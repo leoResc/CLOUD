@@ -4,6 +4,11 @@ As 		admin
 I want 	to create a playlist
 so that	I can listen to those songs and casual user can vote for them.
 
+Scenario: The admin is logged in
+
+	Given 	The admin is logged in
+
+	
 Scenario: 	The admin creates a playlist.
 
 	Given 	The user is on the playlist page of Cloud

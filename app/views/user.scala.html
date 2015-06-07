@@ -1,3 +1,4 @@
+@(allUser: List[User])
 @dashboardTemplate("Dashboard - User")(4) {
 } {
     	<!-- Page Content -->
@@ -35,7 +36,7 @@
                             </div>
                             <hr>
                             <div class="infobox-content table-responsive">
-                                <div class="title">6 User</div>
+                                <div class="title">@allUser.size User</div>
                                 <div class="info">are stored in the database.</div>
                                 <div class="row" id="allUser">
                                     <div class="col-lg-12">
@@ -44,64 +45,34 @@
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Name</th>
-                                                    <th>Status</th>
                                                     <th>Delete User</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="userList">
+                                            @for(user <- allUser) {
                                                 <tr>
-                                                    <th>0</th>
-                                                    <td>Tom</td>
-                                                    <td>logged in</td>
+                                                    <th>@user.id</th>
+                                                    <td>@user.username</td>
                                                     <td>
-                                                        <a href="#" class="grey"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                                        <a href="javascript:deleteUser(@user.id)" class="grey"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <th>1</th>
-                                                    <td>Markus</td>
-                                                    <td>logged in</td>
-                                                    <td>
-                                                        <a href="#" class="grey"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>2</th>
-                                                    <td>Anna</td>
-                                                    <td>logged out</td>
-                                                    <td>
-                                                        <a href="#" class="grey"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>3</th>
-                                                    <td>Jens</td>
-                                                    <td>logged out</td>
-                                                    <td>
-                                                        <a href="#" class="grey"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>4</th>
-                                                    <td>Maren</td>
-                                                    <td>logged in</td>
-                                                    <td>
-                                                        <a href="#" class="grey"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>5</th>
-                                                    <td>Melanie</td>
-                                                    <td>logged in</td>
-                                                    <td>
-                                                        <a href="#" class="grey"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                                                    </td>
-                                                </tr>
+                                            }
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
+                            <a href="#">
+                            	<div class="infobox-footer">
+                            		<span class="pull-right">
+                            			<form method="POST" action="@routes.Dashboard.deleteAllUser()">
+                            				<button type="submit" class="btn btn-red">Delete all User</button>
+                            			</form>
+                            		</span>
+                           			<span class="clearfix"></span>
+                            	</div>
+                            </a>
                         </div>
                     </div>
                     
@@ -147,15 +118,5 @@
     
     </div> <!-- end wrapper -->
 } {
-	<script>
-		// password
-        $('#eye').hover(function() {
-            $('#password').attr('type', 'text');
-            $('#password').animate({borderColor: '#38B89F'}, 100);
-        });
-        $('#eye').mouseleave(function() {
-            $('#password').attr('type', 'password');
-            $('#password').animate({borderColor: '#e5e6e7'}, 50);
-        });
-    </script>
+	<script src="@routes.Assets.at("javascripts/user.js")"></script>
 }

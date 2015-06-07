@@ -8,9 +8,5 @@ function showLogin() {
 	});
 }
 
-function dismiss() {
-	$('.alert').hide(400);
-}
-
 $("#waves").volume = 0.4;
 $(document).ready(showLogin);

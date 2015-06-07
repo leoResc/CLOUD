@@ -521,3 +521,8 @@
   animation-duration: .5s;
 		  
 }
+
+/* for testing purposes */
+.nextDay {
+    display: inline !important;
+}

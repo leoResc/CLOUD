@@ -3,35 +3,49 @@ class SeleniumUtilities
 	def initialize(driver)
 		@driver = driver
 		@admin = false
+		@url = ""
 	end
 
 	def navigate(page)
 		if $localTesting
-			case page
-			when "login"
-				@driver.navigate.to "localhost:9000/login"
-			when "main"
-				@driver.navigate.to "localhost:9000"
-			when "event"
-				$login.logInAsAdmin()
-				@driver.navigate.to "localhost:9000/events"
-			when "song"
-				$login.logInAsAdmin()
-				@driver.navigate.to "localhost:9000/songs"
-			end		
+			@url = "localhost:9000"
 		else
-			case page
-			when "login"
-				@driver.navigate.to "http://cloud.licua.de/login"
-			when "main"
-				@driver.navigate.to "http://cloud.licua.de"
-			when "event"
-				$login.logInAsAdmin()
-				@driver.navigate.to "http://cloud.licua.de/events"
-			when "song"
-				$login.logInAsAdmin()
-				@driver.navigate.to "http://cloud.licua.de/songs"
-			end		
+			@url = "cloud.licua.de"
+		end
+		
+		case page
+		when "login"
+			@url << "/login"
+			@driver.navigate.to @url
+		when "main"
+			@driver.navigate.to @url
+		when "dashboard"
+			if (@driver.title != "Dashboard - Overview")
+				navigate("main")
+				@driver.find_element(:css, "button.dropdown").click
+				sleep(1)
+				@driver.find_element(:link, "Dashboard").click
+			end
+		when "event"
+			if (@driver.title != "Dashboard - Events")
+				navigate("dashboard")
+			end
+			@driver.find_element(:link, "Events").click
+		when "song"
+			if (@driver.title != "Dashboard - Songs")
+				navigate("dashboard")
+			end
+			@driver.find_element(:link, "Songs").click
+		when "playlist"
+			if (@driver.title != "Dashboard - Playlists")
+				navigate("dashboard")
+			end
+			@driver.find_element(:link, "Playlists").click
+		when "user"
+			if (@driver.title != "Dashboard - User")
+				navigate("dashboard")
+			end
+			@driver.find_element(:link, "User").click
 		end
 	end
 	
@@ -62,13 +76,15 @@ class SeleniumUtilities
 		end
 	end
 	
-	def assertNotification(item, message)
-		(@driver.find_element(:css, item).text).should == message
+	def assertNotification(message)
+		(@driver.find_element(:css, "div.toast-message").text).should == message
 	end
 	
-	def logout()
-		navigate("main")
-		@driver.find_element(:link, "Logout").click
+	def isElementPresent(how, what)
+		@driver.find_element(how, what)
+		true
+		rescue Selenium::WebDriver::Error::NoSuchElementError
+		false
 	end
 
 end

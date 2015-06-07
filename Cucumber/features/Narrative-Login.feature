@@ -4,12 +4,16 @@ As 			a user
 I want 		to log in
 so that 	I can see the playlist and vote for songs
 
+Scenario: 	Creation of the test event
+	
+	When 	The test event exists
+	
 
 Scenario Outline: 	Casual user types in all the information correctly
 
-	Given 	The user is on the login page of Cloud
-
-	When 	The user clicks on the sign in button
+	Given  	The user is on the login page of Cloud
+	
+	When  	The user clicks on the sign in button
 	And 	The user types in the username <userName>
 	And 	The user types in the password <password>
 	And 	The user clicks the sign in button
@@ -22,7 +26,7 @@ Examples:
     | gordon	| test		|
     | lea		| test		|
 
-	
+
 Scenario Outline: 	Casual user types in invalid password
 
 	Given 	The user is on the login page of Cloud
@@ -32,7 +36,7 @@ Scenario Outline: 	Casual user types in invalid password
 	And 	The user types in the password <invalidPassword>
 	And 	The user clicks the sign in button
 
-	Then 	The error message is displayed: Warning! Wrong password for current event.
+	Then 	The error message is displayed: You selected the wrong password for current event ...
 
 	Examples:
     | userName	| invalidPassword	|
@@ -42,8 +46,7 @@ Scenario Outline: 	Casual user types in invalid password
 	
 Scenario Outline: 	Casual user types in invalid nickname
 
-	Given 	The test event exists
-	And 	The user <invalidUserName> exists already
+	Given 	The user <invalidUserName> exists already
 	And 	The user is on the login page of Cloud
 
 	When 	The user clicks on the sign in button
@@ -51,7 +54,7 @@ Scenario Outline: 	Casual user types in invalid nickname
 	And 	The user types in the password <password>
 	And 	The user clicks the sign in button
 
-	Then 	The error message is displayed: Warning! User exists already.
+	Then 	The error message is displayed: The user <invalidUserName> exists already ...
 	And 	The user will see the login page of Cloud
 	
 Examples:
