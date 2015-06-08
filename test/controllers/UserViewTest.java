@@ -57,7 +57,7 @@ public class UserViewTest {
 						controllers.routes.ref.Dashboard.getUser(),
 						fakeRequest);
 
-				assertThat(status(result)).isEqualTo(401);
+				assertThat(status(result)).isEqualTo(403);
 			}
 
 		});

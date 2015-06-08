@@ -57,7 +57,7 @@ public class SongViewTest {
 						controllers.routes.ref.Dashboard.getSong(),
 						fakeRequest);
 
-				assertThat(status(result)).isEqualTo(401);
+				assertThat(status(result)).isEqualTo(403);
 			}
 
 		});

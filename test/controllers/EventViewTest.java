@@ -57,7 +57,7 @@ public class EventViewTest {
 						controllers.routes.ref.Dashboard.getEvent(),
 						fakeRequest);
 
-				assertThat(status(result)).isEqualTo(401);
+				assertThat(status(result)).isEqualTo(403);
 			}
 
 		});

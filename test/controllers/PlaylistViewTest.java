@@ -57,7 +57,7 @@ public class PlaylistViewTest {
 						controllers.routes.ref.Dashboard.getPlaylist(),
 						fakeRequest);
 
-				assertThat(status(result)).isEqualTo(401);
+				assertThat(status(result)).isEqualTo(403);
 			}
 
 		});

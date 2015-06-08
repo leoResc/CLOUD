@@ -57,7 +57,7 @@ public class DashboardViewTest {
 						controllers.routes.ref.Dashboard.getDashboard(),
 						fakeRequest);
 
-				assertThat(status(result)).isEqualTo(401);
+				assertThat(status(result)).isEqualTo(403);
 			}
 
 		});
