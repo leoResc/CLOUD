@@ -155,3 +155,7 @@ body {
 #toast-container > .toast-info:before {
     content: '\2601';
 }
+
+.btn:focus {
+    outline: 0 !important;
+}

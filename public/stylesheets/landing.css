@@ -1,3 +1,36 @@
+@font-face {
+	font-family: Open Sans;
+	src: url('../fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+	font-family: Open Sans Light;
+	src: url('../fonts/OpenSans.ttf');
+}
+
+* {
+    font-family: Open Sans;
+}
+
+.light {
+    font-family: Open Sans Light;
+}
+
+.huge {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.title {
+    font-family: Open Sans;
+    font-weight: bold;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -7,6 +40,13 @@ body {
 .wrapper {
     width: 100%;
     background-color: #F7F7F7;
+}
+
+.footer {
+    background-color: #2F4050;
+    color: white;
+    text-align: justify;
+    padding-bottom: 10px;
 }
 
 /* parallax */
@@ -44,6 +84,10 @@ body {
     
     .genre-caption h2 {
         top: 0px !important;
+    }
+    
+    .footer {
+        margin-top: 0px;
     }
 }
 
@@ -223,6 +267,90 @@ th:last-child, td:last-child {
     text-align: right;
 }
 
-.place {
-    height: 500px;
+.glyphicon-huge {
+    font-size: 50px;   
+}
+
+/* infobox */
+.infobox {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #FFF;
+    border-color: #E7EAEC;
+    border-image: none;
+    border-style: solid none;
+    border-width: 4px 0px 0px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    background-color: white;
+    color: #676A6C;
+}
+
+.infobox-heading {
+    padding: 0px 15px 0px 15px;
+}
+
+.infobox h3 {
+    font-size: 14px;
+    font-weight: bold;   
+}
+
+.infobox .label {
+    font-size: 10px;
+    font-weight: bolder;
+    border-radius: 0.25em;
+    background-color: #38B89F;
+    position: relative;
+    top: 15px;
+    letter-spacing: 0.05em;
+}
+
+.infobox hr {
+    margin: 0px;
+}
+
+.infobox-content {
+    padding: 5px 15px 5px 15px;    
+}
+
+.infobox-content > .title {
+    font-size: 25px;
+}
+
+.infobox-footer {
+    padding: 10px 15px;
+    color: white;
+    /color: #38B89F;
+    background-color: #435361;
+    /background-color: #F5F5F5;
+    border-bottom: 1px solid #ddd;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+a.green {
+    color: #38B89F;
+}
+
+a.green:hover {
+    text-decoration: none;   
+}
+
+.btn:focus {
+    outline: 0 !important;
+}
+
+/* scrollbar */
+body::-webkit-scrollbar-track {
+	background-color: none;
+}
+
+body::-webkit-scrollbar {
+	width: 0px;
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: none;
 }
