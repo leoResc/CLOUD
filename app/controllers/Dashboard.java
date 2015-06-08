@@ -32,7 +32,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		int countUser = User.find.findRowCount();
@@ -46,7 +46,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<Playlist> playlists = Playlist.find.all();
@@ -60,7 +60,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<Song> allSongs = Song.find.all();
@@ -75,7 +75,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<Song> songs = Song.find.all();
@@ -88,7 +88,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<User> allUser = User.find.all();
@@ -106,7 +106,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		User.byId.byId(id).delete();
@@ -119,7 +119,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<User> alluser = User.find.all();
@@ -135,7 +135,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		Calendar calendar = new GregorianCalendar();
@@ -162,7 +162,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<Song> allSongs = Song.find.all();
@@ -184,7 +184,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		Playlist playlist = Playlist.find.byId(id);
@@ -201,7 +201,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		Form<Playlist> formPlaylist = Form.form(Playlist.class)
@@ -225,7 +225,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		MultipartFormData body = request().body().asMultipartFormData();
@@ -240,7 +240,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		Song.deleteSong(id);
@@ -254,7 +254,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		List<Playlist> allPlaylists = Playlist.find.all();
@@ -312,7 +312,7 @@ public class Dashboard extends Controller {
 			return redirect(routes.Application.getLogin());
 		} else {
 			if (!session.equals("admin")) {
-				return badRequest(forbidden.render("NOT AUTHORIZED"));
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
 			}
 		}
 		Event event = Event.find.byId(id);
