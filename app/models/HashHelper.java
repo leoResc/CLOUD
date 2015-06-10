@@ -2,7 +2,6 @@ package models;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import play.Logger;
 import play.db.ebean.Model;
 
 public class HashHelper extends Model {
@@ -15,10 +14,7 @@ public class HashHelper extends Model {
 
 	public static boolean checkPassword(String candidate,
 			String encryptedPassword) {
-		if (candidate == null) {
-			return false;
-		}
-		if (encryptedPassword == null) {
+		if (candidate == null || encryptedPassword == null) {
 			return false;
 		}
 		return BCrypt.checkpw(candidate, encryptedPassword);
