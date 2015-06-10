@@ -20,13 +20,13 @@ public class Likes extends Model {
 	}
 
 	public void setSongID(long song) {
-		if (Song.find.byId(song) != null) {
+		if (song >= 0 && Song.find.byId(song) != null) {
 			this.songID = song;
 		}
 	}
 
 	public void setUserID(long user) {
-		if (User.byId.byId(user) != null) {
+		if (user >= 0 && User.byId.byId(user) != null) {
 			this.userID = user;
 		}
 	}

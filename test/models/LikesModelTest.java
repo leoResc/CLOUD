@@ -27,9 +27,16 @@ public class LikesModelTest {
 				like.setSongID(123);
 
 				assert (true);
+				
+				// wrong id number
+				
+				like.setSongID(-2);
+				
+				assert (true);
 			}
 		});
 	}
+	
 
 	@Test
 	public void test_setUserID() {
@@ -42,6 +49,12 @@ public class LikesModelTest {
 
 				like.setUserID(123);
 
+				assert (true);
+				
+				// wrong id number
+				
+				like.setUserID(-3);
+				
 				assert (true);
 			}
 		});
