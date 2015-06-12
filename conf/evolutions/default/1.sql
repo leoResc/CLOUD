@@ -3,6 +3,12 @@
 
 # --- !Ups
 
+create table current_playlist (
+  song_id                   bigint not null,
+  ranking                   bigint,
+  constraint pk_current_playlist primary key (song_id))
+;
+
 create table event (
   id                        bigint not null,
   name                      varchar(255),
@@ -14,9 +20,10 @@ create table event (
 ;
 
 create table event_playlist (
-  event_id                  bigint not null,
+  id                        bigint not null,
+  event_id                  bigint,
   playlist_id               bigint,
-  constraint pk_event_playlist primary key (event_id))
+  constraint pk_event_playlist primary key (id))
 ;
 
 create table likes (
@@ -51,6 +58,8 @@ create table user (
   constraint pk_user primary key (id))
 ;
 
+create sequence current_playlist_seq;
+
 create sequence event_seq;
 
 create sequence event_playlist_seq;
@@ -70,6 +79,8 @@ create sequence user_seq;
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists current_playlist;
+
 drop table if exists event;
 
 drop table if exists event_playlist;
@@ -83,6 +94,8 @@ drop table if exists song;
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists current_playlist_seq;
 
 drop sequence if exists event_seq;
 

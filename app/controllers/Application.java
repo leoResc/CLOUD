@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import models.CurrentPlaylist;
 import models.Event;
 import models.HashHelper;
 import models.Likes;
@@ -29,15 +30,14 @@ public class Application extends Controller {
 			return redirect(routes.Application.getLogin());
 		}
 
-		List<Song> songs = new Model.Finder(String.class, Song.class).all();
-		Collections.sort(songs);
+		List<Song> songs = CurrentPlaylist.getCurrentPlaylist();
 		return ok(landing.render(songs, session("id"), session));
 	}
 
 	public static Result login() {
 		User user = Form.form(User.class).bindFromRequest().get();
 		String password = request().body().asFormUrlEncoded().get("password")[0];
-		List<User> allUser = new Model.Finder(String.class, User.class).all();
+		List<User> allUser = User.find.all();
 
 		if (user.username.equals("admin")) {
 			if (HashHelper
@@ -105,12 +105,12 @@ public class Application extends Controller {
 			likes.deleteLike(songID, userID);
 		}
 
-		List<Song> songs = new Model.Finder(String.class, Song.class).all();
-		Collections.sort(songs);
+		List<Song> songs = CurrentPlaylist.getCurrentPlaylist();
 		return ok(Json.toJson(songs));
 	}
 
 	public static Result NotFound(String uri) {
+		CurrentPlaylist.fill();
 		return badRequest(forbidden.render("BAD REQUEST"));
 	}
 }

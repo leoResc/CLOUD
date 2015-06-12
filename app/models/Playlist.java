@@ -33,6 +33,7 @@ public class Playlist extends Model {
 	}
 
 	public ArrayList<Song> getSongList() {
+		stringToList();
 		return songList;
 	}
 

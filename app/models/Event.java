@@ -3,6 +3,7 @@ package models;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,7 +15,7 @@ public class Event extends Model {
 
 	public static Finder<Long, Event> find = new Finder<Long, Event>(
 			Long.class, Event.class);
-	
+
 	@Id
 	public long id;
 	public String name;
@@ -69,5 +70,17 @@ public class Event extends Model {
 	public String getEnd() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		return dateFormat.format(this.end.getTime());
+	}
+
+	public static Event getCurrentEvent() {
+		Calendar currentTime = Calendar.getInstance();
+		List<Event> events = Event.find.all();
+		for (Event event : events) {
+			if ((currentTime.after(event.begin))
+					&& (currentTime.before(event.end))) {
+				return event;
+			}
+		}
+		return null;
 	}
 }

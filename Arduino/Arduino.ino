@@ -1,20 +1,22 @@
-
-// #######################################################
-// COPYRIGHT: Leo Reschetko, Philipp Perez,  Project CLOUD
-// Visit blog.licua.de for more information!
-// Arduino sketch for project CLOUD v3
-// #######################################################
-
-#define MIC A0
-
-int command = 3; //default wert
+int command = 5; //default wert
 boolean LedOn[12];
 int vol[3]; //für die Lautstärke
 int aveMin;
 int aveMax;
 int bassV;
+int bright[6];
+  
+
+#define MIC A0
 
 void setup(){
+  
+  bright[0] = 3;
+  bright[1] = 5;
+  bright[2] = 6;
+  bright[3] = 9;
+  bright[4] = 10;
+  bright[5] = 11;
   
   pinMode(2, OUTPUT);
   pinMode(3, OUTPUT);
@@ -45,11 +47,11 @@ if (Serial.available()) {
   }
 
 switch(command) {
-  case 1: ledTest();      command = 2;   break;
+  case 1: ledTest();      command = 3;   break;
   case 2: thunder();                     break;
   case 3: music();                       break;
   case 4: pulsatingLight();              break;
-  case 5: thunderstorm(); command = 2;   break;
+  case 5: thunderstorm(); command = 3;   break;
   default: command = 2;                  break;
 }
 
@@ -96,6 +98,25 @@ void turnRestOff(int time = 0){
       turnOff((i+2),time);
     }
   }
+}
+
+//////////////////////////////////////////////////////////////////
+void brightLED(int LED, int speedUP=50, int speedDOWN = 50) {
+
+  int brightness = 0;
+  
+  while(brightness <= 250){
+    brightness += 5;
+        analogWrite(LED, brightness);
+        delay(speedUP);
+   }
+   //activate(LED);
+   while(brightness >= 5){
+    brightness -= 5;
+        analogWrite(LED, brightness);
+        delay(speedDOWN);
+   }
+   //turnOff(LED);
 }
 
 int readMIC() {
@@ -145,41 +166,106 @@ void thunder(){
   //play thunder.mp3
   music();
 }
+
+void blitz(int start, int endd, int times=1, int time=20) {
+  while(times > 0) {
+    
+    for(int i=start; i<=endd; i++) {
+      activate(i, 0);
+    }
+    delay(time);
+    turnRestOff(20);
+    times --;
+  }
+}
+
+void blitzTop(int times=1, int time = 20 ) {
+ 
+  blitz(9,13,times,time);
+}
+
+void blitzBot(int times=1, int time = 20) {
+  
+   blitz(2,8,times,time);
+}
+
+void blitzBotLeft(int times=1, int time=20) {
+  
+  blitz(2,4,times,time);
+}
+
+void blitzBotRight(int times=1, int time=20) {
+  
+  blitz(5,8, times, time);
+}
+
+void blitzAll(int times=1, int time=20) {
+  
+  blitz(2,13,times,time);
+}
+
+//////////////////////////////////////////////////// <-------------------------------
 //'5'
 void thunderstorm(){
-    Serial.println("Thunderstorm mode activated");
-
-  //hardcode for thunderstorm
-}
-//////////////////////////////////////////////////////////////////
-void brightLED(int LED, int speedUP=50, int speedDOWN = 50) {
-
-  int brightness = 0;
   
-  while(brightness <= 250){
-    brightness += 5;
-        analogWrite(LED, brightness);
-        delay(speedUP);
-   }
-   //activate(LED);
-   while(brightness >= 5){
-    brightness -= 5;
-        analogWrite(LED, brightness);
-        delay(speedDOWN);
-   }
-   //turnOff(LED);
-}
+  while(readMIC() < 300){
+    delay(100);
+  }
+  
+    delay(489);
+    blitzAll(1,20);
+
+    delay(500);
+    blitzTop();
+    delay(200);
+    blitzBotLeft();
+    
+    delay(2500);
+    blitzBot(2);
+    
+    delay(2000);
+    
+    blitzTop();
+    
+    delay(200);
+    
+    delay(500);
+    blitz(2,3,3,10);
+    
+    delay(3800);
+    blitzAll(1,300);
+    delay(3990);
+    
+    blitzBotRight(1);
+    delay(1111);
+    blitz(8,9);    
+    delay(4444);
+    
+    blitzBot(1);
+    delay(500);
+    blitz(10,13,3);
+
+
+    delay(3800);
+    blitz(5,10,4);
+    delay(5000);
+    blitzTop(1);
+      
+      
+    delay(500);
+    blitzAll(1,20);
+
+    delay(2300);
+    blitzTop();
+    delay(200);
+    blitzBotLeft();
+    
+    delay(3000);
+  }
+
 
 //'4'
 void pulsatingLight(){
-
-  int bright[6];
-  bright[0] = 3;
-  bright[1] = 5;
-  bright[2] = 6;
-  bright[3] = 9;
-  bright[4] = 10;
-  bright[5] = 11;
   
   turnOff(random(2,13),1000);
   
@@ -326,3 +412,6 @@ void ledTest() {
   
   turnRestOff();
 }
+
+
+
