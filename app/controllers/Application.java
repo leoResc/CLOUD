@@ -115,6 +115,7 @@ public class Application extends Controller {
 	}
 
 	public static Result NotFound(String uri) {
+		CurrentPlaylist.fill();
 		CurrentPlaylist.playNextSong();
 		ShellCommand sh = new ShellCommand("mpc play");
 		sh.executeShellCommand();

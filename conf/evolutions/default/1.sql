@@ -4,9 +4,9 @@
 # --- !Ups
 
 create table current_playlist (
-  song_id                   bigint not null,
-  ranking                   bigint,
-  constraint pk_current_playlist primary key (song_id))
+  id                        bigint not null,
+  song_id                   bigint,
+  constraint pk_current_playlist primary key (id))
 ;
 
 create table event (

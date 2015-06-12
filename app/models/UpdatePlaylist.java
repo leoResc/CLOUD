@@ -13,6 +13,7 @@ public class UpdatePlaylist extends TimerTask {
 		StringBuffer output = sh.executeShellCommand();
 		int index = output.indexOf("%)");
 		try {
+			Logger.info("Matched: " + output.substring(index - 2, index));
 			int percentage = Integer
 					.valueOf(output.substring(index - 2, index));
 			if (percentage >= 1 & percentage <= 50) {

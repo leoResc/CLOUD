@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import play.Logger;
 import play.db.ebean.Model;
 
 /**
@@ -24,14 +25,18 @@ public class CurrentPlaylist extends Model {
 			Long.class, CurrentPlaylist.class);
 
 	@Id
+	long id;
 	long songID;
-	long ranking;
 
 	public CurrentPlaylist(long songID) {
 		this.songID = songID;
 	}
 
 	public static void fill() {
+		List<CurrentPlaylist> oldPlaylist = CurrentPlaylist.find.all();
+		for (CurrentPlaylist currentPlaylist : oldPlaylist) {
+			currentPlaylist.delete();
+		}
 		Event event = Event.getCurrentEvent();
 		if (event != null) {
 			List<Playlist> playlists = EventPlaylist
@@ -47,21 +52,25 @@ public class CurrentPlaylist extends Model {
 	}
 
 	public static List<Song> getCurrentPlaylist() {
-		Event event = Event.getCurrentEvent();
 		List<Song> songs = new ArrayList<Song>();
-		if (event != null) {
-			List<Playlist> playlists = EventPlaylist.getPlaylistsForEvent(event.id);
-			for (Playlist playlist : playlists) {
-				songs.addAll(playlist.getSongList());
-			}
+		List<CurrentPlaylist> cp = CurrentPlaylist.find.all();
+		for (CurrentPlaylist currentPlaylist : cp) {
+			songs.add(Song.find.byId(currentPlaylist.songID));
 		}
 		Collections.sort(songs);
+		Logger.info("amount of songs: " + songs.size());
 		return songs;
 	}
-	
+
 	public static void playNextSong() {
-		Song song = getCurrentPlaylist().remove(0);
-		ShellCommand sh = new ShellCommand("mpc add " + song.artist + song.title + ".mp3");
+		Song song = getCurrentPlaylist().get(0);
+		Logger.info("song id: " + song.id);
+		CurrentPlaylist.find.where().eq("songID", song.id).findUnique()
+				.delete();
+		String mp3 = song.artist + "-" + song.title + ".mp3";
+		mp3 = mp3.replaceAll("\\s", "");
+		Logger.info("telling mpc: " + "mpc add " + mp3);
+		ShellCommand sh = new ShellCommand("mpc add " + mp3);
 		sh.executeShellCommand();
 	}
 
