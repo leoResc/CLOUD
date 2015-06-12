@@ -59,9 +59,10 @@ public class CurrentPlaylist extends Model {
 		return songs;
 	}
 	
-	public static void test() {
+	public static void playNextSong() {
 		Song song = getCurrentPlaylist().remove(0);
 		ShellCommand sh = new ShellCommand("mpc add " + song.artist + song.title + ".mp3");
+		sh.executeShellCommand();
 	}
 
 }
