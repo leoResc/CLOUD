@@ -63,15 +63,18 @@ public class CurrentPlaylist extends Model {
 	}
 
 	public static void playNextSong() {
-		Song song = getCurrentPlaylist().get(0);
-		Logger.info("song id: " + song.id);
-		CurrentPlaylist.find.where().eq("songID", song.id).findUnique()
-				.delete();
-		String mp3 = song.artist + "-" + song.title + ".mp3";
-		mp3 = mp3.replaceAll("\\s", "");
-		Logger.info("telling mpc: " + "mpc add " + mp3);
-		ShellCommand sh = new ShellCommand("mpc add " + mp3);
-		sh.executeShellCommand();
+		List<Song> currentPlaylist = getCurrentPlaylist();
+		if (currentPlaylist.size() > 0) {
+			Song song = currentPlaylist.get(0);
+			Logger.info("song id: " + song.id);
+			CurrentPlaylist.find.where().eq("songID", song.id).findUnique()
+					.delete();
+			String mp3 = song.artist + "-" + song.title + ".mp3";
+			mp3 = mp3.replaceAll("\\s", "");
+			Logger.info("telling mpc: " + "mpc add " + mp3);
+			ShellCommand sh = new ShellCommand("mpc add " + mp3);
+			sh.executeShellCommand();
+		}
 	}
 
 }
