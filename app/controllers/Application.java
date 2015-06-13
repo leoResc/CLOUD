@@ -1,19 +1,12 @@
 package controllers;
 
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-
-import com.avaje.ebeaninternal.server.persist.dml.UpdatePlan;
-
 import models.CurrentPlaylist;
 import models.Event;
 import models.HashHelper;
 import models.Likes;
-import models.ShellCommand;
 import models.Song;
-import models.UpdatePlaylist;
 import models.User;
 import play.Logger;
 import play.data.Form;
