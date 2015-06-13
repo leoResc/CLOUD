@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import play.Logger;
 import play.db.ebean.Model;
 
 /**
@@ -53,23 +52,22 @@ public class CurrentPlaylist extends Model {
 
 	public static List<Song> getCurrentPlaylist() {
 		List<Song> songs = new ArrayList<Song>();
-		List<CurrentPlaylist> cp = CurrentPlaylist.find.all();
-		for (CurrentPlaylist currentPlaylist : cp) {
-			songs.add(Song.find.byId(currentPlaylist.songID));
+		if (Event.getCurrentEvent() != null) {
+			List<CurrentPlaylist> cp = CurrentPlaylist.find.all();
+			for (CurrentPlaylist currentPlaylist : cp) {
+				songs.add(Song.find.byId(currentPlaylist.songID));
+			}
+			Collections.sort(songs);
 		}
-		Collections.sort(songs);
-		Logger.info("amount of songs: " + songs.size());
 		return songs;
 	}
 
 	public static void playNextSong() {
 		Song song = getCurrentPlaylist().get(0);
-		Logger.info("song id: " + song.id);
 		CurrentPlaylist.find.where().eq("songID", song.id).findUnique()
 				.delete();
 		String mp3 = song.artist + "-" + song.title + ".mp3";
 		mp3 = mp3.replaceAll("\\s", "");
-		Logger.info("telling mpc: " + "mpc add " + mp3);
 		ShellCommand sh = new ShellCommand("mpc add " + mp3);
 		sh.executeShellCommand();
 	}
