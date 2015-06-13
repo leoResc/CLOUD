@@ -240,10 +240,10 @@ $('button').click(
 					$('#play1').addClass('active');
 					$('#play2').addClass('active');
 				}
-				/*$.ajax({
+				$.ajax({
 					url : '/musicControl/' + control,
 					type : 'POST',
-				});*/
+				});
 			}
 		});
 
