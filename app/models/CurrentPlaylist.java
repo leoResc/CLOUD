@@ -40,6 +40,9 @@ public class CurrentPlaylist extends Model {
 		for (CurrentPlaylist currentPlaylist : oldPlaylist) {
 			currentPlaylist.delete();
 		}
+		ShellCommand sh = new ShellCommand("mpc clear");
+		sh.executeShellCommand();
+		// search all playlists for today's event and their contained songs
 		Event event = Event.getCurrentEvent();
 		if (event != null) {
 			List<Playlist> playlists = EventPlaylist

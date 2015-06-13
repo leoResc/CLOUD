@@ -13,7 +13,6 @@ public class UpdatePlaylist extends TimerTask {
 		StringBuffer output = sh.executeShellCommand();
 		int begin = output.indexOf("(");
 		int end = output.indexOf("%)");
-		Logger.info("Matched:'" + output.substring(begin + 1, end) + "'");
 		try {
 			int percentage = Integer
 					.valueOf(output.substring(begin + 1, end));
@@ -25,7 +24,7 @@ public class UpdatePlaylist extends TimerTask {
 				loadedNext = true;
 			}
 		} catch (NumberFormatException e) {
-			Logger.info("error while parsing mpc status");
+			Logger.error("error while parsing mpc status");
 		}
 	}
 }
