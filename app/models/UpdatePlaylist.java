@@ -13,18 +13,20 @@ public class UpdatePlaylist extends TimerTask {
 		StringBuffer output = sh.executeShellCommand();
 		int begin = output.indexOf("(");
 		int end = output.indexOf("%)");
-		try {
-			int percentage = Integer
-					.valueOf(output.substring(begin + 1, end));
-			if (percentage >= 1 & percentage <= 50) {
-				loadedNext = false;
+		if ((begin >= 0) && (end >= 0)) {
+			try {
+				int percentage = Integer.valueOf(output.substring(begin + 1,
+						end));
+				if (percentage >= 1 & percentage <= 50) {
+					loadedNext = false;
+				}
+				if ((percentage >= 85) && (!loadedNext)) {
+					CurrentPlaylist.addNextSongToPlaylist();
+					loadedNext = true;
+				}
+			} catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+				Logger.error("error while parsing mpc status");
 			}
-			if ((percentage >= 85) && (!loadedNext)) {
-				CurrentPlaylist.addNextSongToPlaylist();
-				loadedNext = true;
-			}
-		} catch (NumberFormatException e) {
-			Logger.error("error while parsing mpc status");
 		}
 	}
 }
