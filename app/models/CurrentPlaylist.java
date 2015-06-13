@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import play.Logger;
 import play.db.ebean.Model;
 
 /**
@@ -32,11 +31,18 @@ public class CurrentPlaylist extends Model {
 		this.songID = songID;
 	}
 
-	public static void fill() {
+	/**
+	 * Fills the playlist for the current event
+	 */
+	public static void fillCurrentPlaylist() {
+		// delete playlist entries of last event
 		List<CurrentPlaylist> oldPlaylist = CurrentPlaylist.find.all();
 		for (CurrentPlaylist currentPlaylist : oldPlaylist) {
 			currentPlaylist.delete();
 		}
+		ShellCommand sh = new ShellCommand("mpc clear");
+		sh.executeShellCommand();
+		// search all playlists for today's event and their contained songs
 		Event event = Event.getCurrentEvent();
 		if (event != null) {
 			List<Playlist> playlists = EventPlaylist
@@ -51,27 +57,33 @@ public class CurrentPlaylist extends Model {
 		}
 	}
 
+	/**
+	 * 
+	 * @return returns all songs in the current playlist for today's event
+	 */
 	public static List<Song> getCurrentPlaylist() {
 		List<Song> songs = new ArrayList<Song>();
-		List<CurrentPlaylist> cp = CurrentPlaylist.find.all();
-		for (CurrentPlaylist currentPlaylist : cp) {
-			songs.add(Song.find.byId(currentPlaylist.songID));
+		if (Event.getCurrentEvent() != null) {
+			List<CurrentPlaylist> cp = CurrentPlaylist.find.all();
+			for (CurrentPlaylist currentPlaylist : cp) {
+				songs.add(Song.find.byId(currentPlaylist.songID));
+			}
+			Collections.sort(songs);
 		}
-		Collections.sort(songs);
-		Logger.info("amount of songs: " + songs.size());
 		return songs;
 	}
-
-	public static void playNextSong() {
+		
+	/**
+	 * Adds next song to playlist of mpc
+	 */
+	public static void addNextSongToPlaylist() {
 		List<Song> currentPlaylist = getCurrentPlaylist();
 		if (currentPlaylist.size() > 0) {
 			Song song = currentPlaylist.get(0);
-			Logger.info("song id: " + song.id);
 			CurrentPlaylist.find.where().eq("songID", song.id).findUnique()
-					.delete();
+			.delete();
 			String mp3 = song.artist + "-" + song.title + ".mp3";
 			mp3 = mp3.replaceAll("\\s", "");
-			Logger.info("telling mpc: " + "mpc add " + mp3);
 			ShellCommand sh = new ShellCommand("mpc add " + mp3);
 			sh.executeShellCommand();
 		}
