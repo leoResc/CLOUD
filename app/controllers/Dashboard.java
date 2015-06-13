@@ -344,7 +344,8 @@ public class Dashboard extends Controller {
 		} else if (mode == 1) {
 			command += "pause";
 		} else if (mode == 2) {
-			CurrentPlaylist.playNextSong();
+			CurrentPlaylist.addNextSongToPlaylist();
+			command += "next";
 		}
 		Logger.info(command);
 		ShellCommand sh = new ShellCommand(command);

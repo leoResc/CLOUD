@@ -62,7 +62,10 @@ public class CurrentPlaylist extends Model {
 		return songs;
 	}
 
-	public static void playNextSong() {
+	/**
+	 * Adds next song to playlist of mpc
+	 */
+	public static void addNextSongToPlaylist() {
 		Song song = getCurrentPlaylist().get(0);
 		CurrentPlaylist.find.where().eq("songID", song.id).findUnique()
 				.delete();

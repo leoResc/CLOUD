@@ -20,7 +20,7 @@ public class UpdatePlaylist extends TimerTask {
 				loadedNext = false;
 			}
 			if ((percentage >= 85) && (!loadedNext)) {
-				CurrentPlaylist.playNextSong();
+				CurrentPlaylist.addNextSongToPlaylist();
 				loadedNext = true;
 				Logger.info("loaded next");
 			}
