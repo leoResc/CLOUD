@@ -31,7 +31,11 @@ public class CurrentPlaylist extends Model {
 		this.songID = songID;
 	}
 
-	public static void fill() {
+	/**
+	 * Fills the playlist for the current event
+	 */
+	public static void fillCurrentPlaylist() {
+		// delete playlist entries of last event
 		List<CurrentPlaylist> oldPlaylist = CurrentPlaylist.find.all();
 		for (CurrentPlaylist currentPlaylist : oldPlaylist) {
 			currentPlaylist.delete();
@@ -50,6 +54,10 @@ public class CurrentPlaylist extends Model {
 		}
 	}
 
+	/**
+	 * 
+	 * @return returns all songs in the current playlist for today's event
+	 */
 	public static List<Song> getCurrentPlaylist() {
 		List<Song> songs = new ArrayList<Song>();
 		if (Event.getCurrentEvent() != null) {

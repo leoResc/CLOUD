@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
 
 import models.CurrentPlaylist;
 import models.Event;
@@ -14,6 +15,7 @@ import models.EventPlaylist;
 import models.Playlist;
 import models.ShellCommand;
 import models.Song;
+import models.UpdatePlaylist;
 import models.User;
 import play.data.Form;
 import play.libs.Json;
@@ -391,4 +393,29 @@ public class Dashboard extends Controller {
 		String volume = output.substring(7, output.length() - 2);
 		return ok(Json.toJson(volume));
 	}
+
+	/**
+	 * Activates today's event by loading all songs in current playlist and
+	 * starting scheduler for updating the paylist each 10s. Attention: This
+	 * method has to called only once per event!
+	 */
+	public static Result startTodaysEvent() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
+			}
+		}
+		CurrentPlaylist.fillCurrentPlaylist();
+		CurrentPlaylist.addNextSongToPlaylist();
+		ShellCommand sh = new ShellCommand("mpc play");
+		sh.executeShellCommand();
+		Timer time = new Timer();
+		UpdatePlaylist update = new UpdatePlaylist();
+		time.schedule(update, 0, 10000);
+		return redirect(routes.Dashboard.getDashboard());
+	}
+
 }

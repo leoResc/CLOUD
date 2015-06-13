@@ -115,14 +115,6 @@ public class Application extends Controller {
 	}
 
 	public static Result NotFound(String uri) {
-		CurrentPlaylist.fill();
-		CurrentPlaylist.addNextSongToPlaylist();
-		ShellCommand sh = new ShellCommand("mpc play");
-		sh.executeShellCommand();
-		Timer time = new Timer();
-		UpdatePlaylist update = new UpdatePlaylist();
-		time.schedule(update, 0, 10000);
-		
 		return badRequest(forbidden.render("BAD REQUEST"));
 	}
 }
