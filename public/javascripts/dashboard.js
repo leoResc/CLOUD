@@ -19,8 +19,10 @@ $(function ($) {
 		  //console.log("change : " + value);
 		},
         release : function (value) {
-            //console.log(this.$.attr('value'));
-            console.log("release : " + value);
+            $.ajax({
+            	url : '/setVolume/' + value,
+				type : 'POST',
+			});
         },
         cancel : function () {
             console.log("cancel : ", this);
@@ -195,6 +197,14 @@ $(document).ready(function() {
 		success : function(response) {
 			setTime(response, false);
 		}
+	});
+	// volume
+	$.ajax({
+		url : '/getVolume',
+		type : 'GET',
+		success : function(response) {
+			$('.knobdial').val(JSON.parse(response)).trigger('change');
+		},
 	});
 });
 
