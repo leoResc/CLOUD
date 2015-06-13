@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import models.CurrentPlaylist;
 import models.Event;
 import models.EventPlaylist;
 import models.Playlist;
@@ -343,7 +344,7 @@ public class Dashboard extends Controller {
 		} else if (mode == 1) {
 			command += "pause";
 		} else if (mode == 2) {
-			command += "next";
+			CurrentPlaylist.playNextSong();
 		}
 		Logger.info(command);
 		ShellCommand sh = new ShellCommand(command);
