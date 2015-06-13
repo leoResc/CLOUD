@@ -116,7 +116,6 @@
 	    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
    		<!-- Toastr.js -->
     	<script src="@routes.Assets.at("javascripts/toastr.min.js")"></script>
-	    @scripts
 	    <script>
 	    	// cover photo
 		    var $i = 1;
@@ -155,6 +154,7 @@
 				    'hideMethod': 'fadeOut'
 			};
 		</script>
+	    @scripts
 	@if(flash.containsKey("success")) {
 		<script>Command: toastr['success']('@flash.get("success")');</script>
 	}

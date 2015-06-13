@@ -65,43 +65,34 @@ $(function($) {
 });
 
 // Toastr
+// Toastr
 var $dismiss = false;
 var $operation;
-toastr.options = {
-	'closeButton' : false,
-	'debug' : true,
-	'newestOnTop' : false,
-	'progressBar' : true,
-	'positionClass' : 'toast-top-right',
-	'preventDuplicates' : false,
-	'onclick' : null,
-	'showDuration' : '300',
-	'hideDuration' : '1000',
-	'timeOut' : '7000',
-	'extendedTimeOut' : '1000',
-	'showEasing' : 'swing',
-	'hideEasing' : 'linear',
-	'showMethod' : 'show',
-	'hideMethod' : 'fadeOut'
-};
 toastr.options.onHidden = function() {
 	if ($dismiss == false) {
 		switch ($operation) {
 		case 0:
 			$('.fullscreen').show('fold', 1000);
-			changeMode($operation);
+			changeMode(0);
 			break;
 		case 1:
+			changeMode(1);
+			break;
 		case 2:
+			changeMode(2);
+			break;
 		case 3:
+			changeMode(3);
+			break;
 		case 4:
+			changeMode(4);
+			break;
 		case 5:
-			changeMode($operation);
+			changeMode(5);
 			break;
 		default:
-			alert('Error! The selected mode is not allowed');
+			alert('error');
 		}
-		;
 	} else {
 		$('#' + id).removeClass('active');
 	}
@@ -215,35 +206,36 @@ $('button').click(
 		function() {
 			if (!$(this).hasClass('active')) {
 				id = $(this).attr('id');
+				// music control
 				if (id.indexOf('play') >= 0 || id.indexOf('pause') >= 0
 						|| id.indexOf('forward') >= 0) {
 					$('div.music-control button').removeClass('active');
 					$(this).addClass('active');
+					var control = -1;
+					if (id.indexOf('play') >= 0) {
+						control = 0;
+					} else if (id.indexOf('pause') >= 0) {
+						control = 1;
+					} else if (id.indexOf('forward') >= 0) {
+						control = 2;
+						$('#forward2').animate({
+							backgroundColor : '#5FFFE0'
+						}, 500).removeClass('active');
+						$('#forward2').animate({
+							backgroundColor : '#49C4AB'
+						}, 300);
+						$('#play1').addClass('active');
+						$('#play2').addClass('active');
+					}
+					$.ajax({
+						url : '/musicControl/' + control,
+						type : 'POST',
+					});
+				// light modes
 				} else {
 					$('#modes button').removeClass('active');
 					$(this).addClass('active');
 				}
-				var control = -1;
-				if (id.indexOf('play') >= 0) {
-					control = 0;
-				} else if (id.indexOf('pause') >= 0) {
-					control = 1;
-				} else if (id.indexOf('forward') >= 0) {
-					control = 2;
-					//$('#forward1').effect("pulsate", 1).delay(1000).removeClass('active');
-					$('#forward2').animate({
-						backgroundColor : '#5FFFE0'
-					}, 500).removeClass('active');
-					$('#forward2').animate({
-						backgroundColor : '#49C4AB'
-					}, 300);
-					$('#play1').addClass('active');
-					$('#play2').addClass('active');
-				}
-				$.ajax({
-					url : '/musicControl/' + control,
-					type : 'POST',
-				});
 			}
 		});
 
@@ -272,7 +264,6 @@ $(document).ready(function() {
 		},
 	});
 });
-
 function warning() {
 	if (!updated) {
 		var serverTime = new Date();
