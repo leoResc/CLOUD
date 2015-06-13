@@ -78,6 +78,7 @@ public class Song extends Model implements Comparable<Song> {
 
 				File file = filePart.getFile();
 				String fileName = filePart.getFilename();
+				StringBuffer fileNameBuffer = new StringBuffer(fileName);
 
 				// move file to storage location and delete temp file
 				try {
@@ -86,10 +87,11 @@ public class Song extends Model implements Comparable<Song> {
 
 					if (song != null) {
 						// rename file according to guidelines
-						fileName = song.artist + "-" + song.title + ".mp3";
-						fileName = fileName.replaceAll("\\s", "");
+						fileNameBuffer.append(song.artist.replaceAll("\\s", "")
+								+ "-" + song.title.replaceAll("\\s", "")
+								+ ".mp3");
 						FileUtils.moveFile(file, new File(storageLocation,
-								fileName));
+								fileNameBuffer.toString()));
 						// save in database
 						song.save();
 						continue;
