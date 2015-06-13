@@ -11,18 +11,18 @@ public class UpdatePlaylist extends TimerTask {
 	public void run() {
 		ShellCommand sh = new ShellCommand("mpc status");
 		StringBuffer output = sh.executeShellCommand();
-		int index = output.indexOf("%)");
+		int begin = output.indexOf("(");
+		int end = output.indexOf("%)");
 		try {
-			Logger.info("Matched: " + output.substring(index - 2, index));
+			Logger.info("Matched: " + output.substring(begin + 1, end));
 			int percentage = Integer
-					.valueOf(output.substring(index - 2, index));
+					.valueOf(output.substring(begin - 2, begin));
 			if (percentage >= 1 & percentage <= 50) {
 				loadedNext = false;
 			}
 			if ((percentage >= 85) && (!loadedNext)) {
 				CurrentPlaylist.addNextSongToPlaylist();
 				loadedNext = true;
-				Logger.info("loaded next");
 			}
 		} catch (Exception e) {
 			Logger.info("error while parsing mpc status");

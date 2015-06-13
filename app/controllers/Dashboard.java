@@ -15,7 +15,6 @@ import models.Playlist;
 import models.ShellCommand;
 import models.Song;
 import models.User;
-import play.Logger;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -347,7 +346,6 @@ public class Dashboard extends Controller {
 			CurrentPlaylist.addNextSongToPlaylist();
 			command += "next";
 		}
-		Logger.info(command);
 		ShellCommand sh = new ShellCommand(command);
 		sh.executeShellCommand();
 		return ok();
@@ -391,7 +389,6 @@ public class Dashboard extends Controller {
 		ShellCommand sh = new ShellCommand("mpc volume");
 		StringBuffer output = sh.executeShellCommand();
 		String volume = output.substring(7, output.length() - 2);
-		Logger.info("read volume: " + volume);
 		return ok(Json.toJson(volume));
 	}
 }
