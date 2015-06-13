@@ -345,6 +345,7 @@ public class Dashboard extends Controller {
 		} else if (mode == 2) {
 			command += "next";
 		}
+		Logger.info(command);
 		ShellCommand sh = new ShellCommand(command);
 		sh.executeShellCommand();
 		return ok();
@@ -387,7 +388,7 @@ public class Dashboard extends Controller {
 		}
 		ShellCommand sh = new ShellCommand("mpc volume");
 		StringBuffer output = sh.executeShellCommand();
-		String volume = output.substring(7, output.length() - 1);
+		String volume = output.substring(7, output.length() - 2);
 		Logger.info("read volume: " + volume);
 		return ok(Json.toJson(volume));
 	}
