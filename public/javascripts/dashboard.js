@@ -230,11 +230,20 @@ $('button').click(
 					control = 1;
 				} else if (id.indexOf('forward') >= 0) {
 					control = 2;
+					//$('#forward1').effect("pulsate", 1).delay(1000).removeClass('active');
+					$('#forward2').animate({
+						backgroundColor : '#5FFFE0'
+					}, 500).removeClass('active');
+					$('#forward2').animate({
+						backgroundColor : '#49C4AB'
+					}, 300);
+					$('#play1').addClass('active');
+					$('#play2').addClass('active');
 				}
-				$.ajax({
+				/*$.ajax({
 					url : '/musicControl/' + control,
 					type : 'POST',
-				});
+				});*/
 			}
 		});
 
