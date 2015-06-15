@@ -7,12 +7,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
 
+import models.CurrentPlaylist;
 import models.Event;
 import models.EventPlaylist;
 import models.Playlist;
 import models.ShellCommand;
 import models.Song;
+import models.UpdatePlaylist;
 import models.User;
 import play.data.Form;
 import play.libs.Json;
@@ -99,7 +102,7 @@ public class Dashboard extends Controller {
 		Calendar calendar = Calendar.getInstance();
 		return ok(Json.toJson(calendar.getTime()));
 	}
-	
+
 	public static Result deleteUser(long id) {
 		String session = session("user");
 		if (session == null) {
@@ -112,7 +115,7 @@ public class Dashboard extends Controller {
 		User.byId.byId(id).delete();
 		return ok(Json.toJson(User.find.all()));
 	}
-	
+
 	public static Result deleteAllUser() {
 		String session = session("user");
 		if (session == null) {
@@ -128,7 +131,7 @@ public class Dashboard extends Controller {
 		}
 		return redirect(routes.Dashboard.getUser());
 	}
-	
+
 	public static Result updateTime(String date) {
 		String session = session("user");
 		if (session == null) {
@@ -325,4 +328,99 @@ public class Dashboard extends Controller {
 		List<Event> allEvents = Event.find.all();
 		return ok(Json.toJson(allEvents));
 	}
+
+	/**
+	 * Method for play - pause - forward music
+	 * 
+	 * @param represents
+	 *            different modes: 0 - play; 1 - pause; 2 - forward
+	 */
+	public static Result musicControl(int mode) {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
+			}
+		}
+		String command = "mpc ";
+		if (mode == 0) {
+			command += "play";
+		} else if (mode == 1) {
+			command += "pause";
+		} else if (mode == 2) {
+			CurrentPlaylist.addNextSongToPlaylist();
+			command += "next";
+		}
+		ShellCommand sh = new ShellCommand(command);
+		sh.executeShellCommand();
+		return ok();
+	}
+
+	/**
+	 * Method for adjusting the volume
+	 * 
+	 * @param volume
+	 *            volume level between 0 and 100
+	 */
+	public static Result setVolume(int volume) {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
+			}
+		}
+		if ((volume >= 0) && (volume <= 100)) {
+			ShellCommand sh = new ShellCommand("mpc volume " + volume);
+			sh.executeShellCommand();
+		}
+		return ok();
+	}
+
+	/**
+	 * Returns the current volume
+	 * 
+	 */
+	public static Result getVolume() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
+			}
+		}
+		ShellCommand sh = new ShellCommand("mpc volume");
+		StringBuffer output = sh.executeShellCommand();
+		String volume = output.substring(7, output.length() - 2);
+		return ok(Json.toJson(volume));
+	}
+
+	/**
+	 * Activates today's event by loading all songs in current playlist and
+	 * starting scheduler for updating the paylist each 10s. Attention: This
+	 * method has to called only once per event!
+	 */
+	public static Result startTodaysEvent() {
+		String session = session("user");
+		if (session == null) {
+			return redirect(routes.Application.getLogin());
+		} else {
+			if (!session.equals("admin")) {
+				return forbidden(forbidden.render("NOT AUTHORIZED"));
+			}
+		}
+		CurrentPlaylist.fillCurrentPlaylist();
+		CurrentPlaylist.addNextSongToPlaylist();
+		ShellCommand sh = new ShellCommand("mpc play");
+		sh.executeShellCommand();
+		Timer time = new Timer();
+		UpdatePlaylist update = new UpdatePlaylist();
+		time.schedule(update, 0, 10000);
+		return redirect(routes.Dashboard.getDashboard());
+	}
+
 }

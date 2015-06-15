@@ -1,3 +1,10 @@
+// #######################################################
+// Arduino Sketch v2.0 CLOUD
+// Device: Arduino Uno
+// COPYRIGHT: Leo Reschetko, Philipp Perez,  Project CLOUD
+// Visit blog.licua.de for more information!
+// #######################################################
+
 int command = 5; //default wert
 boolean LedOn[12];
 int vol[3]; //für die Lautstärke

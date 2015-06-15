@@ -1,9 +1,7 @@
 package controllers;
 
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
-
 import models.CurrentPlaylist;
 import models.Event;
 import models.HashHelper;
@@ -119,7 +117,6 @@ public class Application extends Controller {
 	}
 
 	public static Result NotFound(String uri) {
-		CurrentPlaylist.fill();
 		return badRequest(forbidden.render("BAD REQUEST"));
 	}
 }

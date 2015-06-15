@@ -24,14 +24,25 @@ public class CurrentPlaylist extends Model {
 			Long.class, CurrentPlaylist.class);
 
 	@Id
+	long id;
 	long songID;
-	long ranking;
 
 	public CurrentPlaylist(long songID) {
 		this.songID = songID;
 	}
 
-	public static void fill() {
+	/**
+	 * Fills the playlist for the current event
+	 */
+	public static void fillCurrentPlaylist() {
+		// delete playlist entries of last event
+		List<CurrentPlaylist> oldPlaylist = CurrentPlaylist.find.all();
+		for (CurrentPlaylist currentPlaylist : oldPlaylist) {
+			currentPlaylist.delete();
+		}
+		ShellCommand sh = new ShellCommand("mpc clear");
+		sh.executeShellCommand();
+		// search all playlists for today's event and their contained songs
 		Event event = Event.getCurrentEvent();
 		if (event != null) {
 			List<Playlist> playlists = EventPlaylist
@@ -48,26 +59,38 @@ public class CurrentPlaylist extends Model {
 		}
 	}
 
+	/**
+	 * 
+	 * @return returns all songs in the current playlist for today's event
+	 */
 	public static List<Song> getCurrentPlaylist() {
-		Event event = Event.getCurrentEvent();
 		List<Song> songs = new ArrayList<Song>();
-		if (event != null) {
-			List<CurrentPlaylist> currentPls = CurrentPlaylist.find.all();
-			for (CurrentPlaylist cp : currentPls) {
 
-				songs.add(Song.find.byId(cp.songID));
-
+		if (Event.getCurrentEvent() != null) {
+			List<CurrentPlaylist> cp = CurrentPlaylist.find.all();
+			for (CurrentPlaylist currentPlaylist : cp) {
+				songs.add(Song.find.byId(currentPlaylist.songID));
 			}
+			Collections.sort(songs);
 		}
-		Collections.sort(songs);
 
 		return songs;
 	}
 
-	public static void test() {
-		Song song = getCurrentPlaylist().remove(0);
-		ShellCommand sh = new ShellCommand("mpc add " + song.artist
-				+ song.title + ".mp3");
+	/**
+	 * Adds next song to playlist of mpc
+	 */
+	public static void addNextSongToPlaylist() {
+		List<Song> currentPlaylist = getCurrentPlaylist();
+		if (currentPlaylist.size() > 0) {
+			Song song = currentPlaylist.get(0);
+			CurrentPlaylist.find.where().eq("songID", song.id).findUnique()
+			.delete();
+			String mp3 = song.artist + "-" + song.title + ".mp3";
+			mp3 = mp3.replaceAll("\\s", "");
+			ShellCommand sh = new ShellCommand("mpc add " + mp3);
+			sh.executeShellCommand();
+		}
 	}
 
 }

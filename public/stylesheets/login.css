@@ -71,8 +71,6 @@ body {
 }
 
 #backgroundImage {
-    background: url('../img/backgroundMobile.jpg') no-repeat;
-    background-size: cover;
     position: fixed;
     top: 0;
     left: 0;

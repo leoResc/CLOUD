@@ -15,7 +15,6 @@ import javax.persistence.Id;
 
 import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
-import org.h2.command.Command;
 
 import play.db.ebean.Model;
 import play.mvc.Http.MultipartFormData.FilePart;
@@ -77,7 +76,7 @@ public class Song extends Model implements Comparable<Song> {
 					|| contentType.equals("audio/mp3")) {
 
 				File file = filePart.getFile();
-				String fileName = filePart.getFilename();
+				StringBuffer fileNameBuffer = new StringBuffer();
 
 				// move file to storage location and delete temp file
 				try {
@@ -86,10 +85,10 @@ public class Song extends Model implements Comparable<Song> {
 
 					if (song != null) {
 						// rename file according to guidelines
-						fileName = song.artist + "-" + song.title + ".mp3";
-						fileName = fileName.replaceAll("\\s", "");
+						fileNameBuffer.append(cleanUpString(song.artist) + "-"
+								+ cleanUpString(song.title) + ".mp3");
 						FileUtils.moveFile(file, new File(storageLocation,
-								fileName));
+								fileNameBuffer.toString()));
 						// save in database
 						song.save();
 						continue;
@@ -158,8 +157,8 @@ public class Song extends Model implements Comparable<Song> {
 	 */
 	public static void deleteSong(long id) {
 		Song song = Song.find.byId(id);
-		String fileName = song.artist + "-" + song.title + ".mp3";
-		fileName = fileName.replaceAll("\\s", "");
+		String fileName = cleanUpString(song.artist) + "-"
+				+ cleanUpString(song.title) + ".mp3";
 
 		File songFile = new File(storageLocation + "/" + fileName);
 
@@ -182,6 +181,23 @@ public class Song extends Model implements Comparable<Song> {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * This method removes all symbols that are not allowed for file names.
+	 * 
+	 * @param string
+	 *            String which shall be cleaned up
+	 * @return returns cleaned up string
+	 */
+	private static String cleanUpString(String string) {
+		string = string.replaceAll("\\s", "");
+		string = string.replaceAll(";", "");
+		string = string.replaceAll("/", "");
+		string = string.replaceAll("\\\\", "");
+		string = string.replaceAll("\\*", "");
+		string = string.replaceAll("'", "");
+		return string;
 	}
 
 }
