@@ -17,6 +17,7 @@ import models.ShellCommand;
 import models.Song;
 import models.UpdatePlaylist;
 import models.User;
+import play.Logger;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -143,17 +144,44 @@ public class Dashboard extends Controller {
 		}
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(Long.valueOf(date));
+		String month = "";
+		int calendarMonth = calendar.get(Calendar.MONTH);
+		if (calendarMonth == Calendar.JANUARY) {
+			month = "JAN";
+		} else if (calendarMonth == Calendar.FEBRUARY) {
+			month = "FEB";
+		} else if (calendarMonth == Calendar.MARCH) {
+			month = "MAR";
+		} else if (calendarMonth == Calendar.APRIL) {
+			month = "APR";
+		} else if (calendarMonth == Calendar.MAY) {
+			month = "MAY";
+		} else if (calendarMonth == Calendar.JUNE) {
+			month = "JUN";
+		} else if (calendarMonth == Calendar.JULY) {
+			month = "JUL";
+		} else if (calendarMonth == Calendar.AUGUST) {
+			month = "AUG";
+		} else if (calendarMonth == Calendar.SEPTEMBER) {
+			month = "SEP";
+		} else if (calendarMonth == Calendar.OCTOBER) {
+			month = "OCT";
+		} else if (calendarMonth == Calendar.NOVEMBER) {
+			month = "NOV";
+		} else {
+			month = "DEC";
+		}
 
-		String shellCommand = "sudo date -s \"" + calendar.get(Calendar.YEAR)
-				+ "-" + (calendar.get(Calendar.MONTH) < 10 ? "0" : "")
-				+ (calendar.get(Calendar.MONTH) + 1) + "-"
+		String shellCommand = "sudo date -s \""
 				+ (calendar.get(Calendar.DAY_OF_MONTH) < 10 ? "0" : "")
-				+ calendar.get(Calendar.DAY_OF_MONTH) + " "
+				+ calendar.get(Calendar.DAY_OF_MONTH) + " " + month + " "
+				+ calendar.get(Calendar.YEAR) + " "
 				+ (calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "")
 				+ calendar.get(Calendar.HOUR_OF_DAY) + ":"
 				+ (calendar.get(Calendar.MINUTE) < 10 ? "0" : "")
 				+ calendar.get(Calendar.MINUTE) + ":" + "00\"";
 		ShellCommand command = new ShellCommand(shellCommand);
+		Logger.info(shellCommand);
 		command.executeShellCommand();
 
 		return ok(Json.toJson(calendar.getTime()));
@@ -268,17 +296,16 @@ public class Dashboard extends Controller {
 		event.name = postData.get("name")[0];
 		event.password = postData.get("password")[0];
 		event.description = postData.get("description")[0];
-		String begin = postData.get("begin")[0]; /// HERE ASK if date already taken
+		String begin = postData.get("begin")[0]; // / HERE ASK if date already
+													// taken
 		String end = postData.get("end")[0];
 
 		// no date selected or exception while parsing date
 		int setDate = event.setDate(begin, end);
-		if(setDate == -3) {
-			flash("error",
-					"There is already an event on this day ...");
+		if (setDate == -3) {
+			flash("error", "There is already an event on this day ...");
 			return ok(views.html.event.render(allPlaylists, allEvents));
-		}
-		else if (setDate == -2) {
+		} else if (setDate == -2) {
 			flash("error",
 					"You didn't select any begin or end for the event ...");
 			return ok(views.html.event.render(allPlaylists, allEvents));
