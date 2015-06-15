@@ -61,6 +61,8 @@ public class CurrentPlaylist extends Model {
 
 					if (CurrentPlaylist.find.byId(song.id) == null) {
 						cp.save();
+					} else {
+						cp.delete();
 					}
 				}
 			}
