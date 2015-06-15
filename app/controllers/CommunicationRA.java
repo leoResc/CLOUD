@@ -1,5 +1,8 @@
 package controllers;
 
+import java.util.List;
+
+import models.CurrentPlaylist;
 import models.ShellCommand;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -12,6 +15,11 @@ public class CommunicationRA extends Controller {
 
 			// Shutdown
 			if (mode == 0) {
+				// delete current playlist
+				List<CurrentPlaylist> currentPlaylist = CurrentPlaylist.find.all();
+				for (CurrentPlaylist song : currentPlaylist) {
+					song.delete();
+				}
 				ShellCommand command = new ShellCommand("sudo shutdown -h now");
 				command.executeShellCommand();
 			} else {
