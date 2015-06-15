@@ -29,16 +29,19 @@ public class Application extends Controller {
 		}
 
 		List<Song> songs = CurrentPlaylist.getCurrentPlaylist();
-		String eventDescription;
+		Event event = Event.getCurrentEvent();
+		String eventDescription = "";
+		String eventTitle = "";
 		
-		if(Event.getCurrentEvent() == null) {
-			eventDescription = "No description because no Event";
+		if(event == null) {
+			eventDescription = "No description available, because no event is currently activated ...";
 		}
 		else {
-			eventDescription = Event.getCurrentEvent().description;			
+			eventDescription = event.description;
+			eventTitle = event.name;
 		}
 		
-		return ok(landing.render(songs, session("id"), session, eventDescription));
+		return ok(landing.render(songs, session("id"), session, eventTitle, eventDescription));
 	}
 
 	public static Result login() {
