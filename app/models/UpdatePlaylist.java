@@ -15,11 +15,11 @@ public class UpdatePlaylist extends TimerTask {
 		int begin = output.indexOf("] #");
 		int end = output.indexOf("%)");
 		// substring from [playing] to %)
-		String mpcStatus = output.substring(begin, end + 1);
+		String mpcStatus = output.substring(begin, end + 2);
 		Logger.info("found in full status: " + mpcStatus);
 		if ((begin >= 0) && (end >= begin)) {
 			begin = mpcStatus.indexOf("(");
-			end = mpcStatus.indexOf("%)");
+			end = mpcStatus.indexOf("%");
 			try {
 				int percentage = Integer.valueOf(mpcStatus.substring(begin + 1,
 						end));
