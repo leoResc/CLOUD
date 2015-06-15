@@ -24,7 +24,7 @@ public class CommunicationRA extends Controller {
 				command.executeShellCommand();
 			} else {
 				ShellCommand command = new ShellCommand(
-						"python communicationArduino.py '" + mode + "'");
+						"python communicationArduino.py " + mode);
 				command.executeShellCommand();
 				// Thunderstorm
 				if (mode == 5) {
