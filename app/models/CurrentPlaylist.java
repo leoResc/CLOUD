@@ -35,22 +35,30 @@ public class CurrentPlaylist extends Model {
 	 * Fills the playlist for the current event
 	 */
 	public static void fillCurrentPlaylist() {
+
 		// delete playlist entries of last event
 		List<CurrentPlaylist> oldPlaylist = CurrentPlaylist.find.all();
 		for (CurrentPlaylist currentPlaylist : oldPlaylist) {
 			currentPlaylist.delete();
 		}
+
 		ShellCommand sh = new ShellCommand("mpc clear");
 		sh.executeShellCommand();
 		// search all playlists for today's event and their contained songs
 		Event event = Event.getCurrentEvent();
+
 		if (event != null) {
+
 			List<Playlist> playlists = EventPlaylist
 					.getPlaylistsForEvent(event.id);
 			for (Playlist playlist : playlists) {
+
 				ArrayList<Song> songs = playlist.getSongList();
+
 				for (Song song : songs) {
+
 					CurrentPlaylist cp = new CurrentPlaylist(song.id);
+
 					if (CurrentPlaylist.find.byId(song.id) == null) {
 						cp.save();
 					}
@@ -69,7 +77,12 @@ public class CurrentPlaylist extends Model {
 		if (Event.getCurrentEvent() != null) {
 			List<CurrentPlaylist> cp = CurrentPlaylist.find.all();
 			for (CurrentPlaylist currentPlaylist : cp) {
-				songs.add(Song.find.byId(currentPlaylist.songID));
+				Song song = Song.find.byId(currentPlaylist.songID);
+
+				if (songs.contains(song) == false)
+				{
+					songs.add(song);
+				}
 			}
 			Collections.sort(songs);
 		}
@@ -85,7 +98,7 @@ public class CurrentPlaylist extends Model {
 		if (currentPlaylist.size() > 0) {
 			Song song = currentPlaylist.get(0);
 			CurrentPlaylist.find.where().eq("songID", song.id).findUnique()
-			.delete();
+					.delete();
 			String mp3 = song.artist + "-" + song.title + ".mp3";
 			mp3 = mp3.replaceAll("\\s", "");
 			ShellCommand sh = new ShellCommand("mpc add " + mp3);
