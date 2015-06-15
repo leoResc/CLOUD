@@ -106,13 +106,16 @@ public class Application extends Controller {
 
 	public static Result vote(long userID, long songID) {
 
-		Likes likes = new Likes();
-		boolean songLiked = Song.songAlreadyLiked(userID, songID);
+		// check for auto update (each 15s)
+		if (userID != -1) {
+			Likes likes = new Likes();
+			boolean songLiked = Song.songAlreadyLiked(userID, songID);
 
-		if (!songLiked) {
-			likes.createLike(songID, userID);
-		} else {
-			likes.deleteLike(songID, userID);
+			if (!songLiked) {
+				likes.createLike(songID, userID);
+			} else {
+				likes.deleteLike(songID, userID);
+			}
 		}
 		List<Song> songs = CurrentPlaylist.getCurrentPlaylist();
 		return ok(Json.toJson(songs));

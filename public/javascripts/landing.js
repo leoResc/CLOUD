@@ -1,3 +1,16 @@
+$(document).ready(function() {
+	user = $('#mobile span').attr('class');
+	setInterval(function() {
+		vote(-1, -1);
+		// animation for auto update
+		$('div.label-primary:contains("Currently Played")').animate({
+			backgroundColor : '#5FFFE0'
+		}, 400);
+		$('div.label-primary:contains("Currently Played")').animate({
+			backgroundColor : '#38B89F'
+		}, 100);
+	}, 15000);
+});
 // dropdown menu
 $('.dropdown').click(function() {
 	$('.dropdownmenu').toggle('slide', {
@@ -18,16 +31,17 @@ if (name == 'admin') {
 $('.user-picture').attr('src', 'assets/icons/user' + icon + '.png');
 // voting
 var likedSongs = new Array();
-var userID;
+var user;
 function vote(userID, songID) {
-	var index = likedSongs.indexOf(songID);
-	if (index == -1) {
-		likedSongs.push(songID);
-	} else {
-		likedSongs[index] = 0;
-	};
-
-	user = userID;
+	if (userID != -1) {
+		var index = likedSongs.indexOf(songID);
+		if (index == -1) {
+			likedSongs.push(songID);
+		} else {
+			likedSongs[index] = 0;
+		}
+		user = userID;
+	}
 	model_data = JSON.stringify(userID);
 	$.ajax({
 		url : '/vote/' + userID + '/' + songID,
