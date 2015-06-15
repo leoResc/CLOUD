@@ -5,7 +5,7 @@
 // Visit blog.licua.de for more information!
 // #######################################################
 
-int command = 5; //default wert
+int command = 3; //default wert
 boolean LedOn[12];
 int vol[3]; //für die Lautstärke
 int aveMin;
@@ -47,19 +47,17 @@ Serial.begin(9600);
 
 void loop(){
  
-  // Serial.println("got connection");
 if (Serial.available()) {
     command = (Serial.read()-'0');
-    delay(50);
   }
 
 switch(command) {
   case 1: ledTest();      command = 3;   break;
-  case 2: thunder();                     break;
+  case 2: thunder();      command = 3;   break;
   case 3: music();                       break;
   case 4: pulsatingLight();              break;
   case 5: thunderstorm(); command = 3;   break;
-  default: command = 2;                  break;
+  default: command = 3;                  break;
 }
 
 }
@@ -214,10 +212,6 @@ void blitzAll(int times=1, int time=20) {
 //////////////////////////////////////////////////// <-------------------------------
 //'5'
 void thunderstorm(){
-  
-  while(readMIC() < 300){
-    delay(100);
-  }
   
     delay(489);
     blitzAll(1,20);
@@ -413,8 +407,8 @@ void level_three() {
 void ledTest() {
     Serial.println("LED test mode activated");
 
-  for(int i=0;i<12;i++) {
-    activate((i+2),500);
+  for(int i=2;i<14;i++) {
+    activate((i),500);
   }
   
   turnRestOff();
