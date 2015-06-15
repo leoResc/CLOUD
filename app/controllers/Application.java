@@ -32,16 +32,16 @@ public class Application extends Controller {
 		Event event = Event.getCurrentEvent();
 		String eventDescription = "";
 		String eventTitle = "";
-		
-		if(event == null) {
+
+		if (event == null) {
 			eventDescription = "No description available, because no event is currently activated ...";
-		}
-		else {
+		} else {
 			eventDescription = event.description;
 			eventTitle = event.name;
 		}
-		
-		return ok(landing.render(songs, session("id"), session, eventTitle, eventDescription));
+
+		return ok(landing.render(songs, session("id"), session, eventTitle,
+				eventDescription));
 	}
 
 	public static Result login() {
@@ -114,7 +114,6 @@ public class Application extends Controller {
 		} else {
 			likes.deleteLike(songID, userID);
 		}
-
 		List<Song> songs = CurrentPlaylist.getCurrentPlaylist();
 		return ok(Json.toJson(songs));
 	}

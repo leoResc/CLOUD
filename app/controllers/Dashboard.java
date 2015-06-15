@@ -351,6 +351,11 @@ public class Dashboard extends Controller {
 			command += "pause";
 		} else if (mode == 2) {
 			CurrentPlaylist.addNextSongToPlaylist();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			command += "next";
 		}
 		ShellCommand sh = new ShellCommand(command);

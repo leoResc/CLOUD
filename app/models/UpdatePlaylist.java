@@ -17,10 +17,9 @@ public class UpdatePlaylist extends TimerTask {
 			try {
 				int percentage = Integer.valueOf(output.substring(begin + 1,
 						end));
-				if (percentage >= 1 & percentage <= 50) {
+				if (percentage >= 1 & percentage < 80) {
 					loadedNext = false;
-				}
-				if ((percentage >= 85) && (!loadedNext)) {
+				} else if ((percentage >= 80) && (!loadedNext)) {
 					CurrentPlaylist.addNextSongToPlaylist();
 					loadedNext = true;
 				}
