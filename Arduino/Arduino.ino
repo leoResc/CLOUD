@@ -212,8 +212,9 @@ void blitzAll(int times=1, int time=20) {
 //////////////////////////////////////////////////// <-------------------------------
 //'5'
 void thunderstorm(){
+    turnRestOff();
   
-    delay(489);
+    delay(459);
     blitzAll(1,20);
 
     delay(500);
@@ -268,12 +269,8 @@ void thunderstorm(){
 //'4'
 void pulsatingLight(){
   
-  turnOff(random(2,13),1000);
-  
   brightLED(bright[random(0,6)]);
   activateRandom();
-  brightLED(bright[random(0,6)]);
-  activateRandom(); 
   
   turnOff(random(2,13),1000);
 }
