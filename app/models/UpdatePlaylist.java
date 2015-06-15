@@ -2,8 +2,6 @@ package models;
 
 import java.util.TimerTask;
 
-import com.sun.org.apache.bcel.internal.generic.LALOAD;
-
 import play.Logger;
 
 public class UpdatePlaylist extends TimerTask {
@@ -18,7 +16,7 @@ public class UpdatePlaylist extends TimerTask {
 		// substring from [playing] to %)
 		String mpcStatus = output.substring(begin, end);
 		begin = mpcStatus.indexOf("(");
-		
+
 		if ((begin >= 0) && (end >= 0)) {
 			try {
 				int percentage = Integer.valueOf(mpcStatus.substring(begin + 1,
