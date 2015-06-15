@@ -15,8 +15,8 @@ $(document).ready(function() {
 		$('#backgroundImage').css('background', 'url(assets/img/backgroundMobile' + i + '.jpg) no-repeat');
 		$('#backgroundImage').css('background-size', 'cover');
 	} else {
-		var i = Math.floor((Math.random() * 3) + 1);
-		if (i == 1) {
+		var i = Math.floor((Math.random() * 4) + 1);
+		if (i > 2) {
 			$('#backgroundVideo:first-child').attr('src', 'assets/img/casle.mp4');
 			$('#backgroundVideo:last-child').attr('src', 'assets/img/casle.webm');
 			$('#sound').attr('src', 'assets/img/rain.mp3');			
