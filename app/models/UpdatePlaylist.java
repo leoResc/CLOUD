@@ -12,11 +12,12 @@ public class UpdatePlaylist extends TimerTask {
 		ShellCommand sh = new ShellCommand("mpc status");
 		StringBuffer output = sh.executeShellCommand();
 		Logger.info("read full status:" + output);
-		int begin = output.indexOf("[p");
+		int begin = output.indexOf("] #");
 		int end = output.indexOf("%)");
 		// substring from [playing] to %)
+		String mpcStatus = output.substring(begin, end + 1);
+		Logger.info("found in full status: " + mpcStatus);
 		if ((begin >= 0) && (end >= begin)) {
-			String mpcStatus = output.substring(begin, end + 1);
 			begin = mpcStatus.indexOf("(");
 			end = mpcStatus.indexOf("%)");
 			try {
