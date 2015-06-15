@@ -56,10 +56,28 @@ public class Event extends Model {
 			if (calendarEnd.before(calendarBegin)) {
 				return -1;
 			}
+			if(Event.findByBegin(calendarBegin) != null){
+				return -3;
+			}
 			return 0;
 		} catch (Exception e) {
 			return -2;
 		}
+	}
+	
+	public static Event findByBegin(Calendar date) {
+		
+		List<Event> events = Event.find.all();
+		
+		for(Event event : events){
+			
+			if(event.begin == date){
+				return event;
+			}
+			
+		}
+		 
+		return null;
 	}
 
 	public String getBegin() {

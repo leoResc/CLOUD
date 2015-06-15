@@ -31,7 +31,16 @@ public class Application extends Controller {
 		}
 
 		List<Song> songs = CurrentPlaylist.getCurrentPlaylist();
-		return ok(landing.render(songs, session("id"), session));
+		String eventDescription;
+		
+		if(Event.getCurrentEvent() == null) {
+			eventDescription = "No description because no Event";
+		}
+		else {
+			eventDescription = Event.getCurrentEvent().description;			
+		}
+		
+		return ok(landing.render(songs, session("id"), session, eventDescription));
 	}
 
 	public static Result login() {

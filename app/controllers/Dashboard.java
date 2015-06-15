@@ -265,12 +265,17 @@ public class Dashboard extends Controller {
 		event.name = postData.get("name")[0];
 		event.password = postData.get("password")[0];
 		event.description = postData.get("description")[0];
-		String begin = postData.get("begin")[0];
+		String begin = postData.get("begin")[0]; /// HERE ASK if date already taken
 		String end = postData.get("end")[0];
 
 		// no date selected or exception while parsing date
 		int setDate = event.setDate(begin, end);
-		if (setDate == -2) {
+		if(setDate == -3) {
+			flash("error",
+					"There is already an event on this day ...");
+			return ok(views.html.event.render(allPlaylists, allEvents));
+		}
+		else if (setDate == -2) {
 			flash("error",
 					"You didn't select any begin or end for the event ...");
 			return ok(views.html.event.render(allPlaylists, allEvents));

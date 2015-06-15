@@ -15,7 +15,7 @@ import play.db.ebean.Model;
  * ordered by votes.
  * 
  * @author Philipp
- *
+ * 
  */
 @Entity
 public class CurrentPlaylist extends Model {
@@ -40,7 +40,9 @@ public class CurrentPlaylist extends Model {
 				ArrayList<Song> songs = playlist.getSongList();
 				for (Song song : songs) {
 					CurrentPlaylist cp = new CurrentPlaylist(song.id);
-					cp.save();
+					if (CurrentPlaylist.find.byId(song.id) == null) {
+						cp.save();
+					}
 				}
 			}
 		}
@@ -50,18 +52,22 @@ public class CurrentPlaylist extends Model {
 		Event event = Event.getCurrentEvent();
 		List<Song> songs = new ArrayList<Song>();
 		if (event != null) {
-			List<Playlist> playlists = EventPlaylist.getPlaylistsForEvent(event.id);
-			for (Playlist playlist : playlists) {
-				songs.addAll(playlist.getSongList());
+			List<CurrentPlaylist> currentPls = CurrentPlaylist.find.all();
+			for (CurrentPlaylist cp : currentPls) {
+
+				songs.add(Song.find.byId(cp.songID));
+
 			}
 		}
 		Collections.sort(songs);
+
 		return songs;
 	}
-	
+
 	public static void test() {
 		Song song = getCurrentPlaylist().remove(0);
-		ShellCommand sh = new ShellCommand("mpc add " + song.artist + song.title + ".mp3");
+		ShellCommand sh = new ShellCommand("mpc add " + song.artist
+				+ song.title + ".mp3");
 	}
 
 }
