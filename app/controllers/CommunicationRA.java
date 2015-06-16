@@ -13,7 +13,6 @@ public class CommunicationRA extends Controller {
 	public static Result changeMode(int mode) {
 
 		if ((mode >= 0) & (mode <= 5)) {
-
 			// Shutdown
 			if (mode == 0) {
 				// delete current playlist
@@ -30,9 +29,11 @@ public class CommunicationRA extends Controller {
 				ShellCommand command = new ShellCommand("sudo shutdown -h now");
 				command.executeShellCommand();
 			} else {
-				ShellCommand command = new ShellCommand(
-						"python communicationArduino.py " + mode);
-				command.executeShellCommand();
+				for (int i = 0; i < 3; i++) {
+					ShellCommand command = new ShellCommand(
+							"python communicationArduino.py " + mode);
+					command.executeShellCommand();
+				}
 				// Thunderstorm
 				if (mode == 5) {
 					ShellCommand s1 = new ShellCommand("mpc clear");
