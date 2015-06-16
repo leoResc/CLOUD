@@ -147,45 +147,21 @@ public class Dashboard extends Controller {
 		}
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(Long.valueOf(date));
-		
+
 		String month = "";
-		int calendarMonth = calendar.get(Calendar.MONTH);
-		if (calendarMonth == Calendar.JANUARY) {
-			month = "JAN";
-		} else if (calendarMonth == Calendar.FEBRUARY) {
-			month = "FEB";
-		} else if (calendarMonth == Calendar.MARCH) {
-			month = "MAR";
-		} else if (calendarMonth == Calendar.APRIL) {
-			month = "APR";
-		} else if (calendarMonth == Calendar.MAY) {
-			month = "MAY";
-		} else if (calendarMonth == Calendar.JUNE) {
-			month = "JUN";
-		} else if (calendarMonth == Calendar.JULY) {
-			month = "JUL";
-		} else if (calendarMonth == Calendar.AUGUST) {
-			month = "AUG";
-		} else if (calendarMonth == Calendar.SEPTEMBER) {
-			month = "SEP";
-		} else if (calendarMonth == Calendar.OCTOBER) {
-			month = "OCT";
-		} else if (calendarMonth == Calendar.NOVEMBER) {
-			month = "NOV";
-		} else {
-			month = "DEC";
-		}
+		int calendarMonth = calendar.get(Calendar.MONTH) + 1;
 		try {
 			File file = new File("../TIME");
 			FileWriter fw = new FileWriter(file);
-			
-			fw.write("\"" + (calendar.get(Calendar.DAY_OF_MONTH) < 10 ? "0" : "")
-					+ calendar.get(Calendar.DAY_OF_MONTH) + " " + month + " "
-					+ calendar.get(Calendar.YEAR) + " "
+
+			fw.write((calendarMonth < 10 ? "0" : "") + calendarMonth
+					+ (calendar.get(Calendar.DAY_OF_MONTH) < 10 ? "0" : "")
+					+ calendar.get(Calendar.DAY_OF_MONTH)
 					+ (calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "")
-					+ calendar.get(Calendar.HOUR_OF_DAY) + ":"
+					+ calendar.get(Calendar.HOUR_OF_DAY)
 					+ (calendar.get(Calendar.MINUTE) < 10 ? "0" : "")
-					+ calendar.get(Calendar.MINUTE) + ":" + "00\"");
+					+ calendar.get(Calendar.MINUTE)
+					+ calendar.get(Calendar.YEAR));
 			fw.close();
 		} catch (IOException e) {
 			Logger.error("error while writing in file");
