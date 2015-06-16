@@ -29,6 +29,7 @@ public class Song extends Model implements Comparable<Song> {
 	public String genre;
 	public long duration;
 	public int likes;
+	public String filename;
 
 	public static Finder<Long, Song> find = new Finder<Long, Song>(Long.class,
 			Song.class);
@@ -41,6 +42,7 @@ public class Song extends Model implements Comparable<Song> {
 		this.genre = genre;
 		this.duration = duration;
 		this.likes = likes;
+		this.filename = "";
 	}
 
 	public void dislike() {
@@ -76,7 +78,6 @@ public class Song extends Model implements Comparable<Song> {
 					|| contentType.equals("audio/mp3")) {
 
 				File file = filePart.getFile();
-				StringBuffer fileNameBuffer = new StringBuffer();
 
 				// move file to storage location and delete temp file
 				try {
@@ -85,10 +86,10 @@ public class Song extends Model implements Comparable<Song> {
 
 					if (song != null) {
 						// rename file according to guidelines
-						fileNameBuffer.append(cleanUpString(song.artist) + "-"
-								+ cleanUpString(song.title) + ".mp3");
+						song.filename += cleanUpString(song.artist + "-"
+								+ song.title + ".mp3");
 						FileUtils.moveFile(file, new File(storageLocation,
-								fileNameBuffer.toString()));
+								song.filename));
 						// save in database
 						song.save();
 						continue;
@@ -157,10 +158,7 @@ public class Song extends Model implements Comparable<Song> {
 	 */
 	public static void deleteSong(long id) {
 		Song song = Song.find.byId(id);
-		String fileName = cleanUpString(song.artist) + "-"
-				+ cleanUpString(song.title) + ".mp3";
-
-		File songFile = new File(storageLocation + "/" + fileName);
+		File songFile = new File(storageLocation + "/" + song.filename);
 
 		if (songFile.delete()) {
 			song.delete();
@@ -197,6 +195,7 @@ public class Song extends Model implements Comparable<Song> {
 		string = string.replaceAll("\\\\", "");
 		string = string.replaceAll("\\*", "");
 		string = string.replaceAll("'", "");
+		string = string.replaceAll("&", "");
 		return string;
 	}
 

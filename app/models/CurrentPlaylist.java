@@ -81,8 +81,7 @@ public class CurrentPlaylist extends Model {
 			for (CurrentPlaylist currentPlaylist : cp) {
 				Song song = Song.find.byId(currentPlaylist.songID);
 
-				if (songs.contains(song) == false)
-				{
+				if (songs.contains(song) == false) {
 					songs.add(song);
 				}
 			}
@@ -101,9 +100,7 @@ public class CurrentPlaylist extends Model {
 			Song song = currentPlaylist.get(0);
 			CurrentPlaylist.find.where().eq("songID", song.id).findUnique()
 					.delete();
-			String mp3 = song.artist + "-" + song.title + ".mp3";
-			mp3 = mp3.replaceAll("\\s", "");
-			ShellCommand sh = new ShellCommand("mpc add " + mp3);
+			ShellCommand sh = new ShellCommand("mpc add " + song.filename);
 			sh.executeShellCommand();
 		}
 	}

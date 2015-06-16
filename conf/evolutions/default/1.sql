@@ -49,6 +49,7 @@ create table song (
   genre                     varchar(255),
   duration                  bigint,
   likes                     integer,
+  filename                  varchar(255),
   constraint pk_song primary key (id))
 ;
 
