@@ -1,5 +1,8 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -9,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 
+import jdk.jfr.events.FileWriteEvent;
 import models.CurrentPlaylist;
 import models.Event;
 import models.EventPlaylist;
@@ -144,6 +148,7 @@ public class Dashboard extends Controller {
 		}
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTimeInMillis(Long.valueOf(date));
+		
 		String month = "";
 		int calendarMonth = calendar.get(Calendar.MONTH);
 		if (calendarMonth == Calendar.JANUARY) {
@@ -171,16 +176,23 @@ public class Dashboard extends Controller {
 		} else {
 			month = "DEC";
 		}
+		try {
+			File file = new File("../TIME");
+			FileWriter fw = new FileWriter(file);
+			
+			fw.write("\"" + (calendar.get(Calendar.DAY_OF_MONTH) < 10 ? "0" : "")
+					+ calendar.get(Calendar.DAY_OF_MONTH) + " " + month + " "
+					+ calendar.get(Calendar.YEAR) + " "
+					+ (calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "")
+					+ calendar.get(Calendar.HOUR_OF_DAY) + ":"
+					+ (calendar.get(Calendar.MINUTE) < 10 ? "0" : "")
+					+ calendar.get(Calendar.MINUTE) + ":" + "00\"");
+			fw.close();
+		} catch (IOException e) {
+			Logger.error("error while writing in file");
+		}
 
-		String shellCommand = "sudo date -s \""
-				+ (calendar.get(Calendar.DAY_OF_MONTH) < 10 ? "0" : "")
-				+ calendar.get(Calendar.DAY_OF_MONTH) + " " + month + " "
-				+ calendar.get(Calendar.YEAR) + " "
-				+ (calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "")
-				+ calendar.get(Calendar.HOUR_OF_DAY) + ":"
-				+ (calendar.get(Calendar.MINUTE) < 10 ? "0" : "")
-				+ calendar.get(Calendar.MINUTE) + ":" + "00\"";
-		ShellCommand command = new ShellCommand(shellCommand);
+		ShellCommand command = new ShellCommand(". ../updateTime.sh");
 		command.executeShellCommand();
 
 		return ok(Json.toJson(calendar.getTime()));
