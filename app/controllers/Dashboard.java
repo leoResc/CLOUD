@@ -181,7 +181,6 @@ public class Dashboard extends Controller {
 				+ (calendar.get(Calendar.MINUTE) < 10 ? "0" : "")
 				+ calendar.get(Calendar.MINUTE) + ":" + "00\"";
 		ShellCommand command = new ShellCommand(shellCommand);
-		Logger.info(shellCommand);
 		command.executeShellCommand();
 
 		return ok(Json.toJson(calendar.getTime()));
