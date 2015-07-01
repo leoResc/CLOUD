@@ -11,7 +11,7 @@ $(document).ready(showLogin);
 // background
 $(document).ready(function() {
 	if ($('#backgroundImage').is(':visible')) {
-		var i = Math.floor((Math.random() * 6) + 1);
+		var i = Math.floor((Math.random() * 3) + 1);
 		$('#backgroundImage').css('background', 'url(assets/img/backgroundMobile' + i + '.jpg) no-repeat');
 		$('#backgroundImage').css('background-size', 'cover');
 	} else {
@@ -28,5 +28,4 @@ $(document).ready(function() {
 			$('#sound').attr('src', 'assets/img/waves.mp3');			
 		}
 	}
-		
 });
